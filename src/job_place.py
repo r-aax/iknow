@@ -1,9 +1,8 @@
 from logging import exception
 
-
 #===================================================================================================
 
-class Job:
+class JobPlace:
     """
     Job place.
     Organization or subdivision.
@@ -116,8 +115,8 @@ class Job:
 #===================================================================================================
 
 if __name__ == '__main__':
-    org = Job('Организация', 'Орг')
-    dep = Job('Отдел продаж', 'ОП', org)
+    org = JobPlace('Организация', 'Орг')
+    dep = JobPlace('Отдел продаж', 'ОП', org)
     assert org.is_head
     assert not dep.is_head
     assert org.name == 'Организация'
