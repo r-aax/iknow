@@ -109,7 +109,7 @@ class Person:
         if type(d) is date:
             return f'{d.day:02d}.{d.month:02d}.{d.year:02d}'
         else:
-            raise exception('Person: date is in wrong format')
+            raise exception(f'Person: date is in wrong format: {d}')
 
 #---------------------------------------------------------------------------------------------------
 
@@ -128,8 +128,10 @@ class Person:
 
         if type(d) is date:
             return d.year
-        else:
+        elif type(d) is int:
             return d
+        else:
+            raise exception(f'Person: date is in wrong format: {d}')
 
 #---------------------------------------------------------------------------------------------------
 
@@ -146,7 +148,7 @@ class Person:
 
         return self.__snils != ''
 
-# ---------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------
 
     @property
     def snils(self):

@@ -62,8 +62,10 @@ class People:
 #===================================================================================================
 
 if __name__ == '__main__':
-    a = person.Person('Ivan', 'Ivan', 'Ivanov', 2000, '12345678901')
-    b = person.Person('Peter', 'Peter', 'Petrov', 1999, '12345678901')
+    a = person.Person('Ivan', 'Ivan', 'Ivanov',
+                      2000, '12345678901')
+    b = person.Person('Peter', 'Peter', 'Petrov',
+                      1999, '12345678901')
     p = People()
     p.add([a, b])
     assert not p.check()
