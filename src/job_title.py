@@ -35,14 +35,14 @@ class JobTitle:
         """
 
         if self.__name == '':
-            raise exception('Position: empty name')
+            raise exception('JobTitle: empty name')
 
         return self.__name
 
 #===================================================================================================
 
 if __name__ == '__main__':
-    t = JobTitle('старший научный сотрудник')
-    assert t.name == 'старший научный сотрудник'
+    t = JobTitle('lead researcher')
+    assert t.name == 'lead researcher'
 
 #===================================================================================================

@@ -12,7 +12,8 @@ class Person:
 
     def __init__(self,
                  name, patronymic, surname,
-                 birthdate):
+                 birthdate,
+                 snils):
         """
         Init person.
 
@@ -24,14 +25,17 @@ class Person:
             Patronymic name.
         surname : str
             Surname.
-        birthdate : date
-            Date of birth.
+        birthdate : date | int
+            Date of birth or just year.
+        snils : str
+            SNILS number.
         """
 
         self.__name = name
         self.__patronymic = patronymic
         self.__surname = surname
         self.__birthdate = birthdate
+        self.__snils = snils
 
 #---------------------------------------------------------------------------------------------------
 
@@ -90,6 +94,26 @@ class Person:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def date_str(self):
+        """
+        Get date in string format.
+
+        Returns
+        -------
+        str
+            Date in string format.
+        """
+
+        d = self.__birthdate
+
+        if type(d) is date:
+            return f'{d.day:02d}.{d.month:02d}.{d.year:02d}'
+        else:
+            raise exception('Person: date is in wrong format')
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def year(self):
         """
         Get year.
@@ -100,16 +124,55 @@ class Person:
             Year.
         """
 
-        return self.__birthdate.year
+        d = self.__birthdate
+
+        if type(d) is date:
+            return d.year
+        else:
+            return d
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def has_snils(self):
+        """
+        Check if person has SNILS.
+
+        Returns
+        -------
+        bool
+            True - if has SNILS, False - if not.
+        """
+
+        return self.__snils != ''
+
+# ---------------------------------------------------------------------------------------------------
+
+    @property
+    def snils(self):
+        """
+        Get SNILS.
+
+        Returns
+        -------
+        str
+            SNILS.
+        """
+
+        if len(self.__snils) != 11:
+            raise exception('Person: SNILS number must contain 11 digits')
+
+        return self.__snils
 
 #===================================================================================================
 
 if __name__ == '__main__':
     p = Person('Иван', 'Петрович', 'Сидоров',
-               date(1982, 7, 25))
+               date(1982, 7, 25), '12345678901')
     assert p.name == 'Иван'
     assert p.patronymic == 'Петрович'
     assert p.surname == 'Сидоров'
     assert p.year == 1982
+    assert p.snils == '12345678901'
 
 #===================================================================================================

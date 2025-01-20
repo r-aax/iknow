@@ -42,7 +42,7 @@ class JobPlace:
         """
 
         if self.__name == '':
-            raise exception('Job: empty name')
+            raise exception('JobPlace: empty name')
 
         return self.__name
 
@@ -60,7 +60,7 @@ class JobPlace:
         """
 
         if self.__short_name == '':
-            raise exception('Job: empty short name')
+            raise exception('JobPlace: empty short name')
 
         return self.__short_name
 
@@ -115,14 +115,14 @@ class JobPlace:
 #===================================================================================================
 
 if __name__ == '__main__':
-    org = JobPlace('Организация', 'Орг')
-    dep = JobPlace('Отдел продаж', 'ОП', org)
+    org = JobPlace('Organization', 'Org')
+    dep = JobPlace('Sales department', 'SD', org)
     assert org.is_head
     assert not dep.is_head
-    assert org.name == 'Организация'
-    assert org.short_name == 'Орг'
-    assert dep.name == 'Отдел продаж'
-    assert dep.short_name == 'ОП'
-    assert dep.full_name() == 'Отдел продаж, Организация'
+    assert org.name == 'Organization'
+    assert org.short_name == 'Org'
+    assert dep.name == 'Sales department'
+    assert dep.short_name == 'SD'
+    assert dep.full_name() == 'Sales department, Organization'
 
 #===================================================================================================
