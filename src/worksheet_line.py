@@ -1,5 +1,4 @@
 from logging import exception
-
 import job_place, job_title, employee
 
 #===================================================================================================
@@ -13,7 +12,7 @@ class WorksheetLine:
 
     def __init__(self, job_place, job_title,
                  cat='', cg='', cu='',
-                 time_part=1.0, employee=None, status=''):
+                 slot=1.0, employee=None, status=''):
         """
         Worksheet line init.
 
@@ -29,8 +28,8 @@ class WorksheetLine:
             Category.
         cu : str
             Category.
-        time_part : float
-            Part of time.
+        slot : float
+            Slot of time.
         employee : employee.Employee
             Employee.
         status : str
@@ -42,7 +41,7 @@ class WorksheetLine:
         self.__cat = cat
         self.__cg = cg
         self.__cu = cu
-        self.__time_part = time_part
+        self.__slot = slot
         self.__employee = employee
         self.__status = status
 
@@ -103,17 +102,17 @@ class WorksheetLine:
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def time_part(self):
+    def slot(self):
         """
-        Get time part.
+        Get time slot.
 
         Returns
         -------
         float
-            Time part.
+            Time slot.
         """
 
-        return self.__time_part
+        return self.__slot
 
 #---------------------------------------------------------------------------------------------------
 
@@ -132,6 +131,22 @@ class WorksheetLine:
             raise exception('WorksheetLine: status is empty')
 
         return self.__status
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def is_vacant(self):
+        """
+        Check if position is vacant.
+
+        Returns
+        -------
+        bool
+            True - if position is vacant,
+            False - if position is occupied.
+        """
+
+        return self.__employee is None
 
 #---------------------------------------------------------------------------------------------------
 
@@ -169,7 +184,7 @@ class WorksheetLine:
         cat = f'{self.cat}/{self.cg}/{self.cu}'
         pre = f'{self.__job_place.short_name} | {self.__job_title.name} ({cat})'
 
-        return f'{pre} | {self.__time_part} | {self.employee_str}'
+        return f'{pre} | {self.slot} | {self.employee_str}'
 
 #===================================================================================================
 
