@@ -1,75 +1,88 @@
-from logging import exception
+from complex_theme import ComplexTheme
 
 #===================================================================================================
 
-class Employee:
+class Thematic:
     """
-    Employee - person with tabel number.
+    Thematic.
     """
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, personal, tabel):
+    def __init__(self, theme, title):
         """
-        Init method.
+        Init thematic.
 
         Parameters
         ----------
-        personal : Person
-            Personal data.
-        tabel : str
-            Tabel number.
+        theme : ComplexTheme
+            Complex theme.
+        title : str
+            Title of thematic.
         """
 
-        self.__personal = personal
-        self.__tabel = tabel
+        self.__theme = theme
+        self.__title = title
+        self.__results = []
+
+        theme.thematics.append(self)
 
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def personal(self):
+    def theme(self):
         """
-        Get personal data.
+        Get theme.
 
         Returns
         -------
-        Person
-            Personal data.
+        ComplexTheme
+            Complex theme.
         """
 
-        return self.__personal
+        return self.__theme
 
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def tabel(self):
+    def title(self):
         """
-        Get tabel number.
-
-        Returns
-        -------
-        set
-            Tabel number.
-        """
-
-        if self.__tabel == '':
-            raise exception(f'Employee: empty tabel number for {self.__personal.surname}')
-
-        return self.__tabel
-
-#---------------------------------------------------------------------------------------------------
-
-    def __repr__(self):
-        """
-        String representation.
+        Get title.
 
         Returns
         -------
         str
-            String.
+            Title.
         """
 
-        return f'{self.personal}, № {self.tabel}'
+        return self.__title
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def results(self):
+        """
+        Get results.
+
+        Returns
+        -------
+        [ResearchResult]
+            List of research results.
+        """
+
+        return self.__results
+
+#---------------------------------------------------------------------------------------------------
+
+    def print(self):
+        """
+        Print function.
+        """
+
+        print(f'Thematic: {self.title}')
+
+        for result in self.results:
+            print(' - ', result)
 
 #===================================================================================================
 

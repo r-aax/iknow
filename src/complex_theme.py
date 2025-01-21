@@ -1,75 +1,66 @@
-from logging import exception
-
 #===================================================================================================
 
-class Employee:
+class ComplexTheme:
     """
-    Employee - person with tabel number.
+    Complex theme.
     """
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, personal, tabel):
+    def __init__(self, title):
         """
-        Init method.
+        Init complex theme.
 
         Parameters
         ----------
-        personal : Person
-            Personal data.
-        tabel : str
-            Tabel number.
+        title : str
+            Title.
         """
 
-        self.__personal = personal
-        self.__tabel = tabel
+        self.__title = title
+        self.__thematics = []
 
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def personal(self):
+    def title(self):
         """
-        Get personal data.
-
-        Returns
-        -------
-        Person
-            Personal data.
-        """
-
-        return self.__personal
-
-#---------------------------------------------------------------------------------------------------
-
-    @property
-    def tabel(self):
-        """
-        Get tabel number.
-
-        Returns
-        -------
-        set
-            Tabel number.
-        """
-
-        if self.__tabel == '':
-            raise exception(f'Employee: empty tabel number for {self.__personal.surname}')
-
-        return self.__tabel
-
-#---------------------------------------------------------------------------------------------------
-
-    def __repr__(self):
-        """
-        String representation.
+        Get title.
 
         Returns
         -------
         str
-            String.
+            Title.
         """
 
-        return f'{self.personal}, № {self.tabel}'
+        return self.__title
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def thematics(self):
+        """
+        Get thematics.
+
+        Returns
+        -------
+        [Thematic]
+            Thematics list.
+        """
+
+        return self.__thematics
+
+#---------------------------------------------------------------------------------------------------
+
+    def print(self):
+        """
+        Print.
+        """
+
+        print(f'Complex theme : {self.title}')
+
+        for thematic in self.thematics:
+            thematic.print()
 
 #===================================================================================================
 

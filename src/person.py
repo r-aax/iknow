@@ -167,6 +167,20 @@ class Person:
 
         return self.__snils
 
+#---------------------------------------------------------------------------------------------------
+
+    def __repr__(self):
+        """
+        String representation.
+
+        Returns
+        -------
+        str
+            String.
+        """
+
+        return f'{self.surname} {self.name} {self.patronymic}'
+
 #===================================================================================================
 
 if __name__ == '__main__':
