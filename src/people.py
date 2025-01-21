@@ -43,7 +43,8 @@ class People:
         Returns
         -------
         bool
-            True - if people list is correct, False - if there are some problems.
+            True - if people list is correct,
+            False - if there are some problems.
         """
 
         # Check all people have different SNILS.

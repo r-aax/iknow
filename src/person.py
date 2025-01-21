@@ -12,8 +12,8 @@ class Person:
 
     def __init__(self,
                  name, patronymic, surname,
-                 birthdate,
-                 snils):
+                 birthdate=None,
+                 snils=''):
         """
         Init person.
 
@@ -25,7 +25,7 @@ class Person:
             Patronymic name.
         surname : str
             Surname.
-        birthdate : date | int
+        birthdate : date | int | None
             Date of birth or just year.
         snils : str
             SNILS number.
@@ -143,7 +143,8 @@ class Person:
         Returns
         -------
         bool
-            True - if has SNILS, False - if not.
+            True - if has SNILS,
+            False - if not.
         """
 
         return self.__snils != ''
@@ -169,11 +170,11 @@ class Person:
 #===================================================================================================
 
 if __name__ == '__main__':
-    p = Person('Иван', 'Петрович', 'Сидоров',
+    p = Person('Ivan', 'Peter', 'Sidorov',
                date(1982, 7, 25), '12345678901')
-    assert p.name == 'Иван'
-    assert p.patronymic == 'Петрович'
-    assert p.surname == 'Сидоров'
+    assert p.name == 'Ivan'
+    assert p.patronymic == 'Peter'
+    assert p.surname == 'Sidorov'
     assert p.year == 1982
     assert p.snils == '12345678901'
 
