@@ -52,6 +52,20 @@ class ComplexTheme:
 
 #---------------------------------------------------------------------------------------------------
 
+    def all_thematics_titles(self):
+        """
+        Get all thematics titles.
+
+        Returns
+        -------
+        str
+            All thematics titles in single string.
+        """
+
+        return ', '.join([th.title for th in self.thematics])
+
+#---------------------------------------------------------------------------------------------------
+
     def print(self):
         """
         Print.

@@ -10,13 +10,13 @@ class Worksheet:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, src):
+    def __init__(self, src=None):
         """
         Init worksheet from any source.
 
         Parameters
         ----------
-        src : WorksheetLine | Worksheet | [WorksheetLine] | [Worksheet]
+        src : WorksheetLine | Worksheet | [WorksheetLine] | [Worksheet] | None
             Source of data.
         """
 
@@ -50,6 +50,9 @@ class Worksheet:
             Source.
         """
 
+        if src is None:
+            return
+
         t = type(src)
 
         if t is WorksheetLine:
@@ -72,6 +75,54 @@ class Worksheet:
 
         for line in self.lines:
             print(line)
+
+#---------------------------------------------------------------------------------------------------
+
+    def people(self):
+        """
+        Get people.
+
+        Returns
+        -------
+        [Person]
+            People.
+        """
+
+        ps = []
+
+        for wl in self.lines:
+            if wl.is_occupied:
+                ps.append(wl.employee.personal)
+
+        return ps
+
+#---------------------------------------------------------------------------------------------------
+
+    def slots_sum(self):
+        """
+        Get sum of slots.
+
+        Returns
+        -------
+        float
+            Sum of slots.
+        """
+
+        return sum([wl.slot for wl in self.lines])
+
+#---------------------------------------------------------------------------------------------------
+
+    def occupied_slots_sum(self):
+        """
+        Get sum of occupied slots.
+
+        Returns
+        -------
+        float
+            Sum of occupied slots.
+        """
+
+        return sum([wl.slot for wl in self.lines if wl.is_occupied])
 
 #===================================================================================================
 

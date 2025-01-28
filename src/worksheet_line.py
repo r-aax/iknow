@@ -48,6 +48,42 @@ class WorksheetLine:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def job_place(self):
+        """
+        Get job place.
+
+        Returns
+        -------
+        JobPlace
+            Job place.
+        """
+
+        if self.__job_place is None:
+            raise exception('WorksheetLine: no job place')
+
+        return self.__job_place
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def job_title(self):
+        """
+        Get job title.
+
+        Returns
+        -------
+        JobTitle
+            Job title.
+        """
+
+        if self.__job_title is None:
+            raise exception('WorksheetLine: no job title')
+
+        return self.__job_title
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def cat(self):
         """
         Get category.
@@ -151,6 +187,40 @@ class WorksheetLine:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def is_occupied(self):
+        """
+        Check if position is occupied.
+
+        Returns
+        -------
+        bool
+            True - if position is occupied,
+            False - is poosition is vacant.
+        """
+
+        return not self.is_vacant
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def employee(self):
+        """
+        Get employee.
+
+        Returns
+        -------
+        Employee
+            Employee.
+        """
+
+        if self.is_vacant:
+            raise exception('WorksheetLine: position is vacant, can not return employee')
+
+        return self.__employee
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def employee_str(self):
         """
         Get employee string.
@@ -185,6 +255,62 @@ class WorksheetLine:
         pre = f'{self.__job_place.short_name} | {self.__job_title.name} ({cat})'
 
         return f'{pre} | {self.slot} | {self.employee_str}'
+
+#---------------------------------------------------------------------------------------------------
+
+    def split(self, k):
+        """
+        Split with coefficient [0.0, 1.0].
+
+        Parameters
+        ----------
+        k : float
+            Coefficient.
+
+        Returns
+        -------
+        [WorksheetLine, WorksheetLine]
+            List with splitted line.
+        """
+
+        if k == 0.0:
+            return [None, self]
+        elif k == 1.0:
+            return [self, None]
+        else:
+            slot1 = self.__slot * k
+            line1 = WorksheetLine(job_place=self.__job_place, job_title=self.__job_title,
+                                  cat=self.__cat, cg=self.__cg, cu=self.__cu,
+                                  slot=slot1,
+                                  employee=self.__employee, status=self.__status)
+            line2 = WorksheetLine(job_place=self.__job_place, job_title=self.__job_title,
+                                  cat=self.__cat, cg=self.__cg, cu=self.__cu,
+                                  slot = self.__slot - slot1,
+                                  employee=self.__employee, status=self.__status)
+            return [line1, line2]
+
+#---------------------------------------------------------------------------------------------------
+
+    def split_by_parts(self, part1, part2):
+        """
+        Split in terms of parts.
+        We suppose there are part1 + part2 parts,
+        and part1 goes to the first line, and part2 - to the second.
+
+        Parameters
+        ----------
+        part1 : int
+            Parts for line1.
+        part2 : int
+            Parts for line2.
+
+        Returns
+        -------
+        [WorksheetLine, WorksheetLine]
+            List with splitted line.
+        """
+
+        return self.split(part1 / (part1 + part2))
 
 #===================================================================================================
 

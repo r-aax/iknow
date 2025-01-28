@@ -112,6 +112,24 @@ class JobPlace:
         else:
             return f'{self.name}, {self.parent.full_name()}'
 
+#---------------------------------------------------------------------------------------------------
+
+    def half_full_name(self):
+        """
+        Name up to root but without root
+        (all subdivisions but root, because root is organization).
+
+        Returns
+        -------
+        str
+            Half full name.
+        """
+
+        if self.parent.is_head:
+            return self.name
+        else:
+            return f'{self.name}, {self.parent.half_full_name()}'
+
 #===================================================================================================
 
 if __name__ == '__main__':
