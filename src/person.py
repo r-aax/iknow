@@ -1,5 +1,6 @@
 from datetime import date
 from logging import exception
+import utils
 
 #===================================================================================================
 
@@ -13,7 +14,7 @@ class Person:
     def __init__(self,
                  name, patronymic, surname,
                  birthdate=None,
-                 snils=''):
+                 snils='', inn=''):
         """
         Init person.
 
@@ -28,7 +29,9 @@ class Person:
         birthdate : date | int | None
             Date of birth or just year.
         snils : str
-            SNILS number.
+            SNILS number (11 characters).
+        inn : str
+            INN number (12 characters).
         """
 
         self.__name = name
@@ -36,6 +39,7 @@ class Person:
         self.__surname = surname
         self.__birthdate = birthdate
         self.__snils = snils
+        self.__inn = inn
 
 #---------------------------------------------------------------------------------------------------
 
@@ -224,6 +228,40 @@ class Person:
 
 #---------------------------------------------------------------------------------------------------
 
+    @property
+    def has_inn(self):
+        """
+        Check if person has INN.
+
+        Returns
+        -------
+        bool
+            True - if person has INN,
+            False - if person has no INN.
+        """
+
+        return self.__inn != ''
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def inn(self):
+        """
+        Get INN.
+
+        Returns
+        -------
+        str
+            INN string.
+        """
+
+        if len(self.__inn) != 12:
+            raise exception('Person: INN number must contain 12 characters')
+
+        return self.__inn
+
+#---------------------------------------------------------------------------------------------------
+
     def __repr__(self):
         """
         String representation.
@@ -305,18 +343,63 @@ def all_snils_are_different(ps):
 
     """
 
-    d = dict()
+    r = utils.find_keys_have_same_values([p.surname for p in ps if p.has_snils],
+                                         [p.snils for p in ps if p.has_snils])
 
-    for p in ps:
-        if p.has_snils:
-            sur = d.get(p.snils)
-            if not sur is None:
-                print(f'People: {sur} and {p.surname} have the same SNILS {p.snils}')
-                return False
-            else:
-                d[p.snils] = p.surname
+    if r == []:
+        return True
+    else:
+        print(f'People: {r[0]} and {r[1]} have the same SNILS {r[2]}')
+        return False
 
-    return True
+#---------------------------------------------------------------------------------------------------
+
+def all_inn_are_different(ps):
+    """
+    Check if people have different INN.
+
+    Parameters
+    ----------
+    ps : [Person]
+        People list.
+
+    Returns
+    -------
+    bool
+        True - if all elements have different inn (or have empty inn),
+        false - two people with equal inn are found.
+    """
+
+    r = utils.find_keys_have_same_values([p.surname for p in ps if p.has_inn],
+                                         [p.inn for p in ps if p.has_inn])
+
+    if r == []:
+        return True
+    else:
+        print(f'People: {r[0]} and {r[1]} have the same INN {r[2]}')
+        return False
+
+#---------------------------------------------------------------------------------------------------
+
+def check(ps):
+    """
+    Check persons.
+
+    Parameters
+    ----------
+    ps : [Person]
+
+    Returns
+    -------
+    bool
+        True - all check are completed successfully,
+        False - some checks are failed.
+    """
+
+    check_snils = all_snils_are_different(ps)
+    check_inn = all_inn_are_different(ps)
+
+    return check_snils and check_inn
 
 #===================================================================================================
 
@@ -333,9 +416,11 @@ if __name__ == '__main__':
 
     # collection
     ps = [Person('Ivan', 'Ivan', 'Ivanov',
-                 2000, '12345678901'),
+                 2000, '12345678901', '123456789012'),
           Person('Peter', 'Peter', 'Petrov',
-                 1999, '12345678901')]
+                 1999, '12345678901', '123456789012')]
     assert not all_snils_are_different(ps)
+    assert not all_inn_are_different(ps)
+    assert not check(ps)
 
 #===================================================================================================
