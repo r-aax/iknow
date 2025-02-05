@@ -12,7 +12,7 @@ class Publication:
     def __init__(self, authors_affiliations,
                  title, journal, year, volume, issue, pages,
                  doi, extern_link,
-                 support):
+                 support, language):
         """
         Publication.
 
@@ -28,7 +28,7 @@ class Publication:
             Year.
         volume : str
             Volume (may have various view).
-        issue : int
+        issue : str
             Issue.
         pages : str
             Pages.
@@ -38,6 +38,8 @@ class Publication:
             Extern link.
         support : str
             Financial support string.
+        language : str
+            Language ('ru', 'en').
         """
 
         self.__authors_affiliations = authors_affiliations
@@ -50,6 +52,7 @@ class Publication:
         self.__doi = doi
         self.__extern_link = extern_link
         self.__support = support
+        self.__language = language
 
 #---------------------------------------------------------------------------------------------------
 
@@ -71,9 +74,14 @@ class Publication:
 
 #---------------------------------------------------------------------------------------------------
 
-    def authors_information(self):
+    def authors_information(self, language='ru'):
         """
         Authors information.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -82,7 +90,7 @@ class Publication:
         """
 
         # join all authors.
-        j = ', '.join([a[0].n_p_surname for a in self.authors_affiliations])
+        j = ', '.join([a[0].n_p_surname(language) for a in self.authors_affiliations])
 
         return j + '.'
 
@@ -241,6 +249,56 @@ class Publication:
 
 #---------------------------------------------------------------------------------------------------
 
+    @property
+    def language(self):
+        """
+        Language.
+
+        Returns
+        -------
+        str
+            Language.
+        """
+
+        if not self.__language in ['ru', 'en']:
+            raise exception(f'Publication: wrong language {self.__language}')
+
+        return self.__language
+
+#---------------------------------------------------------------------------------------------------
+
+    def year_volume_issue_pages_str(self):
+        """
+        String, containing year, volume, issue, pages.
+
+        Returns
+        -------
+        str
+            String.
+        """
+
+        r = f'{self.year}'
+
+        if self.language == 'ru':
+            r = r + f', Т. {self.volume}'
+        else:
+            r = r + f', Vol. {self.volume}'
+
+        if self.issue != '':
+            if self.language == 'ru':
+                r = r + f', №. {self.issue}'
+            else:
+                r = r + f', N. {self.issue}'
+
+        if self.language == 'ru':
+            r = r + f', с. {self.pages}'
+        else:
+            r = r + f', p. {self.pages}'
+
+        return r
+
+#---------------------------------------------------------------------------------------------------
+
     def __repr__(self):
         """
         String representation.
@@ -251,9 +309,9 @@ class Publication:
             String representation.
         """
 
-        at = f'{self.authors_information()} {self.title}'
+        at = f'{self.authors_information(self.language)} {self.title}'
         ji1 = f'{self.journal.name}, '
-        ji2 = f'{self.year}, Т. {self.volume}, № {self.issue}, стр. {self.pages}'
+        ji2 = self.year_volume_issue_pages_str()
         ji = ji1 + ji2
 
         return f'{at} // {ji}. DOI: {self.doi}'

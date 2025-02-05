@@ -13,6 +13,7 @@ class Person:
 
     def __init__(self,
                  name, patronymic, surname,
+                 name_en='', patronymic_en='', surname_en='',
                  birthdate=None,
                  snils='', inn='', passport='',
                  phone='', email=''):
@@ -27,6 +28,12 @@ class Person:
             Patronymic name.
         surname : str
             Surname.
+        name_en : str
+            Name (english).
+        patronymic_en : str
+            Patronymic name (english).
+        surname_en : str
+            Surname (english).
         birthdate : date | int | None
             Date of birth or just year.
         snils : str
@@ -44,6 +51,9 @@ class Person:
         self.__name = name
         self.__patronymic = patronymic
         self.__surname = surname
+        self.__name_en = name_en
+        self.__patronymic_en = patronymic_en
+        self.__surname_en = surname_en
         self.__birthdate = birthdate
         self.__snils = snils
         self.__inn = inn
@@ -53,10 +63,14 @@ class Person:
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def name(self):
+    def name(self, language='ru'):
         """
         Get name.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -64,17 +78,27 @@ class Person:
             Name.
         """
 
-        if self.__name == '':
-            raise exception('Person: empty name')
-
-        return self.__name
+        if language == 'ru':
+            if self.__name == '':
+                raise exception('Person: empty name')
+            return self.__name
+        elif language == 'en':
+            if self.__name_en == '':
+                raise exception(f'Person: empty english name for {self.__surname}')
+            return self.__name_en
+        else:
+            raise exception('Person: wrong language')
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def name_first_letter(self):
+    def name_first_letter(self, language='ru'):
         """
         Get first letter of name.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -82,14 +106,18 @@ class Person:
             First letter of name.
         """
 
-        return self.name[0]
+        return self.name(language)[0]
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def patronymic(self):
+    def patronymic(self, language='ru'):
         """
         Get patronymic.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -97,17 +125,27 @@ class Person:
             Patronymic.
         """
 
-        if self.__patronymic == '':
-            raise exception('Person: empty patronymic')
-
-        return self.__patronymic
+        if language == 'ru':
+            if self.__patronymic == '':
+                raise exception('Person: empty patronymic')
+            return self.__patronymic
+        elif language == 'en':
+            if self.__patronymic_en == '':
+                raise exception(f'Person: empty english patronymic for {self.__surname}')
+            return self.__patronymic_en
+        else:
+            raise exception('Person: wrong language')
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def patronymic_first_letter(self):
+    def patronymic_first_letter(self, language='ru'):
         """
         Get first letter of patronymic.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -115,14 +153,18 @@ class Person:
             First letter of patronymic.
         """
 
-        return self.patronymic[0]
+        return self.patronymic(language)[0]
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def surname(self):
+    def surname(self, language='ru'):
         """
         Get surname.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -130,17 +172,27 @@ class Person:
             Surname.
         """
 
-        if self.__surname == '':
-            raise exception('Person: empty surname')
-
-        return self.__surname
+        if language == 'ru':
+            if self.__surname == '':
+                raise exception('Person: empty surname')
+            return self.__surname
+        elif language == 'en':
+            if self.__surname_en == '':
+                raise exception(f'Person: empty english surname for {self.__surname}')
+            return self.__surname_en
+        else:
+            raise exception('Person: wrong language')
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def surname_first_letter(self):
+    def surname_first_letter(self, language='ru'):
         """
         Get surname first letter.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -148,14 +200,18 @@ class Person:
             First letter of surname.
         """
 
-        return self.surname[0]
+        return self.surname(language)[0]
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def surname_name_patronymic(self):
+    def surname_name_patronymic(self, language='ru'):
         """
         Get surname, name and patronymic at once.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -163,14 +219,18 @@ class Person:
             String.
         """
 
-        return f'{self.surname} {self.name} {self.patronymic}'
+        return f'{self.surname(language)} {self.name(language)} {self.patronymic(language)}'
 
 #---------------------------------------------------------------------------------------------------
 
-    @property
-    def n_p_surname(self):
+    def n_p_surname(self, language='ru'):
         """
         Get I. I. Ivanov view of person.
+
+        Parameters
+        ----------
+        language : str
+            Language.
 
         Returns
         -------
@@ -178,7 +238,10 @@ class Person:
             View of person.
         """
 
-        return f'{self.name_first_letter}. {self.patronymic_first_letter}. {self.surname}'
+        nfl = self.name_first_letter(language)
+        pfl = self.patronymic_first_letter(language)
+
+        return f'{nfl}. {pfl}. {self.surname(language)}'
 
 #---------------------------------------------------------------------------------------------------
 

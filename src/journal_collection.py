@@ -2,7 +2,8 @@ from journal import Journal
 
 #===================================================================================================
 
-mathematical_modeling = Journal('Математическое моделирование')
+mathematical_modeling = Journal('Математическое Моделирование')
+lncc =                  Journal('Lecture Notes in Computer Science')
 
 all = \
 [

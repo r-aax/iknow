@@ -238,7 +238,7 @@ def doi_extern_link(p):
     if p.extern_link == '':
         return font(b('нет внешней ссылки'), 'indianred')
     else:
-        raise exception('generator_html: extern link support is needed')
+        return f'<a href="{p.extern_link}">{p.extern_link}</a>'
 
 #---------------------------------------------------------------------------------------------------
 
@@ -258,7 +258,7 @@ def generate_publications_info(ps, fn):
     for p in ps:
         text_publ = td(p)
         text_links = f'{td(doi_inner_link(p))}{td(doi_extern_link(p))}'
-        table_lines = table_lines + tr(f'{text_publ}{text_links}')
+        table_lines = table_lines + tr(f'{text_publ}{text_links}{td(p.support)}')
 
     bt = body(table(''.join(table_lines)))
     ht = head('')
