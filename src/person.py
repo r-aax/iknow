@@ -14,7 +14,8 @@ class Person:
     def __init__(self,
                  name, patronymic, surname,
                  birthdate=None,
-                 snils='', inn=''):
+                 snils='', inn='', passport='',
+                 phone='', email=''):
         """
         Init person.
 
@@ -32,6 +33,12 @@ class Person:
             SNILS number (11 characters).
         inn : str
             INN number (12 characters).
+        passport : str
+            Passport.
+        phone : str
+            Phone number.
+        email : str
+            E-mail.
         """
 
         self.__name = name
@@ -40,6 +47,9 @@ class Person:
         self.__birthdate = birthdate
         self.__snils = snils
         self.__inn = inn
+        self.__passport = passport
+        self.__phone = phone
+        self.__email = email
 
 #---------------------------------------------------------------------------------------------------
 
@@ -62,6 +72,21 @@ class Person:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def name_first_letter(self):
+        """
+        Get first letter of name.
+
+        Returns
+        -------
+        str
+            First letter of name.
+        """
+
+        return self.name[0]
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def patronymic(self):
         """
         Get patronymic.
@@ -76,6 +101,21 @@ class Person:
             raise exception('Person: empty patronymic')
 
         return self.__patronymic
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def patronymic_first_letter(self):
+        """
+        Get first letter of patronymic.
+
+        Returns
+        -------
+        str
+            First letter of patronymic.
+        """
+
+        return self.patronymic[0]
 
 #---------------------------------------------------------------------------------------------------
 
@@ -98,6 +138,21 @@ class Person:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def surname_first_letter(self):
+        """
+        Get surname first letter.
+
+        Returns
+        -------
+        str
+            First letter of surname.
+        """
+
+        return self.surname[0]
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def surname_name_patronymic(self):
         """
         Get surname, name and patronymic at once.
@@ -109,6 +164,21 @@ class Person:
         """
 
         return f'{self.surname} {self.name} {self.patronymic}'
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def n_p_surname(self):
+        """
+        Get I. I. Ivanov view of person.
+
+        Returns
+        -------
+        str
+            View of person.
+        """
+
+        return f'{self.name_first_letter}. {self.patronymic_first_letter}. {self.surname}'
 
 #---------------------------------------------------------------------------------------------------
 
