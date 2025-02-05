@@ -10,7 +10,8 @@ class Publication:
 #---------------------------------------------------------------------------------------------------
 
     def __init__(self, authors_affiliations,
-                 title, journal, year, volume, issue, pages, doi,
+                 title, journal, year, volume, issue, pages,
+                 doi, extern_link,
                  support):
         """
         Publication.
@@ -33,6 +34,8 @@ class Publication:
             Pages.
         doi : str
             DOI.
+        extern_link : str
+            Extern link.
         support : str
             Financial support string.
         """
@@ -45,6 +48,7 @@ class Publication:
         self.__issue = issue
         self.__pages = pages
         self.__doi = doi
+        self.__extern_link = extern_link
         self.__support = support
 
 #---------------------------------------------------------------------------------------------------
@@ -201,6 +205,21 @@ class Publication:
             raise exception('Publication: empty DOI')
 
         return self.__doi
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def extern_link(self):
+        """
+        Extern link.
+
+        Returns
+        -------
+        str
+            Extern link.
+        """
+
+        return self.__extern_link
 
 #---------------------------------------------------------------------------------------------------
 

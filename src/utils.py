@@ -63,6 +63,24 @@ def find_keys_have_same_values(ks, vs):
 
     return []
 
+#---------------------------------------------------------------------------------------------------
+
+def write_to_file(fn, text):
+    """
+    Write to file.
+
+    Parameters
+    ----------
+    fn : str
+        File name.
+    text : str
+        Text.
+    """
+
+    with open(fn, 'w') as f:
+        f.write(text)
+        f.close()
+
 #===================================================================================================
 
 if __name__ == '__main__':
