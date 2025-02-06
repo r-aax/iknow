@@ -405,7 +405,7 @@ class Person:
             String.
         """
 
-        return f'{self.surname} {self.name} {self.patronymic}'
+        return f'{self.surname()} {self.name()} {self.patronymic()}'
 
 #===================================================================================================
 
@@ -540,18 +540,18 @@ if __name__ == '__main__':
 
     # single person
     p = Person('Ivan', 'Peter', 'Sidorov',
-               date(1982, 7, 25), '12345678901')
-    assert p.name == 'Ivan'
-    assert p.patronymic == 'Peter'
-    assert p.surname == 'Sidorov'
+               birthdate=date(1982, 7, 25), snils='12345678901')
+    assert p.name() == 'Ivan'
+    assert p.patronymic() == 'Peter'
+    assert p.surname() == 'Sidorov'
     assert p.year == 1982
     assert p.snils == '12345678901'
 
     # collection
     ps = [Person('Ivan', 'Ivan', 'Ivanov',
-                 2000, '12345678901', '123456789012'),
+                 birthdate=2000, snils='12345678901', inn='123456789012'),
           Person('Peter', 'Peter', 'Petrov',
-                 1999, '12345678901', '123456789012')]
+                 birthdate=1999, snils='12345678901', inn='123456789012')]
     assert not all_snils_are_different(ps)
     assert not all_inn_are_different(ps)
     assert not check(ps)

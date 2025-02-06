@@ -1,5 +1,6 @@
 from employee import Employee
 from thematic import Thematic
+from html import *
 
 #===================================================================================================
 
@@ -10,7 +11,8 @@ class ResearchResult:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, thematic, year, title, responsible, comment):
+    def __init__(self, thematic, year, title, responsible, comment,
+                 publications_count='не определено'):
         """
         Init research result.
 
@@ -26,6 +28,8 @@ class ResearchResult:
             Responsible employee.
         comment : str
             Arbitrary comment.
+        publications_count : int
+            Count of publications.
         """
 
         self.__thematic = thematic
@@ -33,6 +37,7 @@ class ResearchResult:
         self.__title = title
         self.__responsible = responsible
         self.__comment = comment
+        self.__publications_count = publications_count
 
         thematic.results.append(self)
 
@@ -114,6 +119,21 @@ class ResearchResult:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def publications_count(self):
+        """
+        Get publications count.
+
+        Returns
+        -------
+        int
+            Publications count.
+        """
+
+        return self.__publications_count
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def is_rid(self):
         """
         Check if result is result of intellectual activity.
@@ -140,6 +160,27 @@ class ResearchResult:
         """
 
         return f'{self.year}: {self.title} ({self.responsible}), ({self.comment})'
+
+#---------------------------------------------------------------------------------------------------
+
+    def description_html(self):
+        """
+        Get description in HTML format.
+
+        Returns
+        -------
+        str
+            HTML description.
+        """
+
+        rid_pref = ''
+        if self.is_rid:
+            rid_pref = b(font('РИД: ', color='darkgreen'))
+        resp_html = font(str(self.responsible), color='steelblue')
+        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({self.comment})'
+        cnt_html = font(f'(статьи: {self.publications_count})', color='indianred')
+
+        return f'{main_html}<br>{cnt_html}<br><br>'
 
 #===================================================================================================
 

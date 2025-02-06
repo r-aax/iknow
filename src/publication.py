@@ -348,7 +348,7 @@ class Publication:
         """
 
         if self.extern_link == '':
-            return font('indianred', b('нет внешней ссылки'))
+            return font(b('нет внешней ссылки'), color='indianred')
         else:
             return f'<a href="{self.extern_link}">{self.extern_link}</a>'
 
