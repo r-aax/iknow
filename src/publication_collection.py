@@ -17,7 +17,7 @@ nrcki_2025 = \
         'ru'),
     Pub([(ppc.baranov_av, [jpc.niisi_jscc, jppc.nrcki]), (ppc.aladyshev_os, [jpc.niisi_jscc, jppc.nrcki]), (ppc.bragin_ka, [jpc.niisi_jscc, jppc.nrcki])],
         'Job mapping cyclic composite algorithm for supercomputer resource manager.',
-        jc.lncc, 2025, '15406', '', '377-389',
+        jc.lncs, 2025, '15406', '', '377-389',
         '10.1007/978-3-031-78459-0_27', 'https://link.springer.com/chapter/10.1007/978-3-031-78459-0_27',
         'The research was carried out as part of government assignment of the National Research Centre «Kurchatov Institute».',
         'en')

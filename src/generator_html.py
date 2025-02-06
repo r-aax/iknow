@@ -257,8 +257,10 @@ def generate_publications_info(ps, fn):
     table_lines = ''
     for p in ps:
         text_publ = td(p)
-        text_links = f'{td(doi_inner_link(p))}{td(doi_extern_link(p))}'
-        table_lines = table_lines + tr(f'{text_publ}{text_links}{td(p.support)}')
+        text_links = td(f'{doi_inner_link(p)}, {doi_extern_link(p)}')
+        text_metrics = td(p.journal)
+        text_support = td(p.support)
+        table_lines = table_lines + tr(f'{text_publ}{text_links}{text_metrics}{text_support}')
 
     bt = body(table(''.join(table_lines)))
     ht = head('')
