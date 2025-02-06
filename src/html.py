@@ -38,16 +38,16 @@ def i(text):
 
 #---------------------------------------------------------------------------------------------------
 
-def font(text, color):
+def font(color, text):
     """
     Tag <font>.
 
     Parameters
     ----------
-    text : str
-        Text.
     color : str
         Color.
+    text : str
+        Text.
 
     Returns
     -------
@@ -56,6 +56,26 @@ def font(text, color):
     """
 
     return f'<font color="{color}">{text}</font>'
+
+#---------------------------------------------------------------------------------------------------
+
+def a(href, text):
+    """
+    Tag <a>.
+
+    Parameters
+    ----------
+    href : str
+        Reference.
+    text : str
+
+    Returns
+    -------
+    str
+        Text in <a>.
+    """
+
+    return f'<a href="{href}">{text}</a>'
 
 #---------------------------------------------------------------------------------------------------
 

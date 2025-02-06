@@ -1,4 +1,5 @@
 from logging import exception
+from html import *
 
 #===================================================================================================
 
@@ -315,6 +316,41 @@ class Publication:
         ji = ji1 + ji2
 
         return f'{at} // {ji}. DOI: {self.doi}'
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def doi_inner_link_html(self):
+        """
+        Inner link by DOI.
+
+        Returns
+        -------
+        str
+            Text with inner link.
+        """
+
+        link = self.doi.replace('/', '~')
+
+        return f'<a href="../data/publications/{link}.pdf">внутренняя ссылка</a>'
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def doi_extern_link_html(self):
+        """
+        Extern link.
+
+        Returns
+        -------
+        str
+            Text with inner link.
+        """
+
+        if self.extern_link == '':
+            return font('indianred', b('нет внешней ссылки'))
+        else:
+            return f'<a href="{self.extern_link}">{self.extern_link}</a>'
 
 #===================================================================================================
 
