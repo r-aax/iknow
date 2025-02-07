@@ -20,7 +20,13 @@ nrcki_2025 = \
         jc.lncs, 2025, '15406', '', '377-389',
         '10.1007/978-3-031-78459-0_27', 'https://link.springer.com/chapter/10.1007/978-3-031-78459-0_27',
         'The research was carried out as part of government assignment of the National Research Centre «Kurchatov Institute».',
-        'en')
+        'en'),
+    Pub([(pc.kazantsev_sy, [jpc.mtusi]), (pc.sapozhnikov_mv, [jpc.mtusi]), (ppc.mironov_yb, [jppc.nrcki]), (pc.terekhin_dn, [jpc.mtusi]), (pc.burdin_av, [jpc.ao_npo_goi, jpc.cpbgut, jpc.pguti])],
+        'Перспективы применения атмосферной оптической связи на крупных промышленных и энергетических комплексах Российской Федерации',
+        jc.tcomm, 2025, '19', '1', '21-30',
+        '10.36724/2072-8735-2025-19-1-21-30', '',
+        'Мироновым Ю.Б. работа выполнялась в НИЦ «Курчатовский институт» в рамках государственного задания по теме FNEF-2024-0014.',
+        'ru')
 ]
 
 #===================================================================================================

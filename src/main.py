@@ -32,6 +32,7 @@ if __name__ == '__main__':
     """
 
     gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
-    gh.generate_plan(cx.cx2, '../out/plan.html')
+    gh.generate_plan(cx.cx1, '../out/plan_6f_si_1.html')
+    gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html')
 
 #===================================================================================================
