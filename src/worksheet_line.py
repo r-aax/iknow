@@ -237,7 +237,7 @@ class WorksheetLine:
             return 'VACANCY'
         else:
             p = e.personal
-            return f'{p.surname} {p.name} {p.patronymic} ({self.status}, № {e.tabel})'
+            return f'{p.surname()} {p.name()} {p.patronymic()} ({self.status}, № {e.tabel})'
 
 #---------------------------------------------------------------------------------------------------
 

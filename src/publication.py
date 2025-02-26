@@ -58,6 +58,22 @@ class Publication:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def has_authors_affiliations(self):
+        """
+        Check if publication has authors and affiliation information.
+
+        Returns
+        -------
+        bool
+            True - if has information,
+            False - otherwise.
+        """
+
+        return self.__authors_affiliations != []
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def authors_affiliations(self):
         """
         Get authors affiliations.
@@ -268,6 +284,22 @@ class Publication:
 
 #---------------------------------------------------------------------------------------------------
 
+    @property
+    def has_language(self):
+        """
+        Check if article has language.
+
+        Returns
+        -------
+        bool
+            True - if has language,
+            False - if empty language.
+        """
+
+        return self.__language != ''
+
+#---------------------------------------------------------------------------------------------------
+
     def year_volume_issue_pages_str(self):
         """
         String, containing year, volume, issue, pages.
@@ -300,6 +332,41 @@ class Publication:
 
 #---------------------------------------------------------------------------------------------------
 
+    @property
+    def doi_inner_link_html(self):
+        """
+        Inner link by DOI.
+
+        Returns
+        -------
+        str
+            Text with inner link.
+        """
+
+        link = self.doi.replace('/', '~')
+
+        return f'<a href="../data/publications/{link}.pdf">{self.doi}</a>'
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def doi_extern_link_html(self):
+        """
+        Extern link.
+
+        Returns
+        -------
+        str
+            Text with inner link.
+        """
+
+        if self.extern_link == '':
+            return font(b('нет внешней ссылки'), color='indianred')
+        else:
+            return f'<a href="{self.extern_link}">{self.extern_link}</a>'
+
+#---------------------------------------------------------------------------------------------------
+
     def __repr__(self):
         """
         String representation.
@@ -320,37 +387,44 @@ class Publication:
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def doi_inner_link_html(self):
+    def repr_html(self):
         """
-        Inner link by DOI.
+        String representation in HTML.
 
         Returns
         -------
         str
-            Text with inner link.
+            String representation in HTML.
         """
 
-        link = self.doi.replace('/', '~')
+        at = f'{self.authors_information(self.language)} {self.title}'
+        ji1 = f'{self.journal.name}, '
+        ji2 = self.year_volume_issue_pages_str()
+        ji = ji1 + ji2
 
-        return f'<a href="../data/publications/{link}.pdf">внутренняя ссылка</a>'
+        return f'{at} // {ji}. DOI: {self.doi_inner_link_html}'
 
 #---------------------------------------------------------------------------------------------------
 
     @property
-    def doi_extern_link_html(self):
+    def repr_for_plan_html(self):
         """
-        Extern link.
+        Get representation for plan in HTML form.
 
         Returns
         -------
         str
-            Text with inner link.
+            Representation.
         """
 
-        if self.extern_link == '':
-            return font(b('нет внешней ссылки'), color='indianred')
+        if self.has_language:
+            short_text = f'{self.repr_html}'
+            return small(font(short_text, color='darkgreen'))
         else:
-            return f'<a href="{self.extern_link}">{self.extern_link}</a>'
+            if self.has_authors_affiliations:
+                return small(font(f'{self.authors_information()}', color='indianred'))
+            else:
+                return small(font(f'нет информации', color='silver'))
 
 #===================================================================================================
 

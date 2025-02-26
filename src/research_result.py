@@ -1,5 +1,6 @@
 from employee import Employee
 from thematic import Thematic
+from publication import Publication
 from html import *
 
 #===================================================================================================
@@ -12,7 +13,7 @@ class ResearchResult:
 #---------------------------------------------------------------------------------------------------
 
     def __init__(self, thematic, year, title, responsible, comment,
-                 publications_count='не определено'):
+                 publications=[]):
         """
         Init research result.
 
@@ -28,8 +29,8 @@ class ResearchResult:
             Responsible employee.
         comment : str
             Arbitrary comment.
-        publications_count : int
-            Count of publications.
+        publications : [Publication]
+            Publications.
         """
 
         self.__thematic = thematic
@@ -37,7 +38,7 @@ class ResearchResult:
         self.__title = title
         self.__responsible = responsible
         self.__comment = comment
-        self.__publications_count = publications_count
+        self.__publications = publications
 
         thematic.results.append(self)
 
@@ -119,6 +120,21 @@ class ResearchResult:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def publications(self):
+        """
+        Get publications.
+
+        Returns
+        -------
+        [Publication]
+            Publications.
+        """
+
+        return self.__publications
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def publications_count(self):
         """
         Get publications count.
@@ -129,7 +145,7 @@ class ResearchResult:
             Publications count.
         """
 
-        return self.__publications_count
+        return len(self.publications)
 
 #---------------------------------------------------------------------------------------------------
 
@@ -178,9 +194,13 @@ class ResearchResult:
             rid_pref = b(font('РИД: ', color='darkgreen'))
         resp_html = font(str(self.responsible), color='steelblue')
         main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({self.comment})'
-        cnt_html = font(f'(статьи: {self.publications_count})', color='indianred')
 
-        return f'{main_html}<br>{cnt_html}<br><br>'
+        # Form publications html.
+        publ_html = f'статьи: {self.publications_count}'
+        publ_texts = [publ.repr_for_plan_html for publ in self.publications]
+        publ_html = publ_html + ul(publ_texts)
+
+        return f'{main_html}<br>{publ_html}<br>'
 
 #===================================================================================================
 

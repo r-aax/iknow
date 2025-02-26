@@ -38,6 +38,21 @@ class ComplexTheme:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def short_title(self):
+        """
+        Get short title.
+
+        Returns
+        -------
+        str
+            Short title.
+        """
+
+        return self.title[0:7]
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def thematics(self):
         """
         Get thematics.
