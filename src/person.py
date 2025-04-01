@@ -1,5 +1,8 @@
 from datetime import date
 from logging import exception
+
+from pkg_resources import working_set
+
 import utils
 
 #===================================================================================================
@@ -17,7 +20,7 @@ class Person:
                  birthdate=None,
                  snils='', inn='', passport='',
                  phone='', email='',
-                 orcid=''):
+                 orcid='', wos='', scopus='', elibrary=''):
         """
         Init person.
 
@@ -49,6 +52,12 @@ class Person:
             E-mail.
         orcid : str
             ORCID.
+        wos : str
+            Web of Science identifier.
+        scopus : str
+            SCOPUS identifier.
+        elibrary : str
+            e-library (spin-code / author id).
         """
 
         self.__name = name
@@ -64,6 +73,9 @@ class Person:
         self.__phone = phone
         self.__email = email
         self.__orcid = orcid
+        self.__wos = wos
+        self.__scopus = scopus
+        self.__elibrary = elibrary
 
 #---------------------------------------------------------------------------------------------------
 
@@ -399,6 +411,7 @@ class Person:
 
 #---------------------------------------------------------------------------------------------------
 
+    @property
     def orcid(self):
         """
         ORCID.
@@ -410,6 +423,51 @@ class Person:
         """
 
         return self.__orcid
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def wos(self):
+        """
+        Web of Science identifier.
+
+        Returns
+        -------
+        str
+            Web of Science identifier.
+        """
+
+        return self.__wos
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def scopus(self):
+        """
+        SCOPUS identifier.
+
+        Returns
+        -------
+        str
+            SCOPUS identifier.
+        """
+
+        return self.__scopus
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def elibrary(self):
+        """
+        E-library data (spin-code / author id).
+
+        Returns
+        -------
+        str
+            E-library data (spin-code / author id).
+        """
+
+        return self.__elibrary
 
 #---------------------------------------------------------------------------------------------------
 
