@@ -16,7 +16,8 @@ class Person:
                  name_en='', patronymic_en='', surname_en='',
                  birthdate=None,
                  snils='', inn='', passport='',
-                 phone='', email=''):
+                 phone='', email='',
+                 orcid=''):
         """
         Init person.
 
@@ -46,6 +47,8 @@ class Person:
             Phone number.
         email : str
             E-mail.
+        orcid : str
+            ORCID.
         """
 
         self.__name = name
@@ -60,6 +63,7 @@ class Person:
         self.__passport = passport
         self.__phone = phone
         self.__email = email
+        self.__orcid = orcid
 
 #---------------------------------------------------------------------------------------------------
 
@@ -392,6 +396,20 @@ class Person:
             raise exception('Person: INN number must contain 12 characters')
 
         return self.__inn
+
+#---------------------------------------------------------------------------------------------------
+
+    def orcid(self):
+        """
+        ORCID.
+
+        Returns
+        -------
+        str
+            ORCID.
+        """
+
+        return self.__orcid
 
 #---------------------------------------------------------------------------------------------------
 
