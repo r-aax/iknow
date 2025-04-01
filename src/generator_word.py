@@ -176,7 +176,7 @@ class GeneratorWord:
             e = wl.employee
             p = e.personal
             r[0].text = str(i + 1) + '.'
-            r[1].text = p.surname_name_patronymic
+            r[1].text = p.surname_name_patronymic()
             r[2].text = wl.job_title.name
             r[3].text = e.tabel
             r[4].text = str(p.year)

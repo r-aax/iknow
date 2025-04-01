@@ -12,8 +12,10 @@ class ResearchResult:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, thematic, year, title, responsible, comment,
-                 publications=[]):
+    def __init__(self, thematic, year,
+                 title, description,
+                 responsible, comment,
+                 funding_part, publications=[]):
         """
         Init research result.
 
@@ -25,10 +27,14 @@ class ResearchResult:
             Year.
         title : str
             Title of result.
+        description : str
+            Description.
         responsible : Employee
             Responsible employee.
         comment : str
             Arbitrary comment.
+        funding_part : float
+            Funding part.
         publications : [Publication]
             Publications.
         """
@@ -36,8 +42,10 @@ class ResearchResult:
         self.__thematic = thematic
         self.__year = year
         self.__title = title
+        self.__description = description
         self.__responsible = responsible
         self.__comment = comment
+        self.__funding_part = funding_part
         self.__publications = publications
 
         thematic.results.append(self)
@@ -90,6 +98,21 @@ class ResearchResult:
 #---------------------------------------------------------------------------------------------------
 
     @property
+    def description(self):
+        """
+        Get description.
+
+        Returns
+        -------
+        str
+            Description.
+        """
+
+        return self.__description
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
     def responsible(self):
         """
         Get responsible.
@@ -116,6 +139,21 @@ class ResearchResult:
         """
 
         return self.__comment
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def funding_part(self):
+        """
+        Get funding part.
+
+        Returns
+        -------
+        float
+            Funding part.
+        """
+
+        return self.__funding_part
 
 #---------------------------------------------------------------------------------------------------
 
@@ -193,7 +231,10 @@ class ResearchResult:
         if self.is_rid:
             rid_pref = b(font('РИД: ', color='darkgreen'))
         resp_html = font(str(self.responsible), color='steelblue')
-        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({self.comment})'
+        comm_html = font(self.comment, color='silver')
+        fund_html = font(str(self.funding_part) + ' %', color='orange')
+        descr_html = font(small('описание: ' + self.description), color='silver')
+        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({comm_html}) ({fund_html})<br>{descr_html}'
 
         # Form publications html.
         publ_html = f'статьи: {self.publications_count}'

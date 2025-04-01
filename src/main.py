@@ -13,9 +13,9 @@ def print_worksheets_statitics():
     Print worksheet statistics.
     """
 
-    print(f'ОССиПВ штатное расписание:')
+    #print(f'ОССиПВ штатное расписание:')
     #wc.osspv.print()
-    print(f'ОВК штатное расписание:')
+    #print(f'ОВК штатное расписание:')
     #wc.kvvk_ovk.print()
 
     osspv_all = wc.osspv.slots_sum()
@@ -47,15 +47,9 @@ def print_temporary_teams_statistics():
 
 if __name__ == '__main__':
 
+    # statistics
     print_worksheets_statitics()
     print_temporary_teams_statistics()
-
-    """
-    print(f'')
-
-    print(wc.osspv.occupied_slots_sum(), wc.kvvk_ovk.occupied_slots_sum())
-    print(ttc.cx1.slots_sum(), ttc.cx2.slots_sum(), ttc.other.slots_sum())
-    """
 
     """
     ps1, ps2 = ttc.cx1.people(), ttc.cx2.people()
@@ -72,17 +66,32 @@ if __name__ == '__main__':
           f'тема 6Ф-СИ.2 = {person.percent_le_age_in_the_end_of_year(ps2, 39)}')
     """
 
-    """
+    # temporary teams
     gw.generate_temporary_team(4, cx.cx1, ttc.cx1, 2025, '../out/6Ф-СИ.1-приложение-4-коллектив')
     gw.generate_temporary_team(4, cx.cx2, ttc.cx2, 2025, '../out/6Ф-СИ.2-приложение-4-коллектив')
-    """
 
-    """
+    # plans
     gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
     gh.generate_plan(cx.cx1, '../out/plan_6f_si_1.html')
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html')
-    """
 
-    pass
+    #
+
+    tab = []
+    cxx = []
+    for lin in ttc.cx1.lines:
+        cxx.append(lin)
+        tab.append(lin.employee.tabel)
+    for lin in ttc.cx2.lines:
+        if not lin.employee.tabel in tab:
+            cxx.append(lin)
+            tab.append(lin.employee.tabel)
+
+    lines = [lin for lin in cxx if (lin.status == 'осн.')]
+
+    for lin in lines:
+        print(lin)
+
+    print('всего', len(lines))
 
 #===================================================================================================
