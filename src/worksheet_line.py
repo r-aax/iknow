@@ -11,7 +11,6 @@ class WorksheetLine:
 #---------------------------------------------------------------------------------------------------
 
     def __init__(self, job_place, job_title,
-                 cat='', cg='', cu='',
                  slot=1.0, employee=None, status=''):
         """
         Worksheet line init.
@@ -22,12 +21,6 @@ class WorksheetLine:
             Job place.
         job_title : job_title.JobTitle
             Job title.
-        cat : str
-            Category.
-        cg : str
-            Category.
-        cu : str
-            Category.
         slot : float
             Slot of time.
         employee : employee.Employee
@@ -38,9 +31,6 @@ class WorksheetLine:
 
         self.__job_place = job_place
         self.__job_title = job_title
-        self.__cat = cat
-        self.__cg = cg
-        self.__cu = cu
         self.__slot = slot
         self.__employee = employee
         self.__status = status
@@ -80,60 +70,6 @@ class WorksheetLine:
             raise exception('WorksheetLine: no job title')
 
         return self.__job_title
-
-#---------------------------------------------------------------------------------------------------
-
-    @property
-    def cat(self):
-        """
-        Get category.
-
-        Returns
-        -------
-        str
-            Category.
-        """
-
-        if self.__cat == '':
-            raise exception('WorksheetLine: cat is empty')
-
-        return self.__cat
-
-#---------------------------------------------------------------------------------------------------
-
-    @property
-    def cg(self):
-        """
-        Get category.
-
-        Returns
-        -------
-        str
-            Category.
-        """
-
-        if self.__cg == '':
-            raise exception('WorksheetLine: cg is empty')
-
-        return self.__cg
-
-#---------------------------------------------------------------------------------------------------
-
-    @property
-    def cu(self):
-        """
-        Get category.
-
-        Returns
-        -------
-        str
-            Category.
-        """
-
-        if self.__cu == '':
-            raise exception('WorksheetLine: cu is empty')
-
-        return self.__cu
 
 #---------------------------------------------------------------------------------------------------
 
@@ -251,7 +187,7 @@ class WorksheetLine:
             String.
         """
 
-        cat = f'{self.cat}/{self.cg}/{self.cu}'
+        cat = self.__job_title.full_cat
         pre = f'{self.__job_place.short_name} | {self.__job_title.name} ({cat})'
 
         return f'{pre} | {self.slot} | {self.employee_str}'
@@ -280,11 +216,9 @@ class WorksheetLine:
         else:
             slot1 = self.__slot * k
             line1 = WorksheetLine(job_place=self.__job_place, job_title=self.__job_title,
-                                  cat=self.__cat, cg=self.__cg, cu=self.__cu,
                                   slot=slot1,
                                   employee=self.__employee, status=self.__status)
             line2 = WorksheetLine(job_place=self.__job_place, job_title=self.__job_title,
-                                  cat=self.__cat, cg=self.__cg, cu=self.__cu,
                                   slot = self.__slot - slot1,
                                   employee=self.__employee, status=self.__status)
             return [line1, line2]
