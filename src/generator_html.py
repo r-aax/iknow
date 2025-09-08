@@ -26,11 +26,16 @@ def generate_publications_info(ps, fn):
     table_lines = ''
     for p in ps:
         if p.has_language:
-            text_publ = td(p)
+            p_str = str(p)
+            if p.is_bad:
+                p_str = font(p_str, color='red')
+            text_publ = td(p_str)
             text_links = td(f'{p.doi_inner_link_html},<br>{p.doi_extern_link_html}')
             text_metrics = td(p.journal)
             text_support = td(p.support)
-            table_lines = table_lines + tr(f'{text_publ}{text_links}{text_metrics}{text_support}')
+            text_comment = td(p.comment)
+            text_problem = td(p.problem)
+            table_lines = table_lines + tr(f'{text_publ}{text_links}{text_metrics}{text_support}{text_comment}{text_problem}')
 
     bt = body(center(h3('Сводная информация по публикациям')) + table(''.join(table_lines)))
     ht = head('')

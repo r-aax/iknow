@@ -13,7 +13,7 @@ class Publication:
     def __init__(self, authors_affiliations,
                  title, journal, year, volume, issue, pages,
                  doi, extern_link,
-                 support, language):
+                 support, language, comment='', problem=''):
         """
         Publication.
 
@@ -41,6 +41,10 @@ class Publication:
             Financial support string.
         language : str
             Language ('ru', 'en').
+        comment : str
+            Comment.
+        problem : str
+            Problem.
         """
 
         self.__authors_affiliations = authors_affiliations
@@ -54,6 +58,8 @@ class Publication:
         self.__extern_link = extern_link
         self.__support = support
         self.__language = language
+        self.__comment = comment
+        self.__problem = problem
 
 #---------------------------------------------------------------------------------------------------
 
@@ -175,9 +181,6 @@ class Publication:
             Volume.
         """
 
-        if self.__volume == '':
-            raise exception('Publication: empty volume')
-
         return self.__volume
 
 #---------------------------------------------------------------------------------------------------
@@ -208,9 +211,6 @@ class Publication:
             Pages.
         """
 
-        if self.__pages == '':
-            raise exception('Publication: empty pages')
-
         return self.__pages
 
 #---------------------------------------------------------------------------------------------------
@@ -225,9 +225,6 @@ class Publication:
         str
             DOI.
         """
-
-        if self.__doi == '':
-            raise exception('Publication: empty DOI')
 
         return self.__doi
 
@@ -258,9 +255,6 @@ class Publication:
         str
             Support string.
         """
-
-        if self.__support == '':
-            raise exception('Publication: empty support string')
 
         return self.__support
 
@@ -297,6 +291,69 @@ class Publication:
         """
 
         return self.__language != ''
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def comment(self):
+        """
+        Comment.
+
+        Returns
+        -------
+        str
+            Comment.
+        """
+
+        return self.__comment
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def problem(self):
+        """
+        Problem.
+
+        Returns
+        -------
+        str
+            Problem.
+        """
+
+        return self.__problem
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def is_bad(self):
+        """
+        Check if publication bad.
+
+        Returns
+        -------
+        bool
+            True - if publication is bad,
+            False - otherwise.
+        """
+
+        return self.problem != ''
+
+#---------------------------------------------------------------------------------------------------
+
+    @property
+    def is_complete(self):
+        """
+        Check if publication is complete.
+
+        Returns
+        -------
+        bool
+            True - if publication is complete,
+            False - otherwise.
+        """
+
+        # issue may be empty
+        return (self.volume != '') and (self.pages != '')
 
 #---------------------------------------------------------------------------------------------------
 
@@ -419,7 +476,10 @@ class Publication:
 
         if self.has_language:
             short_text = f'{self.repr_html}'
-            return small(font(short_text, color='darkgreen'))
+            color='darkgreen'
+            if not self.is_complete:
+                color='indianred'
+            return small(font(short_text, color=color))
         else:
             if self.has_authors_affiliations:
                 return small(font(f'{self.authors_information()}', color='indianred'))

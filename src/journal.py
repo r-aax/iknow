@@ -9,10 +9,11 @@ class Journal:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, name, print_issn, electronic_issn,
-                 rzni, vak, web_of_science, scopus, astrophysics_data_system, math_sci_net, zb_math,
-                 chemical_abstracts, springer, agris, geo_ref, pub_med, rinz, rinz_core, rsci,
-                 link):
+    def __init__(self, name, print_issn='', electronic_issn='',
+                 rzni='', vak='', web_of_science='', scopus='',
+                 astrophysics_data_system='', math_sci_net='', zb_math='',
+                 chemical_abstracts='', springer='', agris='', geo_ref='', pub_med='',
+                 rinz='', rinz_core='', rsci='', link=''):
         """
         Init journal.
 
