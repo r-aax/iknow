@@ -352,8 +352,7 @@ class Publication:
             False - otherwise.
         """
 
-        # issue may be empty
-        return (self.volume != '') and (self.pages != '')
+        return (not self.journal is None) and (self.pages != '')
 
 #---------------------------------------------------------------------------------------------------
 

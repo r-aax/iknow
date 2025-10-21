@@ -234,7 +234,8 @@ class ResearchResult:
         comm_html = font(self.comment, color='silver')
         fund_html = font(str(self.funding_part) + ' %', color='orange')
         descr_html = font(small('описание: ' + self.description), color='silver')
-        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({comm_html}) ({fund_html})<br>{descr_html}'
+        #main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({comm_html}) ({fund_html})<br>{descr_html}'
+        main_html = f'{rid_pref}{self.title}<br>{descr_html}'
 
         # Form publications html.
         publ_html = f'статьи: {self.publications_count}'

@@ -25,6 +25,12 @@ nrcki_2025_cx1_th1_res1_pub03 = \
     Pub([(ppc.antonova_vm, [jppc.nrcki]), (ppc.buzhin_ig, [jppc.nrcki])],
         'Транспортный протокол QUIC как способ надежной передачи трафика реального времени.',
         jc.informazionnye_processy, 2025, '', '', '', '', '', '', 'ru')
+nrcki_2025_cx1_th1_res1_pub04 = \
+    Pub([(ppc.buzhin_ig, [jppc.nrcki]), (pc.velikhov_ve, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (ppc.ovsyannikov_ap, [jppc.nrcki])],
+        'О реализации взаимодействия разнородных сетей квантового распределения ключей в рамках межуниверситетской квантовой сети.',
+        jc.software_and_systems, 2025, '', '', '',
+        '', '',
+        '', 'ru')
 # cx1 th1 res2
 nrcki_2025_cx1_th1_res2_pub01 = \
     Pub([(ppc.abramov_ag, [jppc.nrcki]), (ppc.gonchar_ana, [jppc.nrcki]), (ppc.evseev_av, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
@@ -37,10 +43,6 @@ nrcki_2025_cx1_th1_res2_pub02 = \
     Pub([(ppc.abramov_ag, [jppc.nrcki])],
         'Methods and contemporary tools for multi-criteria testing and dynamic service quality measurements with an emphasis on research networks.',
         jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
-nrcki_2025_cx1_th1_res2_pub03 = \
-    Pub([(ppc.abramov_ag, [jppc.nrcki])],
-        'Модернизация сервисов мониторинга и контроля функционирования национальной исследовательской компьютерной сети России.',
-        jc.informazionnye_tehnologii, 2025, '', '', '', '', '', '', 'ru')
 # cx1 th2 res1
 nrcki_2025_cx1_th2_res1_pub01 = \
     Pub([(pc.andreicheva_en, []), (ppc.khramchenkov_mg, [jppc.nrcki])],
@@ -68,7 +70,7 @@ nrcki_2025_cx1_th2_res2_pub02 = \
 nrcki_2025_cx1_th2_res3_pub01 = \
     Pub([(ppc.baranov_av, [jpc.niisi_jscc, jppc.nrcki]), (ppc.aladyshev_os, [jpc.niisi_jscc, jppc.nrcki]), (ppc.bragin_ka, [jpc.niisi_jscc, jppc.nrcki])],
         'Job mapping cyclic composite algorithm for supercomputer resource manager.',
-        jc.lncs, 2025, '15406', '', '377-389',
+        jc.lncs, 2025, '', '15406', '377-389',
         '10.1007/978-3-031-78459-0_27',
         'https://link.springer.com/chapter/10.1007/978-3-031-78459-0_27',
         'The research was carried out as part of government assignment of the National Research Centre «Kurchatov Institute».',
@@ -77,7 +79,7 @@ nrcki_2025_cx1_th2_res3_pub01 = \
 nrcki_2025_cx1_th3_res1_pub01 = \
     Pub([(ppc.kalenov_ne, [jppc.nrcki]), (ppc.pogorelko_kp, [jppc.nrcki]), (ppc.sobolevskaya_in, [jppc.nrcki]), (ppc.sotnikov_an, [jppc.nrcki])],
         'Электронная библиотека "Научное наследие России" как элемент Единого цифрового пространства научных знаний.',
-        jc.nauchnye_i_tehnich_biblioteki, 2025, '8', '', '101-123',
+        jc.nauchnye_i_tehnich_biblioteki, 2025, '', '8', '101-123',
         '10.33186/1027-3689-2025-8-101-12', '',
         'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт».', 'ru')
 nrcki_2025_cx1_th3_res1_pub02 = \
@@ -91,24 +93,43 @@ nrcki_2025_cx1_th3_res1_pub03 = \
         'Реализация алгоритмов формирования контента Единого цифрового пространства научных знаний на базе WEB- ориентированного программного комплекса.',
         jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
 nrcki_2025_cx1_th3_res1_pub04 = \
-    Pub([(ppc.sotnikov_an, [jppc.nrcki]), (ppc.kalenov_ne, [jppc.nrcki]), (ppc.sobolevskaya_in, [jppc.nrcki]), (ppc.vlasova_sa, [jppc.nrcki]), (ppc.kirillov_sa, [jppc.nrcki])],
-        'Modeling of a Fragment of the Common Digital Space of Scientific Knowledge by the Example of Museum Collections (Моделирование фрагмента Единого Цифрового Пространства Научных Знаний на примере музейных коллекций).',
-        jc.sci_and_tech_inf_processing, 2025, '', '', '', '', '', '', 'ru')
+    Pub([(ppc.vlasova_sa, [jppc.nrcki]), (ppc.kalenov_ne, [jppc.nrcki]), (ppc.kirillov_sa, [jppc.nrcki]), (ppc.sobolevskaya_in, [jppc.nrcki]), (ppc.sotnikov_an, [jppc.nrcki])],
+        'Modeling of a fragment of the Common digital space of scientific knowledge by the example of museum collections.',
+        jc.sci_and_tech_inf_processing, 2025, '52', '2', '129-134',
+        '10.3103/S014768822570011X', '',
+        'The work was carried out at the National Research Center "Kurchatov Institute" as part of a state assignment.', 'en')
 nrcki_2025_cx1_th3_res1_pub05 = \
     Pub([(ppc.kalenov_ne, [jppc.nrcki])],
         'Библиотековедение как подпространство Единого цифрового пространства научных знаний.',
-        jc.bibliosfera, 2025, '', '', '', '', '', '', 'ru')
+        jc.bibliosfera, 2025, '', '3', '41-49',
+        '10.20913/1815-3186-2025-3-41-49', '',
+        'Работа выполняется в НИЦ «Курчатовский институт» в рамках государственного заказа.', 'ru')
 # cx1 th3 res2
 nrcki_2025_cx1_th3_res2_pub01 = \
     Pub([(ppc.nikolaev_ks, [jppc.nrcki])],
         'Сервис семантического поиска формул по коллекции математических PDF-документов.',
-        jc.informazionnye_tehnologii_i_vych_systemy, 2025, '', '', '', '', '', '', 'ru')
-nrcki_2025_cx1_th3_res2_pub02 = Pub([(ppc.elizarov_am, [])], '', None, 2025, '', '', '', '', '', '', '')
-nrcki_2025_cx1_th3_res2_pub03 = Pub([(ppc.elizarov_am, [])], '', None, 2025, '', '', '', '', '', '', '')
-nrcki_2025_cx1_th3_res2_pub04 = Pub([(ppc.elizarov_am, [])], '', None, 2025, '', '', '', '', '', '', '')
+        jc.informazionnye_tehnologii_i_vych_systemy, 2025, '', '3', '34-43',
+        '10.14357/20718632250304', '',
+        'Вклад К.С. Николаева финансируется в рамках государственного задания НИЦ Курчатовский институт', 'ru')
+nrcki_2025_cx1_th3_res2_pub02 = \
+    Pub([(ppc.abramov_ag, [jppc.nrcki])],
+        'Модернизация сервисов мониторинга и контроля функционирования национальной исследовательской компьютерной сети России.',
+        jc.informazionnye_tehnologii, 2025, '', '', '', '', '', '', 'ru')
+nrcki_2025_cx1_th3_res2_pub03 = \
+    Pub([(pc.pleschinsky_nb, []), (ppc.tumakov_md, [jppc.nrcki])],
+        'On the problems of direction of electromagnetic waves by prefractal barriers in waveguides with metal walls.',
+        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+nrcki_2025_cx1_th3_res2_pub04 = \
+    Pub([(ppc.tumakov_md, [jppc.nrcki]), (pc.pleschinsky_nb, [])],
+        'О задачах дифракции электромагнитных волн на предфрактальных периодических решетках.',
+        jc.uch_zapiski_kaz_univer_estestv, 2025, '', '', '', '', '', '', 'ru')
 
 # cx2 th1 res1
-nrcki_2025_cx2_th1_res1_pub01 = Pub([(ppc.shmelev_as, [])], '', None, 2025, '', '', '', '', '', '', '')
+nrcki_2025_cx2_th1_res1_pub01 = \
+    Pub([(pc.goryachev_av, [jpc.ciam]), (pc.goryachev_da, [jpc.ciam]), (pc.goryachev_pa, [jpc.ciam]), (pc.nuriev_mv, [jpc.ciam]), (pc.nikolaev_aa, [jpc.ciam]), (ppc.rybakov_aa, [jppc.nrcki])],
+        'Численное моделирование процесса обледенения в условиях переохлажденных капель.',
+        jc.prog_syst_teor_i_prilozheniya, 2025, '', '', '',
+        '', '', '', 'ru')
 nrcki_2025_cx2_th1_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki])],
         'Построение системы управления заданиями пользователей суперкомпьютера на основе иерархической модели.',
@@ -116,10 +137,14 @@ nrcki_2025_cx2_th1_res1_pub02 = \
         '10.15827/0236-235X.150.345-360', 'https://swsys.ru/index.php?page=article&id=5172&lang=',
         'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 nrcki_2025_cx2_th1_res1_pub03 = \
-    Pub([(ppc.tsyngalev_ps, [jppc.nrcki])],
+    Pub([(ppc.tsyngalev_ps, [jppc.nrcki, jpc.mirea])],
         'Применение методологии DevOps при разработке приложений для высокопроизводительных вычислений.',
-        jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
-nrcki_2025_cx2_th1_res1_pub04 = Pub([(pc.lupin_sa, [])], '', None, 2025, '', '', '', '', '', '', '')
+        jc.software_and_systems, 2025, '38', '3', '524-533',
+        '10.15827/0236-235X.151.524-533', 'https://swsys.ru/index.php?page=article&id=5193',
+        'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF2024-0016.', 'ru')
+nrcki_2025_cx2_th1_res1_pub04 = Pub([(pc.mokryakov_av, []), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.prilipko_aa, [jppc.nrcki])],
+                                    'Прогнозирование времени выполнения суперкомпьютерных заданий с применением методов машинного обучения.',
+                                    jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
 # cx2 th2 res1
 nrcki_2025_cx2_th2_res1_pub01 = \
     Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
@@ -129,7 +154,9 @@ nrcki_2025_cx2_th2_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.bragin_ka, [jppc.nrcki])],
         'Job Scheduling Based on the Supercomputer Resources Fragmentation Management.',
         jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
-nrcki_2025_cx2_th2_res1_pub03 = Pub([(ppc.baranov_av, [])], '', None, 2025, '', '', '', '', '', '', '')
+nrcki_2025_cx2_th2_res1_pub03 = Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
+                                    'Combined computing systems power calculation model.',
+                                    jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
 # cx2 th2 res2
 nrcki_2025_cx2_th2_res2_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
@@ -224,8 +251,8 @@ nrcki_2025_cx2_th3_res3_pub01 = \
 
 nrcki_2025 = \
 [
-    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03,
-    nrcki_2025_cx1_th1_res2_pub01, nrcki_2025_cx1_th1_res2_pub02, nrcki_2025_cx1_th1_res2_pub03,
+    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03, nrcki_2025_cx1_th1_res1_pub04,
+    nrcki_2025_cx1_th1_res2_pub01, nrcki_2025_cx1_th1_res2_pub02,
     nrcki_2025_cx1_th2_res1_pub01, nrcki_2025_cx1_th2_res1_pub02,
     nrcki_2025_cx1_th2_res2_pub01, nrcki_2025_cx1_th2_res2_pub02,
     nrcki_2025_cx1_th2_res3_pub01,

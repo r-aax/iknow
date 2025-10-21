@@ -72,8 +72,8 @@ if __name__ == '__main__':
 
     # plans
     gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
-    gh.generate_plan(cx.cx1, '../out/plan_6f_si_1.html')
-    gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html')
+    gh.generate_plan(cx.cx1, '../out/plan_6f_si_1.html', year_to=2028)
+    gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_to=2028)
 
     #
 
