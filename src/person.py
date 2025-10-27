@@ -95,12 +95,8 @@ class Person:
         """
 
         if language == 'ru':
-            if self.__name == '':
-                raise exception('Person: empty name')
             return self.__name
         elif language == 'en':
-            if self.__name_en == '':
-                raise exception(f'Person: empty english name for {self.__surname}')
             return self.__name_en
         else:
             raise exception('Person: wrong language')
@@ -119,10 +115,15 @@ class Person:
         Returns
         -------
         str
-            First letter of name.
+            First letter of name or empty.
         """
 
-        return self.name(language)[0]
+        n = self.name(language)
+
+        if n == '':
+            return ''
+        else:
+            return n[0]
 
 #---------------------------------------------------------------------------------------------------
 
@@ -142,12 +143,8 @@ class Person:
         """
 
         if language == 'ru':
-            if self.__patronymic == '':
-                raise exception('Person: empty patronymic')
             return self.__patronymic
         elif language == 'en':
-            if self.__patronymic_en == '':
-                raise exception(f'Person: empty english patronymic for {self.__surname}')
             return self.__patronymic_en
         else:
             raise exception('Person: wrong language')
@@ -169,7 +166,12 @@ class Person:
             First letter of patronymic.
         """
 
-        return self.patronymic(language)[0]
+        p = self.patronymic(language)
+
+        if p == '':
+            return ''
+        else:
+            return p[0]
 
 #---------------------------------------------------------------------------------------------------
 
@@ -256,8 +258,18 @@ class Person:
 
         nfl = self.name_first_letter(language)
         pfl = self.patronymic_first_letter(language)
+        s = self.surname(language)
 
-        return f'{nfl}. {pfl}. {self.surname(language)}'
+        if nfl == '':
+            if pfl == '':
+                return f'{s}'
+            else:
+                raise Exception(f'Person {s} has no first name, but has patronymic')
+        else:
+            if pfl == '':
+                return f'{nfl}. {s}'
+            else:
+                return f'{nfl}. {pfl}. {s}'
 
 #---------------------------------------------------------------------------------------------------
 

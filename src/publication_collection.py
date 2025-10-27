@@ -142,9 +142,12 @@ nrcki_2025_cx2_th1_res1_pub03 = \
         jc.software_and_systems, 2025, '38', '3', '524-533',
         '10.15827/0236-235X.151.524-533', 'https://swsys.ru/index.php?page=article&id=5193',
         'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF2024-0016.', 'ru')
-nrcki_2025_cx2_th1_res1_pub04 = Pub([(pc.mokryakov_av, []), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.prilipko_aa, [jppc.nrcki])],
-                                    'Прогнозирование времени выполнения суперкомпьютерных заданий с применением методов машинного обучения.',
-                                    jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
+nrcki_2025_cx2_th1_res1_pub04 = \
+    Pub([(pc.mokryakov_av, []), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.prilipko_aa, [jppc.nrcki])],
+        'Прогнозирование времени выполнения суперкомпьютерных заданий с применением методов машинного обучения.',
+        jc.software_and_systems, 2025, '', '', '',
+        '', '',
+        '', 'ru')
 # cx2 th2 res1
 nrcki_2025_cx2_th2_res1_pub01 = \
     Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
@@ -154,9 +157,12 @@ nrcki_2025_cx2_th2_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.bragin_ka, [jppc.nrcki])],
         'Job Scheduling Based on the Supercomputer Resources Fragmentation Management.',
         jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
-nrcki_2025_cx2_th2_res1_pub03 = Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
-                                    'Combined computing systems power calculation model.',
-                                    jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+nrcki_2025_cx2_th2_res1_pub03 = \
+    Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
+        'Combined computing systems power calculation model.',
+        jc.lobachevskii, 2025, '', '', '',
+        '', '',
+        '', 'en')
 # cx2 th2 res2
 nrcki_2025_cx2_th2_res2_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
@@ -245,9 +251,11 @@ nrcki_2025_cx2_th3_res2_pub01 = \
         jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
 # cx2 th3 res3
 nrcki_2025_cx2_th3_res3_pub01 = \
-    Pub([(ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
-        'Методы снижения сложности вычисления критических функций при решении задач размещения антенн с использованием алгоритма полного перебора',
-        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+    Pub([(pc.aye_min_thike, [jpc.miet]), (pc.lupin_sa, [jpc.miet]), (ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
+        'Methods for reducing the complexity of critical functions computations for antenna placement problems using brute force algorithms.',
+        jc.lobachevskii, 2025, '46', '10', '5485-5495',
+        '10.1134/S1995080225611816', '',
+        'The work was carried out as part of the state assignment of the National Research Centre "Kurchatov Institute".', 'en')
 
 nrcki_2025 = \
 [
