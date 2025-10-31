@@ -233,6 +233,12 @@ nrcki_2025_cx2_th2_res3_pub11 = \
         jc.journal_of_eng_phis_and_thermophis, 2025, '98', '4', '996-1004',
         '10.1007/s10891-025-03177-0', '',
         'The investigation was carried out within the framework of State Assignment FNEF-2024-0016 and with support from the Ministry of Science and Higher Education of the Russian Federation under Agreement No. 075-15-2020-931 within the framework of the development program of the World-Level Research Center "Rational Use of Liquid Hydrocarbon Reserves of the Planet." The authors extend their gratitude to their teacher M. V. Eirish as a coauthor and inspirer of all ideas and methods our article is dedicated to.', 'en', '', '')
+nrcki_2025_cx2_th2_res3_pub12 = \
+    Pub([(pc.eremin_iv, []), (pc.potashev_ka, []), (ppc.salimyanova_dr, [jppc.nrcki])],
+        'Учет несовершенства вертикальных скважин в двумерной модели пласта.',
+        jc.uch_zapiski_kaz_univer_phis_mat, 2025, '', '', '',
+        '', '',
+        '', 'ru')
 # cx2 th3 res1
 nrcki_2025_cx2_th3_res1_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
@@ -267,7 +273,7 @@ nrcki_2025 = \
     nrcki_2025_cx1_th3_res1_pub01, nrcki_2025_cx1_th3_res1_pub02, nrcki_2025_cx1_th3_res1_pub03, nrcki_2025_cx1_th3_res1_pub04, nrcki_2025_cx1_th3_res1_pub05, nrcki_2025_cx1_th3_res2_pub01, nrcki_2025_cx1_th3_res2_pub02, nrcki_2025_cx1_th3_res2_pub03, nrcki_2025_cx1_th3_res2_pub04,
     nrcki_2025_cx2_th1_res1_pub01, nrcki_2025_cx2_th1_res1_pub02, nrcki_2025_cx2_th1_res1_pub03, nrcki_2025_cx2_th1_res1_pub04,
     nrcki_2025_cx2_th2_res1_pub01, nrcki_2025_cx2_th2_res1_pub02, nrcki_2025_cx2_th2_res1_pub03,
-    nrcki_2025_cx2_th2_res2_pub01, nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10, nrcki_2025_cx2_th2_res3_pub10,
+    nrcki_2025_cx2_th2_res2_pub01, nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10, nrcki_2025_cx2_th2_res3_pub11, nrcki_2025_cx2_th2_res3_pub12,
     nrcki_2025_cx2_th3_res1_pub01, nrcki_2025_cx2_th3_res1_pub02,
     nrcki_2025_cx2_th3_res2_pub01,
     nrcki_2025_cx2_th3_res3_pub01

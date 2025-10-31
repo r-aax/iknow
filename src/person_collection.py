@@ -11,6 +11,7 @@ dolgopolov_re =  Person('',        '',             '',           'R',      'E', 
 goryachev_av =   Person('Алексей', 'Владимирович', 'Горячев',    '',       '',  '')
 goryachev_da =   Person('Дмитрий', 'Алексеевич',   'Горячев',    '',       '',  '')
 goryachev_pa =   Person('Павел',   'Алексеевич',   'Горячев',    '',       '',  '')
+eremin_iv =      Person('И',       'В',            'Еремин',     '',       '',  '')
 kazantsev_sy =   Person('Сергей',  'Юрьевич',      'Казанцев')
 konukhov_vm =    Person('В',       'М',            'Конюхов',    'V',      'M', 'Konyukhov')
 kurdyukov_av =   Person('А',       'В',            'Курдюков',   'A',      'V', 'Kurdyukov')
