@@ -148,7 +148,7 @@ class GeneratorExcel:
             self.txt('G', r, p.inn if p.has_inn else '')
             self.txt('H', r, p.academic_degree('A'))
             self.txt('I', r, p.academic_title('A'))
-            self.txt('J', r, 'TODO')
+            self.txt('J', r, p.date_str)
             self.txt('K', r, 'РОССИЯ')
             self.txt('L', r, p.orcid)
             self.txt('M', r, p.wos)

@@ -313,8 +313,10 @@ class Person:
 
         if type(d) is date:
             return f'{d.day:02d}.{d.month:02d}.{d.year:02d}'
+        elif type(d) is int:
+            return f'{d}'
         else:
-            raise exception(f'Person: date is in wrong format: {d}')
+            raise exception(f'Person: date for {self.__surname} is in wrong format: {d}')
 
     #-----------------------------------------------------------------------------------------------
 
