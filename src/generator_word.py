@@ -55,7 +55,9 @@ class GeneratorWord:
     document.save('demo.docx')
     """
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
+    # Common methods.
+    #-----------------------------------------------------------------------------------------------
 
     def __init__(self):
         """
@@ -71,7 +73,7 @@ class GeneratorWord:
             section.left_margin = Cm(2.25)
             section.right_margin = Cm(1.25)
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def save(self, name):
         """
@@ -85,7 +87,7 @@ class GeneratorWord:
 
         self.doc.save(name)
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def add_empty_line(self):
         """
@@ -94,7 +96,7 @@ class GeneratorWord:
 
         self.doc.add_paragraph('')
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def add_corner_inscription_supplement_to_order(self, n):
         """
@@ -107,7 +109,7 @@ class GeneratorWord:
             Number of supplement.
         """
 
-        p = self.doc.add_paragraph('Приложение № 4\n'
+        p = self.doc.add_paragraph(f'Приложение № {n}\n'
                                    'к приказу НИЦ «Курчатовский институт»\n'
                                    'от «___» ____________ ____ г. № ______')
         p.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
@@ -115,7 +117,33 @@ class GeneratorWord:
         f.name = 'Times New Roman'
         f.size = Pt(12)
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
+    # Technical task method.
+    #-----------------------------------------------------------------------------------------------
+
+    def add_technical_task_title(self, cx, y):
+        """
+        Add title for technical task.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Start year.
+        """
+
+        text = 'ТЕХНИЧЕСКОЕ ЗАДАНИЕ\n'\
+               'на выполнение научно-исследовательской работы\n'\
+               f'по комплексной теме {cx.title}.'
+        p = self.doc.add_paragraph()
+        r = p.add_run(text)
+        r.bold = True
+        p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+    #-----------------------------------------------------------------------------------------------
+    # Temporary team.
+    #-----------------------------------------------------------------------------------------------
 
     def add_temporary_team_title(self, cx, y):
         """
@@ -138,9 +166,9 @@ class GeneratorWord:
         r.bold = True
         p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
-    def add_temporay_team_table(self, w, cx):
+    def add_temporary_team_table(self, w, cx):
         """
         Add table for temporary team.
 
@@ -185,9 +213,34 @@ class GeneratorWord:
 
 #===================================================================================================
 
+def generate_technical_task(n, cx, y, out):
+    """
+    Generate technical task document.
+
+    Parameters
+    ----------
+    n : int
+        Supplement number.
+    cx : ComplexTheme
+        Complex theme.
+    y : int
+        Start year.
+    out : str
+        Out file name.
+    """
+
+    w = GeneratorWord()
+    w.add_corner_inscription_supplement_to_order(n)
+    w.add_empty_line()
+    w.add_technical_task_title(cx, y)
+    w.add_empty_line()
+    w.save(out + '.docx')
+
+#---------------------------------------------------------------------------------------------------
+
 def generate_temporary_team(n, cx, team, y, out):
     """
-    Geterate temporary team dicument.
+    Generate temporary team document.
 
     Parameters
     ----------
@@ -208,7 +261,7 @@ def generate_temporary_team(n, cx, team, y, out):
     w.add_empty_line()
     w.add_temporary_team_title(cx, y)
     w.add_empty_line()
-    w.add_temporay_team_table(team, cx)
+    w.add_temporary_team_table(team, cx)
     w.save(out + '.docx')
 
 #===================================================================================================
