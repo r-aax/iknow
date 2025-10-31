@@ -146,15 +146,15 @@ class GeneratorExcel:
             self.txt('E', r, wsl.job_title.name)
             self.txt('F', r, p.snils if p.has_snils else '')
             self.txt('G', r, p.inn if p.has_inn else '')
-            self.txt('H', r, 'TODO')
-            self.txt('I', r, 'TODO')
+            self.txt('H', r, p.academic_degree('A'))
+            self.txt('I', r, p.academic_title('A'))
             self.txt('J', r, 'TODO')
             self.txt('K', r, 'РОССИЯ')
             self.txt('L', r, p.orcid)
             self.txt('M', r, p.wos)
             self.txt('N', r, p.scopus)
-            self.txt('O', r, p.elibrary)
-            self.txt('P', r, 'TODO')
+            self.txt('O', r, p.elibrary_id)
+            self.txt('P', r, '')
 
             r = r + 1
 
