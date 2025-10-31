@@ -1,8 +1,8 @@
 import worksheet_private_collection as wc
 import temporary_team_private_collection as ttc
-import person
 import complex_theme_private_collection as cx
 import generator_word as gw
+import generator_excel as ge
 import publication_collection as pc
 import generator_html as gh
 
@@ -60,6 +60,9 @@ def generate_documents_pack(y, out_dir):
 
         # Supplement 4 - temporary team.
         gw.generate_temporary_team(4, theme, team, y, f'{pre}-приложение-4-коллектив')
+
+        # PTNI forms.
+        ge.generate_PTNI_performers(team, f'{pre}-ПТНИ-исполнители')
 
 #===================================================================================================
 
