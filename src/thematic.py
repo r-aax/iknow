@@ -8,7 +8,7 @@ class Thematic:
     Thematic.
     """
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def __init__(self, theme, title):
         """
@@ -25,10 +25,19 @@ class Thematic:
         self.__theme = theme
         self.__title = title
         self.__results = []
+        self.goal = ''
+        self.actuality = ''
+        self.resources = ''
+        self.background = ''
+        self.content = ''
+        self.dict_ind_doctors = dict()
+        self.dict_ind_candidates = dict()
+        self.dict_ind_rids = dict()
+        self.dict_ind_publications = dict()
 
         theme.thematics.append(self)
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def theme(self):
@@ -43,7 +52,7 @@ class Thematic:
 
         return self.__theme
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def title(self):
@@ -58,7 +67,7 @@ class Thematic:
 
         return self.__title
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def results(self):
@@ -73,7 +82,7 @@ class Thematic:
 
         return self.__results
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def print(self):
         """
@@ -85,7 +94,7 @@ class Thematic:
         for result in self.results:
             print(' - ', result)
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def publications_count(self, year):
         """
@@ -112,7 +121,83 @@ class Thematic:
 
         return cnt
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_doctors(self, y):
+        """
+        Get doctors count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Doctors count.
+        """
+
+        return self.dict_ind_doctors[y]
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_candidates(self, y):
+        """
+        Get candidates count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Candidates count.
+        """
+
+        return self.dict_ind_candidates[y]
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_rids(self, y):
+        """
+        Get rids count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Rids count.
+        """
+
+        return self.dict_ind_rids[y]
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_publications(self, y):
+        """
+        Get publications count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Publications count.
+        """
+
+        return self.dict_ind_publications[y]
+
+    #-----------------------------------------------------------------------------------------------
 
     def year_results_html(self, year):
         """

@@ -5,7 +5,7 @@ class ComplexTheme:
     Complex theme.
     """
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def __init__(self, title):
         """
@@ -19,8 +19,10 @@ class ComplexTheme:
 
         self.__title = title
         self.__thematics = []
+        self.goal = ''
+        self.actuality = ''
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def title(self):
@@ -35,7 +37,7 @@ class ComplexTheme:
 
         return self.__title
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def short_title(self):
@@ -50,7 +52,7 @@ class ComplexTheme:
 
         return self.title[0:7]
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def thematics(self):
@@ -65,7 +67,7 @@ class ComplexTheme:
 
         return self.__thematics
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def all_thematics_titles(self):
         """
@@ -79,7 +81,7 @@ class ComplexTheme:
 
         return ', '.join([th.title for th in self.thematics])
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     def print(self):
         """
@@ -90,6 +92,82 @@ class ComplexTheme:
 
         for thematic in self.thematics:
             thematic.print()
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_doctors(self, y):
+        """
+        Get doctors count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Doctors count.
+        """
+
+        return sum([th.ind_doctors(y) for th in self.thematics])
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_candidates(self, y):
+        """
+        Get candidates count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Candidates count.
+        """
+
+        return sum([th.ind_candidates(y) for th in self.thematics])
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_rids(self, y):
+        """
+        Get rids count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Rids count.
+        """
+
+        return sum([th.ind_rids(y) for th in self.thematics])
+
+    #-----------------------------------------------------------------------------------------------
+
+    def ind_publications(self, y):
+        """
+        Get publications count indicator.
+
+        Parameters
+        ----------
+        y : int
+            Year.
+
+        Returns
+        -------
+        int
+            Publications count.
+        """
+
+        return sum([th.ind_publications(y) for th in self.thematics])
 
 #===================================================================================================
 

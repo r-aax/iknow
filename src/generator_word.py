@@ -1,8 +1,11 @@
+from et_xmlfile.incremental_tree import tostring
+
+from thematic import Thematic
 from complex_theme import ComplexTheme
 from worksheet import Worksheet
 from docx import Document
 from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.shared import Pt, Cm
+from docx.shared import Pt, Cm, Inches
 
 #===================================================================================================
 
@@ -98,6 +101,24 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
+    def add_paragraph(self, text, alignment=WD_PARAGRAPH_ALIGNMENT.JUSTIFY):
+        """
+        Add paragraph.
+
+        Parameters
+        ----------
+        text : str
+            Text.
+        alignment : any
+            Text alignment.
+        """
+
+        p = self.doc.add_paragraph()
+        p.add_run(text)
+        p.alignment = alignment
+
+    #-----------------------------------------------------------------------------------------------
+
     def add_corner_inscription_supplement_to_order(self, n):
         """
         Add inscription to corner of document.
@@ -140,6 +161,333 @@ class GeneratorWord:
         r = p.add_run(text)
         r.bold = True
         p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_thematic_results_table_with_TRL(self, th, y):
+        """
+        Add thematic results table with TRL.
+
+        Parameters
+        ----------
+        th : Thematic
+            Thematic.
+        y : int
+            Year.
+        """
+
+        # Calculate rows count.
+        rows_count = 0
+        for r in th.results:
+            if (not r.is_rid) and (r.year in range(y, y + 3)):
+                rows_count = rows_count + 1
+        if rows_count == 0:
+            return
+
+        # Table and its style.
+        t = self.doc.add_table(rows=rows_count + 1, cols=4)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Планируемый результат'
+        h[2].text = 'Планируемый УГТ'
+        h[3].text = 'Год'
+
+        # Write all results.
+        i = 0
+        for r in th.results:
+            if (not r.is_rid) and (r.year in range(y, y + 3)):
+                h = t.rows[1 + i].cells
+                h[0].text = str(1 + i)
+                h[1].text = r.title
+                h[2].text = '1'
+                h[3].text = str(r.year)
+                i = i + 1
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+        self.add_empty_line()
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_thematic_rids_table_with_TRL(self, th, y):
+        """
+        Add thematic rids table with TRL.
+
+        Parameters
+        ----------
+        th : Thematic
+            Thematic.
+        y : int
+            Year
+        """
+
+        # Calculate rows count.
+        rows_count = 0
+        for r in th.results:
+            if r.is_rid and (r.year in range(y, y + 3)):
+                rows_count = rows_count + 1
+        if rows_count == 0:
+            return
+
+        # Table and its style.
+        t = self.doc.add_table(rows=rows_count + 1, cols=4)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Планируемый результат'
+        h[2].text = 'Планируемый УГТ'
+        h[3].text = 'Год'
+
+        # Write all results.
+        i = 0
+        for r in th.results:
+            if r.is_rid and (r.year in range(y, y + 3)):
+                h = t.rows[1 + i].cells
+                h[0].text = str(1 + i)
+                h[1].text = f'Планируемый вид РИД: {r.rid_type}.\n'\
+                            f'Планируемое название РИД: «{r.rid_name}\n'\
+                            f'Планируемый результат: {r.description}'
+                h[2].text = '3'
+                h[3].text = str(r.year)
+                i = i + 1
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+        self.add_empty_line()
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_thematic_indicators_table(self, th, y):
+        """
+        Add thematic indicators table.
+
+        Parameters
+        ----------
+        th : Thematic
+            Thematic.
+        y : int
+            Year.
+        """
+
+        # Table and its style.
+        t = self.doc.add_table(rows=5, cols=6)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Показатель (индикатор)'
+        h[2].text = 'Единица измерения'
+        h[3].text = f'Год {y}'
+        h[4].text = f'Год {y + 1}'
+        h[5].text = f'Год {y + 2}'
+
+        # Doctors.
+        h = t.rows[1].cells
+        h[0].text = '1'
+        h[1].text = 'Количество защищенных диссертаций на соискание ученой степени доктора наук'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{th.ind_doctors(y + i)}'
+
+        # Candidates.
+        h = t.rows[2].cells
+        h[0].text = '2'
+        h[1].text = 'Количество защищенных диссертаций на соискание ученой степени кандидата наук'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{th.ind_candidates(y + i)}'
+
+        # Rids.
+        h = t.rows[3].cells
+        h[0].text = '3'
+        h[1].text = 'Количество полученный результатов интеллектуальной деятельности'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{th.ind_rids (y + i)}'
+
+        # Publications.
+        h = t.rows[4].cells
+        h[0].text = '4'
+        h[1].text = 'Публикации в журналах, индексируемых в российских и международных '\
+                    'информационно-аналитических системах научного цитирования (Российский индекс '\
+                    'научного цитирования или публикации в научных журналах, '\
+                    'входящих в «Белый список»'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{th.ind_publications(y + i)}'
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5), Inches(0.5), Inches(0.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+        self.add_empty_line()
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_thematic_characteristics(self, th, number, y):
+        """
+        Add thematic characteristics.
+
+        Parameters
+        ----------
+        th : Thematic
+            Thematic.
+        number : int
+            Number in enumeration.
+        y : int
+            Year.
+        """
+
+        self.add_paragraph(f'7.{number}. Тематика исследований {th.title}.')
+
+        # p. 1-6.
+        self.add_paragraph(f'1) Цель работы: {th.goal}')
+        self.add_paragraph(f'2) Актуальность и новизна работы: {th.actuality}')
+        self.add_paragraph(f'3) Ресурсная обеспеченность работы: {th.resources}')
+        self.add_paragraph(f'4) Имеющийся научно-технический задел по работе: {th.background}')
+        self.add_paragraph(f'5) Основное содержание работ: {th.content}')
+        self.add_paragraph(f'6) Срок выполнения работы: {y}-{y + 2} годы.')
+
+        # p. 7. results.
+        rs = []
+        for r in th.results:
+            if (not r.is_rid) and (r.year in range(y, y + 3)):
+                rs.append(r.title)
+        txt = ' '.join(rs)
+        self.add_paragraph(f'7) Планируемые результаты: {txt}')
+        self.add_thematic_results_table_with_TRL(th, y)
+        self.add_thematic_rids_table_with_TRL(th, y)
+
+        # p. 8. indicators
+        self.add_paragraph('8) Значение целевых индикаторов и показателей')
+        self.add_thematic_indicators_table(th, y)
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_complex_theme_indicators_table(self, cx, y):
+        """
+        Add complex theme indicators table.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        """
+
+        # Name.
+        self.add_paragraph('6. Значение показателей, характеризующих качество работ:')
+
+        # Table and its style.
+        t = self.doc.add_table(rows=5, cols=6)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Показатель (индикатор)'
+        h[2].text = 'Единица измерения'
+        h[3].text = f'Год {y}'
+        h[4].text = f'Год {y + 1}'
+        h[5].text = f'Год {y + 2}'
+
+        # Doctors.
+        h = t.rows[1].cells
+        h[0].text = '1'
+        h[1].text = 'Количество защищенных диссертаций на соискание ученой степени доктора наук'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{cx.ind_doctors(y + i)}'
+
+        # Candidates.
+        h = t.rows[2].cells
+        h[0].text = '2'
+        h[1].text = 'Количество защищенных диссертаций на соискание ученой степени кандидата наук'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{cx.ind_candidates(y + i)}'
+
+        # Rids.
+        h = t.rows[3].cells
+        h[0].text = '3'
+        h[1].text = 'Количество полученный результатов интеллектуальной деятельности'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{cx.ind_rids (y + i)}'
+
+        # Publications.
+        h = t.rows[4].cells
+        h[0].text = '4'
+        h[1].text = 'Публикации в журналах, индексируемых в российских и международных '\
+                    'информационно-аналитических системах научного цитирования (Российский индекс '\
+                    'научного цитирования или публикации в научных журналах, '\
+                    'входящих в «Белый список»'
+        h[2].text = 'шт'
+        for i in range(3):
+            h[3 + i].text = f'{cx.ind_publications(y + i)}'
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5), Inches(0.5), Inches(0.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_complex_theme_characteristics(self, cx, y):
+        """
+        Add complex theme characteristics.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        """
+
+        # p. 1-4.
+        self.add_paragraph('1. Подтемы комплексной темы:')
+        self.add_paragraph(f'2. Цель выполнения НИР: {cx.goal}')
+        self.add_paragraph(f'3. Срок выполнения НИР: {y}-{y + 2} годы.')
+        self.add_paragraph(f'4. Актуальность НИР: {cx.actuality}')
+
+        # p. 5. Get all results (without RIDs).
+        rs = []
+        for th in cx.thematics:
+            for r in th.results:
+                if (not r.is_rid) and (r.year in range(y, y + 3)):
+                    rs.append(r.title)
+        txt = ' '.join(rs)
+        self.add_paragraph(f'5. Планируемые результаты НИР: {txt}')
+
+        # p. 6.
+        self.add_complex_theme_indicators_table(cx, y)
+
+        # p. 6.
+        self.add_empty_line()
+        self.add_paragraph('7. Основное содержание работ по тематикам исследований:')
+
+        # Add characteristics for all thematics.
+        for i, th in enumerate(cx.thematics):
+            self.add_thematic_characteristics(th, i + 1, y)
 
     #-----------------------------------------------------------------------------------------------
     # Temporary team.
@@ -233,6 +581,7 @@ def generate_technical_task(n, cx, y, out):
     w.add_corner_inscription_supplement_to_order(n)
     w.add_empty_line()
     w.add_technical_task_title(cx, y)
+    w.add_complex_theme_characteristics(cx, y)
     w.add_empty_line()
     w.save(out + '.docx')
 
