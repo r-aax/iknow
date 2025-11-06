@@ -102,7 +102,7 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
-    def add_paragraph(self, text, alignment=WD_PARAGRAPH_ALIGNMENT.JUSTIFY):
+    def add_paragraph(self, text, alignment=WD_PARAGRAPH_ALIGNMENT.JUSTIFY, is_bold=False):
         """
         Add paragraph.
 
@@ -112,11 +112,14 @@ class GeneratorWord:
             Text.
         alignment : any
             Text alignment.
+        is_bold : bool
+            Bold check.
         """
 
         p = self.doc.add_paragraph()
-        p.add_run(text)
+        r = p.add_run(text)
         p.alignment = alignment
+        r.bold = is_bold
 
     #-----------------------------------------------------------------------------------------------
 
@@ -192,7 +195,7 @@ class GeneratorWord:
             self.add_signature(w)
 
     #-----------------------------------------------------------------------------------------------
-    # Technical task method.
+    # Technical task methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_technical_task_title(self, cx, y):
@@ -612,6 +615,129 @@ class GeneratorWord:
             r[5].text = wl.job_place.half_full_name
             r[6].text = cx.all_thematics_titles()
 
+    #-----------------------------------------------------------------------------------------------
+    # Generate equipment methods.
+    #-----------------------------------------------------------------------------------------------
+
+    def add_equipment_title(self, cx):
+        """
+        Add title for equipment.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        """
+
+        text = 'ПЕРЕЧЕНЬ\n'\
+               'объектов особо ценного движимого имущества, используемого в процессе\n'\
+               'выполнения научно-исследоввательской работы (основных средств и\n'\
+               'нематериальных активов, амортизируемых в процессе выполнения работы)\n'\
+               f'по комплексной теме {cx.title}'
+        p = self.doc.add_paragraph()
+        r = p.add_run(text)
+        r.bold = True
+        p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_inner_equipment_table(self, cx):
+        """
+        Add inner equipment table.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        """
+
+        # Add table title.
+        self.add_paragraph('1. Перечень находящихся в оперативном управлении НИЦ «Курчатовский институт» объектов особо ценного имущества',
+                           alignment=WD_PARAGRAPH_ALIGNMENT.CENTER, is_bold=True)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=4, cols=4)
+        t.style = 'Table Grid'
+
+        # All thematics.
+        all_thematics_text = ''
+        for th in cx.thematics:
+            if all_thematics_text != '':
+                all_thematics_text = all_thematics_text + '\n\n'
+            all_thematics_text = all_thematics_text + f'Тематика\n{th.title}'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Наименование объема особо ценного движимого имущества'
+        h[2].text = 'Местоположение (здание, помещение)'
+        h[3].text = 'Наименование подтем и тематик исследований'
+
+        # CLK
+        h = t.rows[1].cells
+        h[0].text = '1.'
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП2, '\
+                    'подраздел МВС-10П ОП2 CLK (Cascade Lake),\n'\
+                    f'{cx.clk_need} узлочасов.'
+        h[2].text = 'Москва, Ленинский проспект, 32А.'
+        h[3].text = all_thematics_text
+
+        # KNL
+        h = t.rows[2].cells
+        h[0].text = '2.'
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П МП2 (Knights Landing),\n'\
+                    f'{cx.knl_need} узлочасов.'
+        h[2].text = 'Москва, Ленинский проспект, 32А.'
+        h[3].text = all_thematics_text
+
+        # ICL
+        h = t.rows[3].cells
+        h[0].text = '3.'
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП3, '\
+                    'подраздел МВС-10П ОП3 ICL (Ice Lake),\n'\
+                    f'{cx.icl_need} узлочасов.'
+        h[2].text = 'Москва, Ленинский проспект, 32А.'
+        h[3].text = all_thematics_text
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(2.0), Inches(1.5), Inches(3.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_outer_equipment_table(self, cx):
+        """
+        Add outer equipment table.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        """
+
+        # Add table title.
+        self.add_paragraph('2. Перечень объектов особо ценного движимого имущества, которое планируется привлечь на условиях аренды',
+                           alignment=WD_PARAGRAPH_ALIGNMENT.CENTER, is_bold=True)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=2, cols=4)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Наименование объема особо ценного движимого имущества'
+        h[2].text = 'Местоположение (здание, помещение)'
+        h[3].text = 'Наименование подтем и тематик исследований'
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(2.0), Inches(1.5), Inches(3.5)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
 #===================================================================================================
 
 def generate_technical_task(n, cx, y, out):
@@ -634,9 +760,10 @@ def generate_technical_task(n, cx, y, out):
     w.add_corner_inscription_supplement_to_order(n)
     w.add_empty_line()
     w.add_technical_task_title(cx, y)
+    w.add_empty_line()
     w.add_complex_theme_characteristics(cx, y)
     w.add_empty_line()
-    w.add_signatures([wsl.savin_gi, wsl.shabanov_bm])
+    w.add_signatures([cx.manager, wsl.shabanov_bm])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------
@@ -665,6 +792,36 @@ def generate_temporary_team(n, cx, team, y, out):
     w.add_temporary_team_title(cx, y)
     w.add_empty_line()
     w.add_temporary_team_table(team, cx)
+    w.add_empty_line()
+    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
+    w.save(out + '.docx')
+
+#---------------------------------------------------------------------------------------------------
+
+def generate_equipment(n, cx, out):
+    """
+    Generate equipment document.
+
+    Parameters
+    ----------
+    n : int
+        Supplement number.
+    cx : ComplexTheme
+        Complex theme.
+    out : str
+        Out file name.
+    """
+
+    w = GeneratorWord()
+    w.add_corner_inscription_supplement_to_order(n)
+    w.add_empty_line()
+    w.add_equipment_title(cx)
+    w.add_empty_line()
+    w.add_inner_equipment_table(cx)
+    w.add_empty_line()
+    w.add_outer_equipment_table(cx)
+    w.add_empty_line()
+    w.add_signatures([cx.manager, wsl.shabanov_bm])
     w.save(out + '.docx')
 
 #===================================================================================================

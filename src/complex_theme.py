@@ -1,3 +1,5 @@
+from worksheet_line import WorksheetLine
+
 #===================================================================================================
 
 class ComplexTheme:
@@ -21,6 +23,10 @@ class ComplexTheme:
         self.__thematics = []
         self.goal = ''
         self.actuality = ''
+        self.manager = None
+        self.clk_need = 0
+        self.knl_need = 0
+        self.icl_need = 0
 
     #-----------------------------------------------------------------------------------------------
 

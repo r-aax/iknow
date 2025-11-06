@@ -56,10 +56,13 @@ def generate_documents_pack(y, out_dir):
         pre = f'{out_dir}/{theme.short_title}'
 
         # Supplement 1 - technical task.
-        gw.generate_technical_task(1, theme, y, f'{pre}-приложение-1-ТЗ')
+        gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
 
         # Supplement 4 - temporary team.
-        gw.generate_temporary_team(4, theme, team, y, f'{pre}-приложение-4-коллектив')
+        gw.generate_temporary_team(4, theme, team, y, f'{pre}-приказ-приложение-4-коллектив')
+
+        # Supplement 5 - equipment.
+        gw.generate_equipment(5, theme, f'{pre}-приказ-приложение-5-оборудование')
 
         # PTNI forms.
         ge.generate_PTNI_performers(team, f'{pre}-ПТНИ-исполнители')
@@ -78,6 +81,6 @@ if __name__ == '__main__':
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_to=2029)
 
     # generate documents for complex themes
-    generate_documents_pack(2026, '../out')
+    generate_documents_pack(2026, '../out/orders')
 
 #===================================================================================================
