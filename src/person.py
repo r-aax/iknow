@@ -280,6 +280,32 @@ class Person:
 
     #-----------------------------------------------------------------------------------------------
 
+    def surname_n_p(self, language='ru'):
+        """
+        Get surname and n and p.
+
+        Parameters
+        ----------
+        language : str
+            Language.
+
+        Returns
+        -------
+        str
+            Person as string.
+        """
+
+        nfl = self.name_first_letter(language)
+        pfl = self.patronymic_first_letter(language)
+        s = self.surname(language)
+
+        if (nfl == '') or (pfl == ''):
+            raise Exception(f'Person {s} has no name or patronymic')
+
+        return f'{s} {nfl}.{pfl}.'
+
+    #-----------------------------------------------------------------------------------------------
+
     @property
     def birthdate(self):
         """

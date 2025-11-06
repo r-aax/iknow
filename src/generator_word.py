@@ -1,11 +1,12 @@
-from et_xmlfile.incremental_tree import tostring
+from docx import Document
+from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
+from docx.shared import Pt, Cm, Inches
 
 from thematic import Thematic
 from complex_theme import ComplexTheme
 from worksheet import Worksheet
-from docx import Document
-from docx.enum.text import WD_PARAGRAPH_ALIGNMENT
-from docx.shared import Pt, Cm, Inches
+from worksheet_line import WorksheetLine
+import worksheet_line_private_collection as wsl
 
 #===================================================================================================
 
@@ -137,6 +138,58 @@ class GeneratorWord:
         f = p.style.font
         f.name = 'Times New Roman'
         f.size = Pt(12)
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_signature(self, w):
+        """
+        Add signature.
+
+        Parameters
+        ----------
+        w : WorksheetLine
+            Worksheet line.
+        """
+
+        # Table and its style.
+        t = self.doc.add_table(rows=1, cols=5)
+        h = t.rows[0].cells
+
+        # Take job title with first big letter
+        title_name = w.job_title.name
+        if (title_name == 'руководитель отделения') or (title_name == 'директор департамента'):
+            title_name = title_name.split()[0]
+        title_name = title_name[0:1].upper() + title_name[1:]
+        h[0].text = f'{title_name} {w.job_place.name_r}'
+
+        h[1].text = ''
+        h[2].text = '_____________________\n'\
+                    '      (подпись)'
+        h[3].text = ''
+        h[4].text = w.employee.personal.surname_n_p()
+
+        # Cells sizes.
+        xs = [Inches(3.0), Inches(0.5), Inches(1.0), Inches(0.5), Inches(1.5)]
+        for row in t.rows:
+            for i, x in enumerate(xs):
+                row.cells[i].width = x
+
+        self.add_empty_line()
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_signatures(self, ws):
+        """
+        Add signatures.
+
+        Parameters
+        ----------
+        ws : [WorksheetLine]
+            List of worksheet lines.
+        """
+
+        for w in ws:
+            self.add_signature(w)
 
     #-----------------------------------------------------------------------------------------------
     # Technical task method.
@@ -556,7 +609,7 @@ class GeneratorWord:
             r[2].text = wl.job_title.name
             r[3].text = e.tabel
             r[4].text = str(p.year)
-            r[5].text = wl.job_place.half_full_name()
+            r[5].text = wl.job_place.half_full_name
             r[6].text = cx.all_thematics_titles()
 
 #===================================================================================================
@@ -583,6 +636,7 @@ def generate_technical_task(n, cx, y, out):
     w.add_technical_task_title(cx, y)
     w.add_complex_theme_characteristics(cx, y)
     w.add_empty_line()
+    w.add_signatures([wsl.savin_gi, wsl.shabanov_bm])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------

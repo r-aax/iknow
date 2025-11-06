@@ -8,9 +8,9 @@ class JobPlace:
     Organization or subdivision.
     """
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
-    def __init__(self, name, short_name, parent=None):
+    def __init__(self, name, short_name, parent=None, name_r=''):
         """
         Init job.
 
@@ -22,13 +22,16 @@ class JobPlace:
             Short name.
         parent : Job
             Link to parent job (or None for head).
+        name_r : str
+            Name in other form
         """
 
         self.__name = name
         self.__short_name = short_name
         self.__parent = parent
+        self.__name_r = name_r
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def name(self):
@@ -46,7 +49,7 @@ class JobPlace:
 
         return self.__name
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def short_name(self):
@@ -64,7 +67,7 @@ class JobPlace:
 
         return self.__short_name
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def parent(self):
@@ -79,7 +82,22 @@ class JobPlace:
 
         return self.__parent
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
+
+    @property
+    def name_r(self):
+        """
+        Get name in other form.
+
+        Returns
+        -------
+        str
+            Name in other form.
+        """
+
+        return self.__name_r
+
+    #-----------------------------------------------------------------------------------------------
 
     @property
     def is_head(self):
@@ -95,8 +113,9 @@ class JobPlace:
 
         return self.parent is None
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
+    @property
     def full_name(self):
         """
         Full name with all chain up to head.
@@ -112,8 +131,9 @@ class JobPlace:
         else:
             return f'{self.name}, {self.parent.full_name()}'
 
-#---------------------------------------------------------------------------------------------------
+    #-----------------------------------------------------------------------------------------------
 
+    @property
     def half_full_name(self):
         """
         Name up to root but without root
@@ -128,7 +148,7 @@ class JobPlace:
         if self.parent.is_head:
             return self.name
         else:
-            return f'{self.name}, {self.parent.half_full_name()}'
+            return f'{self.name}, {self.parent.half_full_name}'
 
 #===================================================================================================
 
