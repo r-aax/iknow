@@ -176,7 +176,9 @@ class Thematic:
             Rids count.
         """
 
-        return self.dict_ind_rids[y]
+        rs = [r for r in self.results if r.is_rid and (r.year == y)]
+
+        return len(rs)
 
     #-----------------------------------------------------------------------------------------------
 

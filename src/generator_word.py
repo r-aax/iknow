@@ -156,7 +156,7 @@ class GeneratorWord:
 
         text = 'ТЕХНИЧЕСКОЕ ЗАДАНИЕ\n'\
                'на выполнение научно-исследовательской работы\n'\
-               f'по комплексной теме {cx.title}.'
+               f'по комплексной теме {cx.title}'
         p = self.doc.add_paragraph()
         r = p.add_run(text)
         r.bold = True
@@ -314,7 +314,7 @@ class GeneratorWord:
         # Rids.
         h = t.rows[3].cells
         h[0].text = '3'
-        h[1].text = 'Количество полученный результатов интеллектуальной деятельности'
+        h[1].text = 'Количество полученных результатов интеллектуальной деятельности'
         h[2].text = 'шт'
         for i in range(3):
             h[3 + i].text = f'{th.ind_rids (y + i)}'
@@ -427,7 +427,7 @@ class GeneratorWord:
         # Rids.
         h = t.rows[3].cells
         h[0].text = '3'
-        h[1].text = 'Количество полученный результатов интеллектуальной деятельности'
+        h[1].text = 'Количество полученных результатов интеллектуальной деятельности'
         h[2].text = 'шт'
         for i in range(3):
             h[3 + i].text = f'{cx.ind_rids (y + i)}'
