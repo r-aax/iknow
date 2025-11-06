@@ -29,7 +29,6 @@ class Thematic:
         self.actuality = ''
         self.resources = ''
         self.background = ''
-        self.content = ''
         self.dict_ind_doctors = dict()
         self.dict_ind_candidates = dict()
         self.dict_ind_rids = dict()

@@ -13,7 +13,7 @@ class ResearchResult:
     #-----------------------------------------------------------------------------------------------
 
     def __init__(self, thematic, year,
-                 title, description,
+                 title, content, description,
                  responsible, comment,
                  funding_part, publications=[]):
         """
@@ -27,6 +27,8 @@ class ResearchResult:
             Year.
         title : str
             Title of result.
+        content : str
+            Content of work.
         description : str
             Description.
         responsible : Employee
@@ -42,6 +44,7 @@ class ResearchResult:
         self.__thematic = thematic
         self.__year = year
         self.__title = title
+        self.__content = content
         self.__description = description
         self.__responsible = responsible
         self.__comment = comment
@@ -94,6 +97,21 @@ class ResearchResult:
         """
 
         return self.__title
+
+    #-----------------------------------------------------------------------------------------------
+
+    @property
+    def content(self):
+        """
+        Get content.
+
+        Returns
+        -------
+        str
+            Content.
+        """
+
+        return self.__content
 
     #-----------------------------------------------------------------------------------------------
 

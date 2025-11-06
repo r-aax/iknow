@@ -412,12 +412,21 @@ class GeneratorWord:
 
         self.add_paragraph(f'7.{number}. Тематика исследований {th.title}.')
 
-        # p. 1-6.
+        # p. 1-4.
         self.add_paragraph(f'1) Цель работы: {th.goal}')
         self.add_paragraph(f'2) Актуальность и новизна работы: {th.actuality}')
         self.add_paragraph(f'3) Ресурсная обеспеченность работы: {th.resources}')
         self.add_paragraph(f'4) Имеющийся научно-технический задел по работе: {th.background}')
-        self.add_paragraph(f'5) Основное содержание работ: {th.content}')
+
+        # p. 5. content
+        cs = []
+        for r in th.results:
+            if (not r.is_rid) and (r.year in range(y, y + 3)):
+                cs.append(r.content)
+        txt = ' '.join(cs)
+        self.add_paragraph(f'5) Основное содержание работ: {txt}')
+
+        # p. 6. years
         self.add_paragraph(f'6) Срок выполнения работы: {y}-{y + 2} годы.')
 
         # p. 7. results.
