@@ -122,6 +122,27 @@ class Thematic:
 
     #-----------------------------------------------------------------------------------------------
 
+    def funding_part(self, year):
+        """
+        Get funding part.
+
+        Parameters
+        ----------
+        year : int
+            Year.
+
+        Returns
+        -------
+        float
+            Funding part.
+        """
+
+        rs = [r for r in self.results if r.year == year]
+
+        return sum([r.funding_part for r in rs])
+
+    #-----------------------------------------------------------------------------------------------
+
     def ind_doctors(self, y):
         """
         Get doctors count indicator.

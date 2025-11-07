@@ -7,6 +7,7 @@ from complex_theme import ComplexTheme
 from worksheet import Worksheet
 from worksheet_line import WorksheetLine
 import worksheet_line_private_collection as wsl
+import outlay_tree
 
 #===================================================================================================
 
@@ -555,6 +556,75 @@ class GeneratorWord:
             self.add_thematic_characteristics(th, i + 1, y)
 
     #-----------------------------------------------------------------------------------------------
+    # Outlay methods.
+    #-----------------------------------------------------------------------------------------------
+
+    def add_outlay_title(self, cx, y):
+        """
+        Add title for outlay.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Start year.
+        """
+
+        text = 'ИТОГОВАЯ СМЕТА\n'\
+               f'расходов на выполнение работы по комплексной теме {cx.title}\n'\
+               f' на очередной {y} год и плановый период {y + 1} и {y + 2} годов'
+        self.add_paragraph(text, WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_outlay_table(self, outlay, y):
+        """
+        Add outlay table.
+
+        Parameters
+        ----------
+        outlay : outlay_tree.Nod
+            Outlay.
+        y : int
+            Year.
+        """
+
+        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+
+        outlay_lines = outlay.flatten()
+        k = len(outlay_lines)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=1+k, cols=5)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Наименование статей расходов'
+        h[2].text = f'{y} год'
+        h[3].text = f'{y + 1} год'
+        h[4].text = f'{y + 2} год'
+
+        # Add all lines.
+        for i in range(k):
+            ol = outlay_lines[i]
+            h = t.rows[1 + i].cells
+            h[0].text = ol.label
+            h[1].text = ol.name
+            x = round(ol.xmoney, 2)
+            h[2].text = f'{x}'
+            h[3].text = f'{x}'
+            h[4].text = f'{x}'
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(4.0), Inches(1.0), Inches(1.0), Inches(1.0)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+    #-----------------------------------------------------------------------------------------------
     # Temporary team.
     #-----------------------------------------------------------------------------------------------
 
@@ -773,6 +843,53 @@ def generate_technical_task(n, cx, y, out):
     w.add_complex_theme_characteristics(cx, y)
     w.add_empty_line()
     w.add_signatures([cx.manager, wsl.shabanov_bm])
+    w.save(out + '.docx')
+
+#---------------------------------------------------------------------------------------------------
+
+def generate_outlay(n, cx, y, out):
+    """
+    Generate outlay document.
+
+    Parameters
+    ----------
+    n : int
+        Supplement number.
+    cx : ComplexTheme
+        Complex theme.
+    y : int
+        Start year.
+    out : str
+        Out file name.
+    """
+
+    w = GeneratorWord()
+    w.add_corner_inscription_supplement_to_order(n)
+    w.add_empty_line()
+    w.add_outlay_title(cx, y)
+    w.add_empty_line()
+
+    # Add outlay for complex theme.
+    w.add_paragraph('1. ИТОГОВАЯ СМЕТА\n'
+                    f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
+                    f'по комплексной теме {cx.title}',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_outlay_table(cx.outlay, y)
+    w.add_empty_line()
+
+    # Add outlays for thematic.
+    for i, th in enumerate(cx.thematics):
+        outlay = outlay_tree.duplicate_outlay(cx.outlay,
+                                              'тематике исследований',
+                                              0.01 * th.funding_part(y))
+        w.add_paragraph(f'1.{i + 1}. ИТОГОВАЯ СМЕТА\n'
+                        f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
+                        f'по тематике исследований {th.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_outlay_table(outlay, y)
+        w.add_empty_line()
+
+    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------

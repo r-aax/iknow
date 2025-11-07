@@ -1,4 +1,5 @@
 from worksheet_line import WorksheetLine
+import outlay_tree
 
 #===================================================================================================
 
@@ -27,6 +28,7 @@ class ComplexTheme:
         self.clk_need = 0
         self.knl_need = 0
         self.icl_need = 0
+        self.outlay = None
 
     #-----------------------------------------------------------------------------------------------
 

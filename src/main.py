@@ -58,6 +58,9 @@ def generate_documents_pack(y, out_dir):
         # Supplement 1 - technical task.
         gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
 
+        # Supplement 3 - outlay
+        gw.generate_outlay(3, theme, y, f'{pre}-приказ-приложение-3-смета')
+
         # Supplement 4 - temporary team.
         gw.generate_temporary_team(4, theme, team, y, f'{pre}-приказ-приложение-4-коллектив')
 
