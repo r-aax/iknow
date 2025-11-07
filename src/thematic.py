@@ -33,6 +33,7 @@ class Thematic:
         self.dict_ind_candidates = dict()
         self.dict_ind_rids = dict()
         self.dict_ind_publications = dict()
+        self.outlay = None
 
         theme.thematics.append(self)
 

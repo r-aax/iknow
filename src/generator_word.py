@@ -578,6 +578,100 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
+    def add_short_outlay_table(self, cx, y):
+        """
+        Add short outlay table.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        """
+
+        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+
+        k = len(cx.thematics)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=2*k + 4, cols=5)
+        t.style = 'Table Grid'
+
+        # Head.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Наименование статей расходов'
+        h[2].text = f'{y} год'
+        h[3].text = f'{y + 1} год'
+        h[4].text = f'{y + 2} год'
+
+        # 1.
+        h = t.rows[1].cells
+        h[0].text = '1.'
+        h[1].text = 'ВСЕГО по комплексной теме, в том числе'
+
+        # 2.
+        h = t.rows[2].cells
+        h[0].text = '2.'
+        h[1].text = 'Прямые и общепроизводственные затраты, из них:'
+
+        # 3.
+        h = t.rows[k + 3].cells
+        h[0].text = '3.'
+        h[1].text = 'Общехозяйственные расходы (*), из них:'
+
+        # Process all thematics.
+        direct, hoz = 0.0, 0.0
+        for i, th in enumerate(cx.thematics):
+            #
+            h = t.rows[3 + i].cells
+            h[0].text = f'2.{i + 1}.'
+            h[1].text = f'Тематика исследований {th.title}'
+            x = round(th.outlay['II'].xmoney, 2)
+            direct = direct + x
+            h[2].text = f'{x}'
+            h[3].text = f'{x}'
+            h[4].text = f'{x}'
+            #
+            h = t.rows[4 + k + i].cells
+            h[0].text = f'3.{i + 1}.'
+            h[1].text = f'Тематика исследований {th.title}'
+            x = round(th.outlay['III'].xmoney, 2)
+            hoz = hoz + x
+            h[2].text = f'{x}'
+            h[3].text = f'{x}'
+            h[4].text = f'{x}'
+
+        # Write sums.
+        h = t.rows[2].cells
+        direct = round(direct, 2)
+        h[2].text = f'{direct}'
+        h[3].text = f'{direct}'
+        h[4].text = f'{direct}'
+        h = t.rows[6].cells
+        hoz = round(hoz, 2)
+        h[2].text = f'{hoz}'
+        h[3].text = f'{hoz}'
+        h[4].text = f'{hoz}'
+        h = t.rows[1].cells
+        s = round(direct + hoz, 2)
+        h[2].text = f'{s}'
+        h[3].text = f'{s}'
+        h[4].text = f'{s}'
+
+        # Cells sizes.
+        ws = [Inches(0.5), Inches(4.0), Inches(1.0), Inches(1.0), Inches(1.0)]
+        for row in t.rows:
+            for i, w in enumerate(ws):
+                row.cells[i].width = w
+
+        self.add_paragraph('* Объем общехозяйственных расходов может быть изменен с учётом '
+                           'изменений Плана доходов и расходов и принятых решений на '
+                           'Финансовом совете', WD_PARAGRAPH_ALIGNMENT.LEFT)
+
+    #-----------------------------------------------------------------------------------------------
+
     def add_outlay_table(self, outlay, y):
         """
         Add outlay table.
@@ -863,10 +957,21 @@ def generate_outlay(n, cx, y, out):
         Out file name.
     """
 
+    # Create outlays for thematics.
+    for th in cx.thematics:
+        th.outlay = outlay_tree.duplicate_outlay(cx.outlay, 'тематике исследований',
+                                                 0.01 * th.funding_part(y))
+
     w = GeneratorWord()
     w.add_corner_inscription_supplement_to_order(n)
     w.add_empty_line()
     w.add_outlay_title(cx, y)
+    w.add_empty_line()
+
+    # Add short outlay for complex theme.
+    w.add_paragraph(f'1. ИТОГОВАЯ СВОДНАЯ СМЕТА\nпо комплексной теме {cx.title}',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_short_outlay_table(cx, y)
     w.add_empty_line()
 
     # Add outlay for complex theme.
@@ -879,14 +984,11 @@ def generate_outlay(n, cx, y, out):
 
     # Add outlays for thematic.
     for i, th in enumerate(cx.thematics):
-        outlay = outlay_tree.duplicate_outlay(cx.outlay,
-                                              'тематике исследований',
-                                              0.01 * th.funding_part(y))
         w.add_paragraph(f'1.{i + 1}. ИТОГОВАЯ СМЕТА\n'
                         f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
                         f'по тематике исследований {th.title}',
                         WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-        w.add_outlay_table(outlay, y)
+        w.add_outlay_table(th.outlay, y)
         w.add_empty_line()
 
     w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
