@@ -58,6 +58,9 @@ def generate_documents_pack(y, out_dir):
         # Supplement 1 - technical task.
         gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
 
+        # Supplement 2 - calendar plan
+        gw.generate_calendar_plan(2, theme, y, f'{pre}-приказ-приложение-2-КП')
+
         # Supplement 3 - outlay
         gw.generate_outlay(3, theme, y, f'{pre}-приказ-приложение-3-смета')
 
