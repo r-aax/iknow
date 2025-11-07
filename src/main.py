@@ -55,6 +55,9 @@ def generate_documents_pack(y, out_dir):
     for (theme, team) in [(cx.cx1, ttc.cx1), (cx.cx2, ttc.cx2)]:
         pre = f'{out_dir}/{theme.short_title}'
 
+        # Order.
+        gw.generate_order(theme, y, f'{pre}-приказ')
+
         # Supplement 1 - technical task.
         gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
 

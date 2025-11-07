@@ -9,7 +9,7 @@ class JobTitle:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, name, cat, cg, cu):
+    def __init__(self, name, cat, cg, cu, name_r=''):
         """
         Name of position.
 
@@ -23,12 +23,15 @@ class JobTitle:
             CG.
         cu : str
             CU.
+        name_r : str
+            Other form.
         """
 
         self.__name = name
         self.__cat = cat
         self.__cg = cg
         self.__cu = cu
+        self.name_r = name_r
 
 #---------------------------------------------------------------------------------------------------
 
