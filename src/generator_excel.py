@@ -2,6 +2,10 @@ from worksheet import Worksheet
 from openpyxl import Workbook
 from openpyxl.styles import Font
 
+from complex_theme import ComplexTheme
+import temporary_team_private_collection
+import complex_theme_private_collection
+
 #===================================================================================================
 
 class GeneratorExcel:
@@ -69,12 +73,12 @@ class GeneratorExcel:
         self.book.save(name)
 
     #-----------------------------------------------------------------------------------------------
-    # PTNI performers book.
+    # PTNI researchers book.
     #-----------------------------------------------------------------------------------------------
 
-    def add_PTNI_performers_head_and_prepare(self):
+    def add_PTNI_researchers_head_and_prepare(self):
         """
-        Add PTNI performers head.
+        Add PTNI researchers head.
         """
 
         # Set title.
@@ -122,19 +126,27 @@ class GeneratorExcel:
 
     #-----------------------------------------------------------------------------------------------
 
-    def add_PTNI_performers(self, team):
+    def add_PTNI_researchers(self, theme):
         """
-        Add performers data.
+        Add researchers data.
 
         Parameters
         ----------
-        team : Worksheet
-            Worksheet.
+        theme : ComplexTheme
+            Complex theme.
         """
 
         r = 2
 
-        for wsl in team.lines:
+        wsls = []
+        if theme == complex_theme_private_collection.cx1:
+            wsls = temporary_team_private_collection.cx1_researchers_list
+        elif theme == complex_theme_private_collection.cx2:
+            wsls = temporary_team_private_collection.cx2_researchers_list
+        else:
+            raise Exception(f'unknown theme {theme.title}')
+
+        for wsl in wsls:
             em = wsl.employee
             p = em.personal
 
@@ -160,21 +172,21 @@ class GeneratorExcel:
 
 #===================================================================================================
 
-def generate_PTNI_performers(team, out):
+def generate_PTNI_researchers(theme, out):
     """
-    Generate file of performers (PTNI).
+    Generate file of researchers (PTNI).
 
     Parameters
     ----------
-    team : Worksheet
-        Worksheet.
+    theme : ComplexTheme
+        Complex theme.
     out : str
         Out file name.
     """
 
     e = GeneratorExcel()
-    e.add_PTNI_performers_head_and_prepare()
-    e.add_PTNI_performers(team)
+    e.add_PTNI_researchers_head_and_prepare()
+    e.add_PTNI_researchers(theme)
     e.save(f'{out}.xlsx')
 
 #===================================================================================================
