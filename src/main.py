@@ -56,25 +56,32 @@ def generate_documents_pack(y, out_dir):
         pre = f'{out_dir}/{theme.short_title}'
 
         # Order.
-        gw.generate_order(theme, y, f'{pre}-приказ')
+        #gw.generate_order(theme, y, f'{pre}-приказ')
 
         # Supplement 1 - technical task.
-        gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
+        #gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
+        gw.generate_technical_task(1, theme, y, f'{pre}-1-ТЗ')
 
         # Supplement 2 - calendar plan
-        gw.generate_calendar_plan(2, theme, y, f'{pre}-приказ-приложение-2-КП')
+        #gw.generate_calendar_plan(2, theme, y, f'{pre}-приказ-приложение-2-КП')
+        gw.generate_calendar_plan(2, theme, y, f'{pre}-2-КП')
 
         # Supplement 3 - outlay
-        gw.generate_outlay(3, theme, y, f'{pre}-приказ-приложение-3-смета')
+        gw.generate_form_gos_assignment_suppl_09_pre_outlay(theme, y, f'{pre}-3-предварительная-смета')
+        #gw.generate_outlay(3, theme, y, f'{pre}-приказ-приложение-3-смета')
+        #gw.generate_outlay(3, theme, y, f'{pre}-3-смета')
 
         # Supplement 4 - temporary team.
-        gw.generate_temporary_team(4, theme, team, y, f'{pre}-приказ-приложение-4-коллектив')
+        #gw.generate_temporary_team(4, theme, team, y, f'{pre}-приказ-приложение-4-коллектив')
+        #gw.generate_temporary_team(4, theme, team, y, f'{pre}-4-коллектив')
+        gw.generate_form_gos_assignment_suppl_10_temporary_team(theme, team, y, f'{pre}-4-коллектив')
 
         # Supplement 5 - equipment.
-        gw.generate_equipment(5, theme, f'{pre}-приказ-приложение-5-оборудование')
+        #gw.generate_equipment(5, theme, f'{pre}-приказ-приложение-5-оборудование')
+        gw.generate_equipment(5, theme, f'{pre}-5-оборудование')
 
         # PTNI forms.
-        ge.generate_PTNI_researchers(theme, f'{pre}-ПТНИ-исследователи')
+        #ge.generate_PTNI_researchers(theme, f'{pre}-ПТНИ-исследователи')
 
 #===================================================================================================
 

@@ -83,6 +83,20 @@ class Nod:
 
     #-----------------------------------------------------------------------------------------------
 
+    def count(self):
+        """
+        Count.
+
+        Returns
+        -------
+        int
+            Count of elements (including self).
+        """
+
+        return 1 + sum([c.count() for c in self.ch])
+
+    #-----------------------------------------------------------------------------------------------
+
     def add(self, n):
         """
         Add new child.

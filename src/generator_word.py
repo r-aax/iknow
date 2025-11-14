@@ -5,10 +5,34 @@ from docx.enum.section import WD_ORIENT
 
 from thematic import Thematic
 from complex_theme import ComplexTheme
+import complex_theme_private_collection
+import temporary_team_private_collection
 from worksheet import Worksheet
 from worksheet_line import WorksheetLine
 import worksheet_line_private_collection as wsl
 import outlay_tree
+
+#===================================================================================================
+
+# Common functions.
+
+def set_table_columns_widths(t, ws):
+    """
+    Set table columns widths.
+
+    Parameters
+    ----------
+    t : Table
+        Word table.
+    ws : [float]
+        Columns widths in inches.
+    """
+
+    ws = [Inches(w) for w in ws]
+
+    for row in t.rows:
+        for i, w in enumerate(ws):
+            row.cells[i].width = w
 
 #===================================================================================================
 
@@ -294,11 +318,7 @@ class GeneratorWord:
                 h[3].text = str(r.year)
                 i = i + 1
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 5.0, 0.5, 0.5])
 
         self.add_empty_line()
 
@@ -348,11 +368,7 @@ class GeneratorWord:
                 h[3].text = str(r.year)
                 i = i + 1
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 5.0, 0.5, 0.5])
 
         self.add_empty_line()
 
@@ -418,11 +434,7 @@ class GeneratorWord:
         for i in range(3):
             h[3 + i].text = f'{th.ind_publications(y + i)}'
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5), Inches(0.5), Inches(0.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 5.0, 0.5, 0.5, 0.5, 0.5])
 
         self.add_empty_line()
 
@@ -540,11 +552,7 @@ class GeneratorWord:
         for i in range(3):
             h[3 + i].text = f'{cx.ind_publications(y + i)}'
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(5.0), Inches(0.5), Inches(0.5), Inches(0.5), Inches(0.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 5.0, 0.5, 0.5, 0.5, 0.5])
 
     #-----------------------------------------------------------------------------------------------
 
@@ -634,24 +642,25 @@ class GeneratorWord:
         self.add_paragraph(f'Календарный план на {y} год', WD_PARAGRAPH_ALIGNMENT.CENTER, True)
 
         # Table and its style.
-        t = self.doc.add_table(rows=1+k, cols=10)
+        t = self.doc.add_table(rows=1+k, cols=11)
         t.style = 'Table Grid'
 
         # Head.
         h = t.rows[0].cells
         h[0].text = '№ п/п'
-        h[1].text = 'Содержание выполняемых работ (далее - РИД) *'
-        h[2].text = 'Вид планируемого к созданию результата интеллектуальной деятельности'
-        h[3].text = 'Планируемое наименование планируемого к созданию РИД'
-        h[4].text = 'Краткое описание планируемого к созданию РИД'
-        h[5].text = 'Планируемый уровень готовности разрабатываемых или разработанных технологий (далее - УГТ) **'
-        h[6].text = 'Срок создания РИД (мм.гггг)'
-        h[7].text = 'Состав отчетной документации'
-        h[8].text = 'Ответственный руководитель работ по комплексной теме\n\n'\
+        h[1].text = 'Содержание выполняемых работ'
+        h[2].text = 'Ожидаемый результат выполнения работ / Период реализации работ в рамках тематики исследований'
+        h[3].text = 'Вид планируемого к созданию результата интеллектуальной деятельности'
+        h[4].text = 'Планируемое наименование планируемого к созданию РИД'
+        h[5].text = 'Краткое описание планируемого к созданию РИД'
+        h[6].text = 'Планируемый уровень готовности разрабатываемых или разработанных технологий (далее - УГТ) **'
+        h[7].text = 'Срок создания РИД (мм.гггг)'
+        h[8].text = 'Состав отчетной документации'
+        h[9].text = 'Ответственный руководитель работ по комплексной теме\n\n'\
                     'Ответственное структурное подразделение Центра за выполнение работ по комплексной теме\n\n'\
                     'Ответственный руководитель работ по подтеме комплексной темы с указанием структурного подразделения\n\n'\
                     'Ответственный руководитель работ по тематике исследований подтемы комплексной темы с указанием структурного подразделения'
-        h[9].text = 'Стоимость, тыс. рублей'
+        h[10].text = 'Стоимость, тыс. рублей'
 
         # Add row by row.
         i = 1
@@ -659,26 +668,27 @@ class GeneratorWord:
             h = t.rows[i].cells
             h[0].text = f'{thi + 1}.'
             h[1].merge(h[2]).merge(h[3]).merge(h[4]).merge(h[5]).merge(h[6]).merge(h[7]).merge(h[8]).merge(h[9])
-            h[1].text = th.title
+            h[1].text = f'Тематика {th.title}'
             i = i + 1
             for r in th.results:
                 if r.year == y:
                     h = t.rows[i].cells
                     h[0].text = ''
                     h[1].text = r.content
+                    h[2].text = f'{r.title} / {y} год'
                     if r.is_rid:
-                        h[2].text = r.rid_type
-                        h[3].text = r.rid_name
-                        h[4].text = r.description
-                        h[5].text = '3'
-                        h[6].text = f'12.{y}'
-                    h[7].text = 'Аннотационный отчет - ежеквартально;\n\nИтоговый отчет о НИР.'
+                        h[3].text = r.rid_type
+                        h[4].text = r.rid_name
+                        h[5].text = r.description
+                        h[6].text = '3'
+                        h[7].text = f'12.{y}'
+                    h[8].text = 'Аннотационный отчет - ежеквартально;\n\nИтоговый отчет о НИР.'
                     pname = cx.manager.employee.personal.surname_n_p('ru')
                     pjobtitle = cx.manager.job_title.name
                     pjobplace = cx.manager.job_place.name
-                    h[8].text = f'{pname}\n({pjobtitle}, {pjobplace})'
+                    h[9].text = f'{pname}\n({pjobtitle}, {pjobplace})'
                     money = round(cx.outlay.xmoney * (0.01 * r.funding_part), 2)
-                    h[9].text = f'{money}'
+                    h[10].text = f'{money}'
                     i = i + 1
 
         # Text sizes.
@@ -689,12 +699,7 @@ class GeneratorWord:
                         font = run.font
                         font.size = Pt(8)
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(3.0), Inches(0.5), Inches(0.5), Inches(0.5),
-              Inches(0.5), Inches(0.5), Inches(0.5), Inches(3.0), Inches(0.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        #set_table_columns_widths(t, [0.5, 2.0, 2.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 2.0, 0.5])
 
         p = self.add_paragraph('* В настоящем столбце указываются следующие вида РИД - программы '
                                'для ЭВМ, базы данных, изобретения, полезные модели, промышленные '
@@ -729,7 +734,7 @@ class GeneratorWord:
             Start year.
         """
 
-        text = 'ИТОГОВАЯ СМЕТА\n'\
+        text = 'ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n'\
                f'расходов на выполнение работы по комплексной теме {cx.title}\n'\
                f' на очередной {y} год и плановый период {y + 1} и {y + 2} годов'
         self.add_paragraph(text, WD_PARAGRAPH_ALIGNMENT.CENTER, True)
@@ -818,15 +823,74 @@ class GeneratorWord:
         h[3].text = f'{s}'
         h[4].text = f'{s}'
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(4.0), Inches(1.0), Inches(1.0), Inches(1.0)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 4.0, 1.0, 1.0, 1.0])
 
         self.add_paragraph('* Объем общехозяйственных расходов может быть изменен с учётом '
                            'изменений Плана доходов и расходов и принятых решений на '
                            'Финансовом совете', WD_PARAGRAPH_ALIGNMENT.LEFT)
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_outlay_table_theme_with_subthemes(self, outlay, y, hoz):
+        """
+        Add outlay table for one theme - subthemes.
+
+        NB! We have no subthemes.
+
+        Parameters
+        ----------
+        outlay : outlay_tree.Nod
+            Outlay
+        y : int
+            Year.
+        hoz : bool
+            Add hoz spents.
+        """
+
+        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+
+        # Flatten outlay.
+        outlay_lines = outlay.flatten()
+        k = outlay['II'].count()
+
+        # Table and its style.
+        t = self.doc.add_table(rows=1+k, cols=3)
+        t.style = 'Table Grid'
+
+        # Add row.
+        def add_row(i, h0, h1, h2):
+            h = t.rows[i].cells
+            h[0].text, h[1].text, h[2].text = h0, h1, h2
+
+        # Add head.
+        add_row(0,
+                '№ п/п', 'Наименование статей расходов', 'Всего стоимость, тыс. рублей')
+
+        # Add all lines.
+
+        rowi = 1
+
+        # If it is form without hoz then print first row.
+        if not hoz:
+            x = round(outlay['II'].xmoney, 2)
+            add_row(rowi,'', 'ВСЕГО ЗАТРАТ, в том числе:', f'{x}')
+            rowi = rowi + 1
+
+        for ol in outlay_lines:
+
+            # Do not print
+            if (ol.label == 'I.') or (ol.label == 'II.'):
+                continue
+
+            # Do not print hoz spents.
+            if (not hoz) and (ol.label == 'III.'):
+                break
+
+            x = round(ol.xmoney, 2)
+            add_row(rowi, ol.label, ol.name, f'{x}')
+            rowi = rowi + 1
+
+        set_table_columns_widths(t, [0.5, 5.0, 1.5])
 
     #-----------------------------------------------------------------------------------------------
 
@@ -870,11 +934,7 @@ class GeneratorWord:
             h[3].text = f'{x}'
             h[4].text = f'{x}'
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(4.0), Inches(1.0), Inches(1.0), Inches(1.0)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 4.0, 1.0, 1.0, 1.0])
 
     #-----------------------------------------------------------------------------------------------
     # Temporary team.
@@ -900,6 +960,66 @@ class GeneratorWord:
         r = p.add_run(pre_text + cx.title + post_text)
         r.bold = True
         p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_temporary_team_table_with_workload(self, w, cx):
+        """
+        Add temporary team table with workload.
+
+        Parameters
+        ----------
+        w : Worksheet
+            Worksheet.
+        cx : ComplexTheme
+            Complex theme.
+        """
+
+        # number of people
+        n = len(w.lines)
+
+        self.add_paragraph('человеко/месяц', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+
+        # table and its style
+        t = self.doc.add_table(rows=n + 1, cols=9)
+        t.style = 'Table Grid'
+
+        # head
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'ФИО'
+        h[2].text = 'Должность'
+        h[3].text = 'Табельный номер'
+        h[4].text = 'Год рождения'
+        h[5].text = 'Подразделение'
+        h[6].text = f'Планируемые трудозатраты по тематике {cx.thematics[0].title}'
+        h[7].text = f'Планируемые трудозатраты по тематике {cx.thematics[1].title}'
+        h[8].text = f'Планируемые трудозатраты по тематике {cx.thematics[2].title}'
+
+        # add rest rows
+        for i in range(n):
+            r = t.rows[i + 1].cells
+            wl = w.lines[i]
+            e = wl.employee
+            p = e.personal
+            r[0].text = str(i + 1) + '.'
+            r[1].text = p.surname_name_patronymic()
+            r[2].text = wl.job_title.name
+            r[3].text = e.tabel
+            r[4].text = str(p.year)
+            r[5].text = wl.job_place.half_full_name
+            x = round(wl.slot / 3.0, 2)
+            r[6].text = f'{x}'
+            r[7].text = f'{x}'
+            r[8].text = f'{x}'
+
+        # Text sizes.
+        for row in t.rows:
+            for cell in row.cells:
+                for par in cell.paragraphs:
+                    for run in par.runs:
+                        font = run.font
+                        font.size = Pt(8)
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1030,11 +1150,7 @@ class GeneratorWord:
         h[2].text = 'Москва, Ленинский проспект, 32А.'
         h[3].text = all_thematics_text
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(2.0), Inches(1.5), Inches(3.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 2.0, 1.5, 3.5])
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1063,11 +1179,7 @@ class GeneratorWord:
         h[2].text = 'Местоположение (здание, помещение)'
         h[3].text = 'Наименование подтем и тематик исследований'
 
-        # Cells sizes.
-        ws = [Inches(0.5), Inches(2.0), Inches(1.5), Inches(3.5)]
-        for row in t.rows:
-            for i, w in enumerate(ws):
-                row.cells[i].width = w
+        set_table_columns_widths(t, [0.5, 2.0, 1.5, 3.5])
 
 #===================================================================================================
 
@@ -1210,8 +1322,8 @@ def generate_technical_task(n, cx, y, out):
     """
 
     w = GeneratorWord()
-    w.add_corner_inscription_supplement_to_order(n)
-    w.add_empty_line()
+    #w.add_corner_inscription_supplement_to_order(n)
+    #w.add_empty_line()
     w.add_technical_task_title(cx, y)
     w.add_empty_line()
     w.add_complex_theme_characteristics(cx, y)
@@ -1251,8 +1363,8 @@ def generate_calendar_plan(n, cx, y, out):
     section.page_width = new_width
     section.page_height = new_height
 
-    w.add_corner_inscription_supplement_to_order(n)
-    w.add_empty_line()
+    #w.add_corner_inscription_supplement_to_order(n)
+    #w.add_empty_line()
     w.add_calendar_plan_title(cx, y)
     w.add_empty_line()
     w.add_calendar_plan_table(cx, y)
@@ -1262,6 +1374,62 @@ def generate_calendar_plan(n, cx, y, out):
     w.add_calendar_plan_table(cx, y + 2)
     w.add_empty_line()
     w.add_signatures([cx.manager, wsl.shabanov_bm])
+    w.save(out + '.docx')
+
+#---------------------------------------------------------------------------------------------------
+
+def generate_form_gos_assignment_suppl_09_pre_outlay(cx, y, out):
+    """
+    Generate
+    'form gos assignment, supplement 09 - pre outlay'.
+
+    Parameters
+    ----------
+    cx : ComplexTheme
+        Complex theme.
+    y : int
+        Year.
+    out : str
+        Out file.
+    """
+
+    # Create document.
+    w = GeneratorWord()
+
+    # Title.
+    w.add_paragraph('ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n '
+                    'прямых и общепроизводственных расходов, непосредственно связанных с '
+                    'выполнением научно-исследовательской работы '
+                    f'по комплексной теме {cx.title} на очередной {y} год '
+                    f'и плановый период {y + 1} и {y + 2} годов',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+
+    # First table.
+    w.add_paragraph('1. Предварительная смета прямых и общепроизводственных расходов, '
+                    'непосредственно связанных с выполнением научно-исследовательской работы '
+                    f'на очередной {y} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_outlay_table_theme_with_subthemes(cx.outlay, y, False)
+    w.add_empty_line()
+
+    # Second table.
+    w.add_paragraph('2. Предварительная смета прямых и общепроизводственных расходов, '
+                    'непосредственно связанных с выполнением научно-исследовательской работы '
+                    f'на первый плановый год - {y + 1} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 1, False)
+    w.add_empty_line()
+
+    # Third table.
+    w.add_paragraph('3. Предварительная смета прямых и общепроизводственных расходов, '
+                    'непосредственно связанных с выполнением научно-исследовательской работы '
+                    f'на второй плановый год - {y + 2} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 2, False)
+    w.add_empty_line()
+
+    # Add signatures and close file.
+    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------
@@ -1283,19 +1451,19 @@ def generate_outlay(n, cx, y, out):
     """
 
     w = GeneratorWord()
-    w.add_corner_inscription_supplement_to_order(n)
-    w.add_empty_line()
+    #w.add_corner_inscription_supplement_to_order(n)
+    #w.add_empty_line()
     w.add_outlay_title(cx, y)
     w.add_empty_line()
 
     # Add short outlay for complex theme.
-    w.add_paragraph(f'1. ИТОГОВАЯ СВОДНАЯ СМЕТА\nпо комплексной теме {cx.title}',
+    w.add_paragraph(f'1. ПРЕДВАРИТЕЛЬНАЯ СМЕТА\nпо комплексной теме {cx.title}',
                     WD_PARAGRAPH_ALIGNMENT.CENTER, True)
     w.add_short_outlay_table(cx, y)
     w.add_empty_line()
 
     # Add outlay for complex theme.
-    w.add_paragraph('1. ИТОГОВАЯ СМЕТА\n'
+    w.add_paragraph('1. ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n'
                     f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
                     f'по комплексной теме {cx.title}',
                     WD_PARAGRAPH_ALIGNMENT.CENTER, True)
@@ -1304,13 +1472,67 @@ def generate_outlay(n, cx, y, out):
 
     # Add outlays for thematic.
     for i, th in enumerate(cx.thematics):
-        w.add_paragraph(f'1.{i + 1}. ИТОГОВАЯ СМЕТА\n'
+        w.add_paragraph(f'1.{i + 1}. ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n'
                         f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
                         f'по тематике исследований {th.title}',
                         WD_PARAGRAPH_ALIGNMENT.CENTER, True)
         w.add_outlay_table(th.outlay, y)
         w.add_empty_line()
 
+    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
+    w.save(out + '.docx')
+
+#---------------------------------------------------------------------------------------------------
+
+def generate_form_gos_assignment_suppl_10_temporary_team(cx, team, y, out):
+    """
+    Generate form for gos assignment.
+    Supplement 10 (temporary team).
+
+    Parameters
+    ----------
+    cx : ComplexTheme
+        Complex theme.
+    team : Worksheet
+        Worksheet.
+    y : int
+        Year.
+    out : str
+        Out file.
+    """
+
+    # Create document.
+    w = GeneratorWord()
+
+    # Title.
+    w.add_paragraph('СОСТАВ\n'
+                    'временного трудового коллектива для выполнения научно-исследовательской '
+                    f'работы и планируемые трудозатраты на очередной {y} год '
+                    f'и плановый период {y + 1} и {y + 2} годов по комплексной теме {cx.title}',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+
+    # First year.
+    w.add_paragraph('1. Состав временного трудового коллектива и планируемые трудозатраты '
+                    f'на первый год планового периода - {y} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_temporary_team_table_with_workload(team, cx)
+    w.add_empty_line()
+
+    # First year.
+    w.add_paragraph('2. Состав временного трудового коллектива и планируемые трудозатраты '
+                    f'на первый год планового периода - {y + 1} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_temporary_team_table_with_workload(team, cx)
+    w.add_empty_line()
+
+    # First year.
+    w.add_paragraph('3. Состав временного трудового коллектива и планируемые трудозатраты '
+                    f'на первый год планового периода - {y + 2} год',
+                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+    w.add_temporary_team_table_with_workload(team, cx)
+    w.add_empty_line()
+
+    # Add signatures and close file.
     w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
@@ -1335,8 +1557,8 @@ def generate_temporary_team(n, cx, team, y, out):
     """
 
     w = GeneratorWord()
-    w.add_corner_inscription_supplement_to_order(n)
-    w.add_empty_line()
+    #w.add_corner_inscription_supplement_to_order(n)
+    #w.add_empty_line()
     w.add_temporary_team_title(cx, y)
     w.add_empty_line()
     w.add_temporary_team_table(team, cx)
@@ -1361,8 +1583,8 @@ def generate_equipment(n, cx, out):
     """
 
     w = GeneratorWord()
-    w.add_corner_inscription_supplement_to_order(n)
-    w.add_empty_line()
+    #w.add_corner_inscription_supplement_to_order(n)
+    #w.add_empty_line()
     w.add_equipment_title(cx)
     w.add_empty_line()
     w.add_inner_equipment_table(cx)
