@@ -11,6 +11,7 @@ from worksheet import Worksheet
 from worksheet_line import WorksheetLine
 import worksheet_line_private_collection as wsl
 import outlay_tree
+import math
 
 #===================================================================================================
 
@@ -252,28 +253,6 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
     # Technical task methods.
-    #-----------------------------------------------------------------------------------------------
-
-    def add_technical_task_title(self, cx, y):
-        """
-        Add title for technical task.
-
-        Parameters
-        ----------
-        cx : ComplexTheme
-            Complex theme.
-        y : int
-            Start year.
-        """
-
-        text = 'ТЕХНИЧЕСКОЕ ЗАДАНИЕ\n'\
-               'на выполнение научно-исследовательской работы\n'\
-               f'по комплексной теме {cx.title}'
-        p = self.doc.add_paragraph()
-        r = p.add_run(text)
-        r.bold = True
-        p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-
     #-----------------------------------------------------------------------------------------------
 
     def add_thematic_results_table_with_TRL(self, th, y):
@@ -593,6 +572,40 @@ class GeneratorWord:
         # Add characteristics for all thematics.
         for i, th in enumerate(cx.thematics):
             self.add_thematic_characteristics(th, i + 1, y)
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_form_gos_assignment_suppl_07_technical_task(theme, y, out):
+        """
+        Generate form gos assignment.
+        Supplement 7 - technical task.
+
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        out : str
+            Out file name.
+        """
+
+        w = GeneratorWord()
+
+        # Title.
+        w.add_paragraph('ТЕХНИЧЕСКОЕ ЗАДАНИЕ\n на выполнение научно-исследовательской работы '
+                        f'по комплексной теме {theme.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
+
+        # Main information.
+        w.add_complex_theme_characteristics(theme, y)
+        w.add_empty_line()
+
+        # Signatures.
+        w.add_signatures([theme.manager, wsl.shabanov_bm])
+        w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
     # Calendar plan methods.
@@ -978,7 +991,7 @@ class GeneratorWord:
         # number of people
         n = len(w.lines)
 
-        self.add_paragraph('человеко/месяц', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+        self.add_paragraph('человек/месяц', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         # table and its style
         t = self.doc.add_table(rows=n + 1, cols=9)
@@ -1008,7 +1021,11 @@ class GeneratorWord:
             r[3].text = e.tabel
             r[4].text = str(p.year)
             r[5].text = wl.job_place.half_full_name
-            x = round(wl.slot / 3.0, 2)
+            x = wl.slot / 3.0 # slots
+            x = x * 12
+            x = x * 100
+            x = math.floor(x)
+            x = x * 0.01
             r[6].text = f'{x}'
             r[7].text = f'{x}'
             r[8].text = f'{x}'

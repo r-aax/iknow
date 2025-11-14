@@ -1,10 +1,11 @@
 import worksheet_private_collection as wc
 import temporary_team_private_collection as ttc
 import complex_theme_private_collection as cx
-import generator_word as gw
+from generator_word import GeneratorWord as gw
 import generator_excel as ge
 import publication_collection as pc
 import generator_html as gh
+import generator_word
 
 #===================================================================================================
 
@@ -55,41 +56,13 @@ def generate_documents_pack(y, out_dir):
     for (theme, team) in [(cx.cx1, ttc.cx1), (cx.cx2, ttc.cx2)]:
         pre = f'{out_dir}/{theme.short_title}'
 
-        # Order.
-        #gw.generate_order(theme, y, f'{pre}-приказ')
-
-        # Supplement 1 - technical task.
-        #gw.generate_technical_task(1, theme, y, f'{pre}-приказ-приложение-1-ТЗ')
-        gw.generate_technical_task(1, theme, y, f'{pre}-1-ТЗ')
-
-        # Supplement 2 - calendar plan
-        #gw.generate_calendar_plan(2, theme, y, f'{pre}-приказ-приложение-2-КП')
-        gw.generate_calendar_plan(2, theme, y, f'{pre}-2-КП')
-
-        # Supplement 3 - outlay
-        gw.generate_form_gos_assignment_suppl_09_pre_outlay(theme, y, f'{pre}-3-предварительная-смета')
-        #gw.generate_outlay(3, theme, y, f'{pre}-приказ-приложение-3-смета')
-        #gw.generate_outlay(3, theme, y, f'{pre}-3-смета')
-
-        # Supplement 4 - temporary team.
-        #gw.generate_temporary_team(4, theme, team, y, f'{pre}-приказ-приложение-4-коллектив')
-        #gw.generate_temporary_team(4, theme, team, y, f'{pre}-4-коллектив')
-        gw.generate_form_gos_assignment_suppl_10_temporary_team(theme, team, y, f'{pre}-4-коллектив')
-
-        # Supplement 5 - equipment.
-        #gw.generate_equipment(5, theme, f'{pre}-приказ-приложение-5-оборудование')
-        gw.generate_equipment(5, theme, f'{pre}-5-оборудование')
-
-        # PTNI forms.
-        #ge.generate_PTNI_researchers(theme, f'{pre}-ПТНИ-исследователи')
+        # Form gos assignment (supplements 7 - 11).
+        gw.generate_form_gos_assignment_suppl_07_technical_task(theme, y, f'{pre}-пре-1-ТЗ')
+        generator_word.generate_form_gos_assignment_suppl_10_temporary_team(theme, team, y, f'{pre}-4-коллектив')
 
 #===================================================================================================
 
 if __name__ == '__main__':
-
-    # statistics
-    #print_worksheets_statitics()
-    #print_temporary_teams_statistics()
 
     # plans
     #gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
@@ -97,27 +70,6 @@ if __name__ == '__main__':
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_from=2025, year_to=2029)
 
     # generate documents for complex themes
-    generate_documents_pack(2027, '../out/orders')
-
-    #young = len([p for p in ttc.cx1_researchers_list if (p.employee.personal.age_in_the_end_of_year(2028) < 40.0)]) / len(ttc.cx1_researchers_list)
-    #print(young)
-
-    #cnt = 0
-    #li = ttc.cx1_researchers_list
-    #for wlc in li:
-    #    p = wlc.employee.personal
-    #    a = p.age_in_the_end_of_year(2028)
-    #   if a < 40.0:
-    #       cnt = cnt + 1
-    #print('th 1 : under 40 : ', cnt, 'of', len(li), '% ---- ', cnt / len(li))
-
-    #cnt = 0
-    #li = ttc.cx2_researchers_list
-    #for wlc in li:
-    #    p = wlc.employee.personal
-    #    a = p.age_in_the_end_of_year(2028)
-    #    if a < 40.0:
-    #       cnt = cnt + 1
-    #print('th 2 : under 40 : ', cnt, 'of', len(li), '% ---- ', cnt / len(li))
+    generate_documents_pack(2027, '../out/docs')
 
 #===================================================================================================
