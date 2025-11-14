@@ -57,8 +57,8 @@ def generate_documents_pack(y, out_dir):
         pre = f'{out_dir}/{theme.short_title}'
 
         # Form gos assignment (supplements 7 - 11).
-        gw.generate_form_gos_assignment_suppl_07_technical_task(theme, y, f'{pre}-пре-1-ТЗ')
-        generator_word.generate_form_gos_assignment_suppl_10_temporary_team(theme, team, y, f'{pre}-4-коллектив')
+        #gw.generate_form_gos_assignment_suppl_07_technical_task(theme, y, f'{pre}-пре-1-ТЗ')
+        gw.generate_form_gos_assignment_suppl_08_calendar_plan(theme, y, f'{pre}-пре-2-КП')
 
 #===================================================================================================
 

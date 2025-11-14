@@ -186,13 +186,10 @@ class GeneratorWord:
             Number of supplement.
         """
 
-        p = self.doc.add_paragraph(f'Приложение № {n}\n'
-                                   'к приказу НИЦ «Курчатовский институт»\n'
-                                   'от «___» ____________ ____ г. № ______')
-        p.alignment = WD_PARAGRAPH_ALIGNMENT.RIGHT
-        f = p.style.font
-        f.name = 'Times New Roman'
-        f.size = Pt(12)
+        self.doc.add_paragraph(f'Приложение № {n}\n'
+                               'к приказу НИЦ «Курчатовский институт»\n'
+                               'от «___» ____________ ____ г. № ______',
+                               WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
     #-----------------------------------------------------------------------------------------------
 
@@ -603,7 +600,7 @@ class GeneratorWord:
         w.add_complex_theme_characteristics(theme, y)
         w.add_empty_line()
 
-        # Signatures.
+        # Signatures and save.
         w.add_signatures([theme.manager, wsl.shabanov_bm])
         w.save(out + '.docx')
 
@@ -730,6 +727,52 @@ class GeneratorWord:
                                'уровней готовности разрабатываемых или разработанных технологи»:',
                                WD_PARAGRAPH_ALIGNMENT.LEFT)
         p.runs[0].font.size = Pt(8)
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_form_gos_assignment_suppl_08_calendar_plan(theme, y, out):
+        """
+        Generate form gos assignment.
+        8 supplement - calendar plan.
+
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        out : str
+            Output file name.
+        """
+
+        w = GeneratorWord()
+
+        # Landscape.
+        section = w.doc.sections[-1]
+        new_width, new_height = section.page_height, section.page_width
+        section.orientation = WD_ORIENT.LANDSCAPE
+        section.page_width = new_width
+        section.page_height = new_height
+
+        # Title.
+        w.add_paragraph(f'КАЛЕНДАРНЫЙ ПЛАН\n на {y} год и плановый период {y + 1} и {y + 2} годов '
+                        'на выполнение научно-исследовательской работы '
+                        f'по комплексной теме {theme.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
+
+        # Add tables.
+        w.add_calendar_plan_table(theme, y)
+        w.add_empty_line()
+        w.add_calendar_plan_table(theme, y + 1)
+        w.add_empty_line()
+        w.add_calendar_plan_table(theme, y + 2)
+        w.add_empty_line()
+
+        # Add signatures and save.
+        w.add_signatures([theme.manager, wsl.shabanov_bm])
+        w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
     # Outlay methods.
