@@ -81,15 +81,36 @@ def generate_documents_pack(y, out_dir):
 if __name__ == '__main__':
 
     # statistics
-    print_worksheets_statitics()
-    print_temporary_teams_statistics()
+    #print_worksheets_statitics()
+    #print_temporary_teams_statistics()
 
     # plans
-    gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
+    #gh.generate_publications_info(pc.nrcki_2025, '../out/publications_2025.html')
     gh.generate_plan(cx.cx1, '../out/plan_6f_si_1.html', year_from=2025, year_to=2029)
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_from=2025, year_to=2029)
 
     # generate documents for complex themes
-    generate_documents_pack(2026, '../out/orders')
+    generate_documents_pack(2027, '../out/orders')
+
+    #young = len([p for p in ttc.cx1_researchers_list if (p.employee.personal.age_in_the_end_of_year(2028) < 40.0)]) / len(ttc.cx1_researchers_list)
+    #print(young)
+
+    #cnt = 0
+    #li = ttc.cx1_researchers_list
+    #for wlc in li:
+    #    p = wlc.employee.personal
+    #    a = p.age_in_the_end_of_year(2028)
+    #   if a < 40.0:
+    #       cnt = cnt + 1
+    #print('th 1 : under 40 : ', cnt, 'of', len(li), '% ---- ', cnt / len(li))
+
+    #cnt = 0
+    #li = ttc.cx2_researchers_list
+    #for wlc in li:
+    #    p = wlc.employee.personal
+    #    a = p.age_in_the_end_of_year(2028)
+    #    if a < 40.0:
+    #       cnt = cnt + 1
+    #print('th 2 : under 40 : ', cnt, 'of', len(li), '% ---- ', cnt / len(li))
 
 #===================================================================================================

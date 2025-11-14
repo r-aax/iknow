@@ -15,7 +15,8 @@ class ResearchResult:
     def __init__(self, thematic, year,
                  title, content, description,
                  responsible, comment,
-                 funding_part, publications=[]):
+                 funding_part, publications=[],
+                 research_section=''):
         """
         Init research result.
 
@@ -39,6 +40,8 @@ class ResearchResult:
             Funding part.
         publications : [Publication]
             Publications.
+        research_section : str
+            Research section.
         """
 
         self.__thematic = thematic
@@ -50,6 +53,7 @@ class ResearchResult:
         self.__comment = comment
         self.__funding_part = funding_part
         self.__publications = publications
+        self.__research_section = research_section
 
         thematic.results.append(self)
 
@@ -191,6 +195,21 @@ class ResearchResult:
     #-----------------------------------------------------------------------------------------------
 
     @property
+    def research_section(self):
+        """
+        Get research section.
+
+        Returns
+        -------
+        str
+            Research section.
+        """
+
+        return self.__research_section
+
+    #-----------------------------------------------------------------------------------------------
+
+    @property
     def publications_count(self):
         """
         Get publications count.
@@ -287,8 +306,9 @@ class ResearchResult:
         resp_html = font(str(self.responsible), color='steelblue')
         comm_html = font(self.comment, color='silver')
         fund_html = font(str(self.funding_part) + ' %', color='orange')
+        research_section = font(f'раздел {self.research_section}', color='silver')
         descr_html = font(small('описание: ' + self.description), color='silver')
-        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({comm_html}) ({fund_html})<br>{descr_html}'
+        main_html = f'{rid_pref}{self.title}<br>({resp_html}) ({comm_html}) ({fund_html}) ({research_section})<br>{descr_html}'
 
         # Form publications html.
         publ_html = f'статьи: {self.publications_count}'

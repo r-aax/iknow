@@ -1105,11 +1105,11 @@ def generate_order(cx, y, out):
                     f'{cx.title} (далее - НИР).')
     #
     w.add_paragraph('\t2. Определить ответственным:')
-    title_name = cx.manager.job_title.name_r
+    title_name = cx.deputy.job_title.name_r
     if title_name == 'руководителя отделения':
         title_name = title_name.split()[0]
-    jobplace_name = cx.manager.job_place.name_r
-    pers = cx.manager.employee.personal
+    jobplace_name = cx.deputy.job_place.name_r
+    pers = cx.deputy.employee.personal
     perss = pers.surname('ru')
     persn = pers.name_first_letter('ru')
     persp = pers.patronymic_first_letter('ru')

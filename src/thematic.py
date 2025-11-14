@@ -241,8 +241,14 @@ class Thematic:
         texts = [r.description_html() for r in rs]
         ol_text = ol(texts)
         publications_count = self.publications_count(year)
-        publications_text = font(f' статьи: {publications_count}', color='indianred')
-        sum_text = b(f'Суммарно:{publications_text}')
+
+        # Get all sum_text.
+        plan_digits = font(f'{self.ind_doctors(year)} докт., '
+                           f'{self.ind_candidates(year)} канд., '
+                           f'{self.ind_publications(year)} публ.', color='darkblue')
+        fact_digits_color = 'darkgreen' if publications_count >= self.ind_publications(year) else 'indianred'
+        fact_digits = font(f'{publications_count} публ.', color=fact_digits_color)
+        sum_text = b(f'План: {plan_digits} Факт {fact_digits}')
 
         return f'{sum_text}{ol_text}'
 
