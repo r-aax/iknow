@@ -952,7 +952,7 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Outlay methods.
+    # Order 3188, supplement 09. Outlay methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_outlay_title(self, cx, y):
@@ -1087,17 +1087,20 @@ class GeneratorWord:
         k = outlay['II'].count()
 
         # Table and its style.
-        t = self.doc.add_table(rows=1+k, cols=3)
+        t = self.doc.add_table(rows=1+k, cols=4)
         t.style = 'Table Grid'
 
         # Add row.
-        def add_row(i, h0, h1, h2):
+        def add_row(i, h0, h1, h2, h3):
             h = t.rows[i].cells
-            h[0].text, h[1].text, h[2].text = h0, h1, h2
+            h[0].text, h[1].text, h[2].text, h[3].text = h0, h1, h2, h3
 
         # Add head.
         add_row(0,
-                '№ п/п', 'Наименование статей расходов', 'Всего стоимость, тыс. рублей')
+                '№ п/п',
+                'Наименование статей расходов',
+                'Всего стоимость, тыс. рублей',
+                'В том числе по подтемам комплексной темы')
 
         # Add all lines.
 
@@ -1105,8 +1108,8 @@ class GeneratorWord:
 
         # If it is form without hoz then print first row.
         if not hoz:
-            x = round(outlay['II'].xmoney, 2)
-            add_row(rowi,'', 'ВСЕГО ЗАТРАТ, в том числе:', f'{x}')
+            x = utils.norm_digits(outlay['II'].xmoney, 2)
+            add_row(rowi,'', 'ВСЕГО ЗАТРАТ, в том числе:', f'{x}', f'{x}')
             rowi = rowi + 1
 
         for ol in outlay_lines:
@@ -1119,11 +1122,11 @@ class GeneratorWord:
             if (not hoz) and (ol.label == 'III.'):
                 break
 
-            x = round(ol.xmoney, 2)
-            add_row(rowi, ol.label, ol.name, f'{x}')
+            x = utils.norm_digits(ol.xmoney, 2)
+            add_row(rowi, ol.label, ol.name, f'{x}', f'{x}')
             rowi = rowi + 1
 
-        set_table_columns_widths(t, [0.5, 5.0, 1.5])
+        set_table_columns_widths(t, [0.5, 5.0, 1.5, 1.5])
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1168,6 +1171,63 @@ class GeneratorWord:
             h[4].text = f'{x}'
 
         set_table_columns_widths(t, [0.5, 4.0, 1.0, 1.0, 1.0])
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_form_gos_assignment_3188_09_outlay(cx, y, out):
+        """
+        Generate
+        'form gos assignment, supplement 09 - pre outlay'.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        out : str
+            Out file.
+        """
+
+        # Create document.
+        w = GeneratorWord()
+
+        # Title.
+        w.add_paragraph('ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n '
+                        'прямых и общепроизводственных расходов, непосредственно связанных с '
+                        'выполнением научно-исследовательской работы '
+                        f'по комплексной теме {cx.title} на очередной {y} год '
+                        f'и плановый период {y + 1} и {y + 2} годов',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+
+        # First table.
+        w.add_paragraph('1. Предварительная смета прямых и общепроизводственных расходов, '
+                        'непосредственно связанных с выполнением научно-исследовательской работы '
+                        f'на очередной {y} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_outlay_table_theme_with_subthemes(cx.outlay, y, False)
+        w.add_empty_line()
+
+        # Second table.
+        w.add_paragraph('2. Предварительная смета прямых и общепроизводственных расходов, '
+                        'непосредственно связанных с выполнением научно-исследовательской работы '
+                        f'на первый плановый год - {y + 1} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 1, False)
+        w.add_empty_line()
+
+        # Third table.
+        w.add_paragraph('3. Предварительная смета прямых и общепроизводственных расходов, '
+                        'непосредственно связанных с выполнением научно-исследовательской работы '
+                        f'на второй плановый год - {y + 2} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 2, False)
+        w.add_empty_line()
+
+        # Add signatures and close file.
+        w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
+        w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
     # Temporary team.
@@ -1600,62 +1660,6 @@ def generate_calendar_plan(n, cx, y, out):
     w.add_calendar_plan_table(cx, y + 2)
     w.add_empty_line()
     w.add_signatures([cx.manager, wsl.shabanov_bm])
-    w.save(out + '.docx')
-
-#---------------------------------------------------------------------------------------------------
-
-def generate_form_gos_assignment_suppl_09_pre_outlay(cx, y, out):
-    """
-    Generate
-    'form gos assignment, supplement 09 - pre outlay'.
-
-    Parameters
-    ----------
-    cx : ComplexTheme
-        Complex theme.
-    y : int
-        Year.
-    out : str
-        Out file.
-    """
-
-    # Create document.
-    w = GeneratorWord()
-
-    # Title.
-    w.add_paragraph('ПРЕДВАРИТЕЛЬНАЯ СМЕТА\n '
-                    'прямых и общепроизводственных расходов, непосредственно связанных с '
-                    'выполнением научно-исследовательской работы '
-                    f'по комплексной теме {cx.title} на очередной {y} год '
-                    f'и плановый период {y + 1} и {y + 2} годов',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-
-    # First table.
-    w.add_paragraph('1. Предварительная смета прямых и общепроизводственных расходов, '
-                    'непосредственно связанных с выполнением научно-исследовательской работы '
-                    f'на очередной {y} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_outlay_table_theme_with_subthemes(cx.outlay, y, False)
-    w.add_empty_line()
-
-    # Second table.
-    w.add_paragraph('2. Предварительная смета прямых и общепроизводственных расходов, '
-                    'непосредственно связанных с выполнением научно-исследовательской работы '
-                    f'на первый плановый год - {y + 1} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 1, False)
-    w.add_empty_line()
-
-    # Third table.
-    w.add_paragraph('3. Предварительная смета прямых и общепроизводственных расходов, '
-                    'непосредственно связанных с выполнением научно-исследовательской работы '
-                    f'на второй плановый год - {y + 2} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_outlay_table_theme_with_subthemes(cx.outlay, y + 2, False)
-    w.add_empty_line()
-
-    # Add signatures and close file.
-    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------

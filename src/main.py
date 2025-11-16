@@ -66,8 +66,9 @@ def generate_documents_pack(y, out_dir):
                                                            0.01 * thematic.funding_part(y))
 
         # Form gos assignment (order 3188, supplements 7 - 11).
-        gw.generate_form_gos_assignment_3188_07_technical_task(theme, y, f'{pre}-3188-07-ТЗ')
-        gw.generate_form_gos_assignment_3188_08_calendar_plan(theme, y, f'{pre}-3188-08-КП')
+        #gw.generate_form_gos_assignment_3188_07_technical_task(theme, y, f'{pre}-3188-07-ТЗ')
+        #gw.generate_form_gos_assignment_3188_08_calendar_plan(theme, y, f'{pre}-3188-08-КП')
+        gw.generate_form_gos_assignment_3188_09_outlay(theme, y, f'{pre}-3188-09-смета')
 
 #===================================================================================================
 
