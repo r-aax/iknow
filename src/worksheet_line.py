@@ -248,7 +248,7 @@ class WorksheetLine:
 
     #-----------------------------------------------------------------------------------------------
 
-    def full_job_title_with_job_plane(self, is_first_letter_upper=False):
+    def full_job_title_with_job_place(self, is_first_letter_upper=False):
         """
         Get full job title with job place.
 
@@ -277,6 +277,35 @@ class WorksheetLine:
 
     #-----------------------------------------------------------------------------------------------
 
+    def full_job_title_with_job_place_r(self, is_first_letter_upper=False):
+        """
+        Get full job title with job place in other form.
+
+        Parameters
+        ----------
+        is_first_letter_upper : bool
+            Is first letter upper.
+
+        Returns
+        -------
+        str
+            Job title with job place.
+        """
+
+        tn = self.job_title.name_r
+
+        # Ignore first word for some titles.
+        if (tn == 'руководителя отделения') or (tn == 'директора департамента'):
+            tn = tn.split()[0]
+
+        # Upper first letter.
+        if is_first_letter_upper:
+            tn = tn[0:1].upper() + tn[1:]
+
+        return f'{tn} {self.job_place.name_r}'
+
+    #-----------------------------------------------------------------------------------------------
+
     def full_name_with_full_job_title_in_brackets(self):
         """
         Get full name with full job title in brackets.
@@ -288,7 +317,7 @@ class WorksheetLine:
         """
 
         s = self.employee.personal.surname_n_p('ru')
-        t = self.full_job_title_with_job_plane(False)
+        t = self.full_job_title_with_job_place(False)
 
         return f'{s} ({t})'
 

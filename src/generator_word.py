@@ -312,7 +312,7 @@ class GeneratorWord:
         h = t.rows[0].cells
 
         # Take job title with first big letter
-        h[0].text = w.full_job_title_with_job_plane(True)
+        h[0].text = w.full_job_title_with_job_place(True)
 
         h[1].text = ''
         if add_line_for_signature:
@@ -1785,30 +1785,23 @@ class GeneratorWord:
                         f'{cx.title} (далее - НИР).')
         #
         w.add_paragraph('\t2. Определить:')
-        title_name = cx.deputy.job_title.name_r
-        if title_name == 'руководителя отделения':
-            title_name = title_name.split()[0]
-        jobplace_name = cx.deputy.job_place.name_r
         pers = cx.deputy.employee.personal
         perss = pers.surname('ru')
         persn = pers.name_first_letter('ru')
         persp = pers.patronymic_first_letter('ru')
         w.add_paragraph('\t2.1. Ответственным должностным лицом за проведение НИР '
-                        f'{title_name} {jobplace_name} {perss}а {persn}.{persp}.')
+                        f'{cx.deputy.full_job_title_with_job_place_r()} {perss}а {persn}.{persp}.')
         #
-        w.add_paragraph('\t2.2 Ответственным структурным подразделением Центра за выполнение НИР отделение '
-                        'суперкомпьютерных систем и параллельных вычислений.')
+        w.add_paragraph('\t2.2 Ответственным структурным подразделением Центра '
+                        'за выполнение НИР отделение суперкомпьютерных систем '
+                        'и параллельных вычислений.')
         #
-        title_name = cx.manager.job_title.name_r
-        if title_name == 'руководителя отделения':
-            title_name = title_name.split()[0]
-        jobplace_name = cx.manager.job_place.name_r
         pers = cx.manager.employee.personal
         perss = pers.surname('ru')
         persn = pers.name_first_letter('ru')
         persp = pers.patronymic_first_letter('ru')
         w.add_paragraph(f'\t2.3. Ответственным руководителем НИР '
-                        f'{title_name} {jobplace_name} {perss}а {persn}.{persp}.')
+                        f'{cx.manager.full_job_title_with_job_place_r()} {perss}а {persn}.{persp}.')
         #
         w.add_paragraph('\t3. Утвердить:')
         w.add_paragraph('\t3.1. Техническое задание на выполнение НИР (далее - ТЗ) согласно '
