@@ -1284,11 +1284,12 @@ class GeneratorWord:
 
         # number of people
         n = len(w.lines)
+        thn = len(cx.thematics)
 
         self.add_paragraph('человек/месяц', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         # table and its style
-        t = self.doc.add_table(rows=n + 3, cols=7 + len(cx.thematics))
+        t = self.doc.add_table(rows=n + 3, cols=7 + thn)
         t.style = 'Table Grid'
 
         # head
@@ -1312,7 +1313,7 @@ class GeneratorWord:
         for j in range(6):
             merge_table_cells_in_column(t, j, 0, 1)
 
-        tot, tot1, tot2, tot3 = 0.0, 0.0, 0.0, 0.0
+        tot = [0] * (thn + 1)
 
         # add rest rows
         for i in range(n):
@@ -1327,25 +1328,21 @@ class GeneratorWord:
             h[4].text = str(p.year)
             h[5].text = wl.job_place.half_full_name
             x = utils.norm_digits(wl.slot * 12, 2)
-            x1 = utils.norm_digits(x / 3, 2)
-            x2, x3 = x1, x1
-            tot, tot1, tot2, tot3 = tot + x, tot1 + x1, tot2 + x2, tot3 + x3
+            xj = [utils.norm_digits(x / 3, 2)] * thn
+            tot[0] = tot[0] + x
+            for j in range(thn):
+                tot[1 + j] = tot[1 + j] + xj[j]
             h[6].text = f'{x}'
-            h[7].text = f'{x1}'
-            h[8].text = f'{x2}'
-            h[9].text = f'{x3}'
+            for j in range(thn):
+                h[7 + j].text = f'{xj[j]}'
 
         # Total line.
         h = t.rows[n + 2].cells
-        tot = utils.norm_digits(tot, 2)
-        tot1 = utils.norm_digits(tot1, 2)
-        tot2 = utils.norm_digits(tot2, 2)
-        tot3 = utils.norm_digits(tot3, 2)
+        for j in range(len(tot)):
+            tot[j] = utils.norm_digits(tot[j], 2)
         h[1].text = 'ИТОГО:'
-        h[6].text = f'{tot}'
-        h[7].text = f'{tot1}'
-        h[8].text = f'{tot2}'
-        h[9].text = f'{tot3}'
+        for j in range(len(tot)):
+            h[6 + j].text = f'{tot[j]}'
         merge_table_cells_in_row(t, n + 2, 1, 5)
 
         set_table_text_size(t, 8)
