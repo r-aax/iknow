@@ -19,6 +19,24 @@ import utils
 # Common functions.
 #===================================================================================================
 
+def set_document_landscape_orientation(d):
+    """
+    Set document landscape orientation.
+
+    Parameters
+    ----------
+    d : Document
+        Document.
+    """
+
+    section = d.sections[-1]
+    new_width, new_height = section.page_height, section.page_width
+    section.orientation = WD_ORIENT.LANDSCAPE
+    section.page_width = new_width
+    section.page_height = new_height
+
+#---------------------------------------------------------------------------------------------------
+
 def set_table_columns_widths(t, ws):
     """
     Set table columns widths.
@@ -927,13 +945,7 @@ class GeneratorWord:
         """
 
         w = GeneratorWord()
-
-        # Landscape.
-        section = w.doc.sections[-1]
-        new_width, new_height = section.page_height, section.page_width
-        section.orientation = WD_ORIENT.LANDSCAPE
-        section.page_width = new_width
-        section.page_height = new_height
+        set_document_landscape_orientation(w.doc)
 
         # Title.
         w.add_paragraph(f'КАЛЕНДАРНЫЙ ПЛАН\n на {y} год '
