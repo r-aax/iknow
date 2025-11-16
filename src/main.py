@@ -77,7 +77,8 @@ def generate_documents_pack(y, out_dir):
         prex = f'{pre}-приказ-приложение'
         #gw.generate_exec_gos_assignment_3188_01_technical_task(theme, y, f'{prex}-1-ТЗ')
         #gw.generate_exec_gos_assignment_3188_02_calendar_plan(theme, y, f'{prex}-2-КП')
-        gw.generate_exec_gos_assignment_3188_03_outlay(theme, y, f'{prex}-3-смета')
+        #gw.generate_exec_gos_assignment_3188_03_outlay(theme, y, f'{prex}-3-смета')
+        gw.generate_exec_gos_assignment_3188_04_team(theme, team, y, f'{prex}-4-ВТК')
 
 #===================================================================================================
 

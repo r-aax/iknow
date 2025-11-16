@@ -1286,12 +1286,11 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Order 3188, supplement 10. Temporary team.
-    #-----------------------------------------------------------------------------------------------
 
-    def add_temporary_team_title(self, cx, y):
+    @staticmethod
+    def generate_exec_gos_assignment_3188_03_outlay(cx, y, out):
         """
-        Add title for temporary team.
+        Generate outlay document.
 
         Parameters
         ----------
@@ -1299,17 +1298,53 @@ class GeneratorWord:
             Complex theme.
         y : int
             Start year.
+        out : str
+            Out file name.
         """
 
-        pre_text = 'СОСТАВ\n'\
-                   'временного трудового коллектива\n'\
-                   'для выполнения научно-исследовательской работы по комплексной теме\n'
-        post_text = f' на очередной {y} год и плановый период {y + 1} и {y + 2} годов'
-        p = self.doc.add_paragraph()
-        r = p.add_run(pre_text + cx.title + post_text)
-        r.bold = True
-        p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
+        w = GeneratorWord()
 
+        # Incription.
+        w.add_corner_inscription_supplement_to_order(3)
+        w.add_empty_line()
+
+        # Title.
+        w.add_paragraph('ИТОГОВАЯ СМЕТА\nрасходов на выполнение работы '
+                        f'по комплексной теме {cx.title} на очередной {y} год '
+                        f'и плановый период {y + 1} и {y + 2} годов',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
+
+        # Add short outlay for complex theme.
+        w.add_paragraph(f'1. ИТОГОВАЯ СВОДНАЯ СМЕТА\nпо комплексной теме {cx.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_short_outlay_table(cx, y)
+        w.add_empty_line()
+
+        # Add outlay for complex theme.
+        w.add_paragraph('2. ИТОГОВАЯ СМЕТА\n'
+                        f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
+                        f'по комплексной теме {cx.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_outlay_table(cx.outlay, y)
+        w.add_empty_line()
+
+        # Add outlays for thematic.
+        for i, th in enumerate(cx.thematics):
+            w.add_paragraph(f'3.{i + 1}. ИТОГОВАЯ СМЕТА\n'
+                            f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
+                            f'по тематике исследований {th.title}',
+                            WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+            w.add_outlay_table(th.outlay, y)
+            w.add_empty_line()
+
+        w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
+        w.save(out + '.docx')
+
+    #-----------------------------------------------------------------------------------------------
+    # Order 3188, form, supplement 10.
+    #             exec, supplemment 4.
+    # Temporary team.
     #-----------------------------------------------------------------------------------------------
 
     def add_temporary_team_table_with_workload(self, cx, w, year):
@@ -1391,16 +1426,16 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
-    def add_temporary_team_table(self, w, cx):
+    def add_temporary_team_table(self, cx, w):
         """
         Add table for temporary team.
 
         Parameters
         ----------
-        w : Worksheet
-            Worksheet.
         cx : ComplexTheme
             Complex theme.
+        w : Worksheet
+            Worksheet.
         """
 
         # number of people
@@ -1492,14 +1527,16 @@ class GeneratorWord:
     #-----------------------------------------------------------------------------------------------
 
     @staticmethod
-    def generate_exec_gos_assignment_3188_03_outlay(cx, y, out):
+    def generate_exec_gos_assignment_3188_04_team(cx, team, y, out):
         """
-        Generate outlay document.
+        Generate temporary team document.
 
         Parameters
         ----------
         cx : ComplexTheme
             Complex theme.
+        team : Worksheet
+            Team working on this theme.
         y : int
             Start year.
         out : str
@@ -1508,40 +1545,23 @@ class GeneratorWord:
 
         w = GeneratorWord()
 
-        # Incription.
-        w.add_corner_inscription_supplement_to_order(3)
+        # Inscription.
+        w.add_corner_inscription_supplement_to_order(4)
         w.add_empty_line()
 
         # Title.
-        w.add_paragraph('ИТОГОВАЯ СМЕТА\nрасходов на выполнение работы '
-                        f'по комплексной теме {cx.title} на очередной {y} год '
-                        f'и плановый период {y + 1} и {y + 2} годов',
-                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-        w.add_empty_line()
-
-        # Add short outlay for complex theme.
-        w.add_paragraph(f'1. ИТОГОВАЯ СВОДНАЯ СМЕТА\nпо комплексной теме {cx.title}',
-                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-        w.add_short_outlay_table(cx, y)
-        w.add_empty_line()
-
-        # Add outlay for complex theme.
-        w.add_paragraph('2. ИТОГОВАЯ СМЕТА\n'
-                        f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
+        w.add_paragraph('СОСТАВ\nвременного трудового коллектива для выполнения '
+                        'научно-исследовательской работы и планируемые трудозатраты '
+                        f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов '
                         f'по комплексной теме {cx.title}',
                         WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-        w.add_outlay_table(cx.outlay, y)
         w.add_empty_line()
 
-        # Add outlays for thematic.
-        for i, th in enumerate(cx.thematics):
-            w.add_paragraph(f'3.{i + 1}. ИТОГОВАЯ СМЕТА\n'
-                            f'на очередной {y} год и плановый период {y + 1} и {y + 2} годов\n'
-                            f'по тематике исследований {th.title}',
-                            WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-            w.add_outlay_table(th.outlay, y)
-            w.add_empty_line()
+        # Table.
+        w.add_temporary_team_table(cx, team)
+        w.add_empty_line()
 
+        # Signatures and save.
         w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
         w.save(out + '.docx')
 
@@ -1819,36 +1839,6 @@ def generate_order(cx, y, out):
     w.add_empty_line()
     #
     w.add_signatures([wsl.dyakova_ya], False)
-    w.save(out + '.docx')
-
-#---------------------------------------------------------------------------------------------------
-
-def generate_temporary_team(n, cx, team, y, out):
-    """
-    Generate temporary team document.
-
-    Parameters
-    ----------
-    n : int
-        Supplement number.
-    cx : ComplexTheme
-        Complex theme.
-    team : Worksheet
-        Team working on this theme.
-    y : int
-        Start year.
-    out : str
-        Out file name.
-    """
-
-    w = GeneratorWord()
-    #w.add_corner_inscription_supplement_to_order(n)
-    #w.add_empty_line()
-    w.add_temporary_team_title(cx, y)
-    w.add_empty_line()
-    w.add_temporary_team_table(team, cx)
-    w.add_empty_line()
-    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------
