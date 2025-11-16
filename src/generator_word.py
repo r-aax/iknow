@@ -1327,22 +1327,20 @@ class GeneratorWord:
             h[3].text = e.tabel
             h[4].text = str(p.year)
             h[5].text = wl.job_place.half_full_name
-            x = utils.norm_digits(wl.slot * 12, 2)
-            xj = [utils.norm_digits(x / 3, 2)] * thn
+            x = wl.slot * 12
+            xj = [x / 3] * thn
             tot[0] = tot[0] + x
             for j in range(thn):
                 tot[1 + j] = tot[1 + j] + xj[j]
-            h[6].text = f'{x}'
+            h[6].text = f'{utils.norm_digits(x, 2)}'
             for j in range(thn):
-                h[7 + j].text = f'{xj[j]}'
+                h[7 + j].text = f'{utils.norm_digits(xj[j], 2)}'
 
         # Total line.
         h = t.rows[n + 2].cells
-        for j in range(len(tot)):
-            tot[j] = utils.norm_digits(tot[j], 2)
         h[1].text = 'ИТОГО:'
         for j in range(len(tot)):
-            h[6 + j].text = f'{tot[j]}'
+            h[6 + j].text = f'{utils.norm_digits(tot[j], 2)}'
         merge_table_cells_in_row(t, n + 2, 1, 5)
 
         set_table_text_size(t, 8)
