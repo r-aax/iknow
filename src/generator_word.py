@@ -284,10 +284,10 @@ class GeneratorWord:
             Number of supplement.
         """
 
-        self.doc.add_paragraph(f'Приложение № {n}\n'
-                               'к приказу НИЦ «Курчатовский институт»\n'
-                               'от «___» ____________ ____ г. № ______',
-                               WD_PARAGRAPH_ALIGNMENT.RIGHT)
+        self.add_paragraph(f'Приложение № {n}\n'
+                           'к приказу НИЦ «Курчатовский институт»\n'
+                           'от «___» ____________ ____ г. № ______',
+                           WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
     #-----------------------------------------------------------------------------------------------
 
@@ -343,7 +343,9 @@ class GeneratorWord:
             self.add_signature(w, add_line_for_signature)
 
     #-----------------------------------------------------------------------------------------------
-    # Order 3188, supplement 07. Technical task methods.
+    # Order 3188, form, supplement 07.
+    #             exec, supplement 01.
+    # Technical task methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_thematic_results_table_with_TRL(self, th, y):
@@ -699,124 +701,50 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Order 3188, supplement 08. Calendar plan methods.
-    #-----------------------------------------------------------------------------------------------
 
-    def add_calendar_plan_title(self, cx, y):
+    @staticmethod
+    def generate_exec_gos_assignment_3188_01_technical_task(theme, y, out):
         """
-        Add title for calendar_plan.
+        Generate form gos assignment.
+        Supplement 7 - technical task.
 
         Parameters
         ----------
-        cx : ComplexTheme
-            Complex theme.
-        y : int
-            Start year.
-        """
-
-        text = 'КАЛЕНДАРНЫЙ ПЛАН\n'\
-               f'на {y} год и плановый период {y + 1} и {y + 2} годов на выполнение '\
-               f'научно-исследовательской работы по комплексной теме {cx.title}'
-        p = self.doc.add_paragraph()
-        r = p.add_run(text)
-        r.bold = True
-        p.alignment = WD_PARAGRAPH_ALIGNMENT.CENTER
-
-    #-----------------------------------------------------------------------------------------------
-
-    def add_calendar_plan_table(self, cx, y):
-        """
-        Add calendar plan table.
-
-        Parameters
-        ----------
-        cx : ComplexTheme
+        theme : ComplexTheme
             Complex theme.
         y : int
             Year.
+        out : str
+            Out file name.
         """
 
-        # Calculate all results in year.
-        k = len(cx.thematics)
-        for th in cx.thematics:
-            for r in th.results:
-                if r.year == y:
-                    k = k + 1
+        w = GeneratorWord()
 
-        self.add_paragraph(f'Календарный план на {y} год', WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        # Supplement in the corner.
+        w.add_corner_inscription_supplement_to_order(1)
+        w.add_empty_line()
 
-        # Table and its style.
-        t = self.doc.add_table(rows=1+k, cols=11)
-        t.style = 'Table Grid'
+        # Title.
+        w.add_paragraph('ТЕХНИЧЕСКОЕ ЗАДАНИЕ\n на выполнение научно-исследовательской работы '
+                        f'по комплексной теме {theme.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
 
-        # Head.
-        h = t.rows[0].cells
-        h[0].text = '№ п/п'
-        h[1].text = 'Содержание выполняемых работ'
-        h[2].text = 'Ожидаемый результат выполнения работ / Период реализации работ в рамках тематики исследований'
-        h[3].text = 'Вид планируемого к созданию результата интеллектуальной деятельности'
-        h[4].text = 'Планируемое наименование планируемого к созданию РИД'
-        h[5].text = 'Краткое описание планируемого к созданию РИД'
-        h[6].text = 'Планируемый уровень готовности разрабатываемых или разработанных технологий (далее - УГТ) **'
-        h[7].text = 'Срок создания РИД (мм.гггг)'
-        h[8].text = 'Состав отчетной документации'
-        h[9].text = 'Ответственный руководитель работ по комплексной теме\n\n'\
-                    'Ответственное структурное подразделение Центра за выполнение работ по комплексной теме\n\n'\
-                    'Ответственный руководитель работ по подтеме комплексной темы с указанием структурного подразделения\n\n'\
-                    'Ответственный руководитель работ по тематике исследований подтемы комплексной темы с указанием структурного подразделения'
-        h[10].text = 'Стоимость, тыс. рублей'
+        # Main information.
+        w.add_complex_theme_characteristics(theme, y)
+        w.add_empty_line()
 
-        # Add row by row.
-        i = 1
-        for thi, th in enumerate(cx.thematics):
-            h = t.rows[i].cells
-            h[0].text = f'{thi + 1}.'
-            h[1].merge(h[2]).merge(h[3]).merge(h[4]).merge(h[5]).merge(h[6]).merge(h[7]).merge(h[8]).merge(h[9])
-            h[1].text = f'Тематика {th.title}'
-            i = i + 1
-            for r in th.results:
-                if r.year == y:
-                    h = t.rows[i].cells
-                    h[0].text = ''
-                    h[1].text = r.content
-                    h[2].text = f'{r.title} / {y} год'
-                    if r.is_rid:
-                        h[3].text = r.rid_type
-                        h[4].text = r.rid_name
-                        h[5].text = r.description
-                        h[6].text = '3'
-                        h[7].text = f'12.{y}'
-                    h[8].text = 'Аннотационный отчет - ежеквартально;\n\nИтоговый отчет о НИР.'
-                    pname = cx.manager.employee.personal.surname_n_p('ru')
-                    pjobtitle = cx.manager.job_title.name
-                    pjobplace = cx.manager.job_place.name
-                    h[9].text = f'{pname}\n({pjobtitle}, {pjobplace})'
-                    money = round(cx.outlay.xmoney * (0.01 * r.funding_part), 2)
-                    h[10].text = f'{money}'
-                    i = i + 1
-
-        set_table_text_size(t, 8)
-        #set_table_columns_widths(t, [0.5, 2.0, 2.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 2.0, 0.5])
-
-        self.add_paragraph('* В настоящем столбце указываются следующие вида РИД - программы '
-                           'для ЭВМ, базы данных, изобретения, полезные модели, промышленные '
-                           'образцы, селекционные достижения, топологии интегральных микросхем, '
-                           'секреты производства (ноу-хау), товарные знаки и знаки обслуживания, '
-                           'коммерческие обозначения;',
-                           WD_PARAGRAPH_ALIGNMENT.LEFT, False, 8)
-        self.add_paragraph('** Указывается планируемый результат в соответствии с Порядком '
-                           'определения уровней готовности разрабатываемых или разработанных '
-                           'технологий, а также научных и (или) научно-технических результатов, '
-                           'соответствующих каждому уровню готовности технологий, утвержденным '
-                           'приказом Минобрнауки России от 6 февраля 2023 г. № 107 и положениями '
-                           'приказа НИЦ «Курчатовский институт» от 25 июля 2023 г. № 2136 '
-                           '«Об организации в НИЦ «Курчатовский институт» работы по определению '
-                           'уровней готовности разрабатываемых или разработанных технологи»:',
-                           WD_PARAGRAPH_ALIGNMENT.LEFT, False, 8)
+        # Signatures and save.
+        w.add_signatures([theme.manager, wsl.shabanov_bm])
+        w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
+    # Order 3188, form, supplement 08.
+    #             exec, supplement 02.
+    # Calendar plan methods.
+    #-----------------------------------------------------------------------------------------------
 
-    def add_calendar_plan_table_for_3188_08(self, theme, y):
+    def add_calendar_plan_table_for_3188_form_08(self, theme, y):
         """
         Add calendar plan for 8 supplement.
 
@@ -928,6 +856,104 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
+    def add_calendar_plan_table_for_3188_exec_02(self, theme, y):
+        """
+        Add calendar plan for 8 supplement.
+
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        """
+
+        # rows count
+        rows_count = 2 + 4 * len(theme.thematics)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=rows_count, cols=10)
+        t.style = 'Table Grid'
+
+        # Names of fields.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Содержание выполняемых работ'
+        h[2].text = 'Ожидаемый результат'
+        h[7].text = 'Состав отчетной документации'
+        h[8].text = 'Ответственный руководитель работ по комплексной теме\n\n '\
+                    'Ответственное структурное подразделение Центра за выполнение работ по '\
+                    'комплексной теме\n\n Ответственный руководитель работ по подтеме '\
+                    'комплексной темы с указанием структурного подразделения\n\n Ответственный '\
+                    'руководитель работ по тематике исследований подтемы '\
+                    'с указанием структурного подразделения'
+        h[9].text = 'Стоимость, тыс. рублей'
+        h = t.rows[1].cells
+        h[2].text = 'Вид планируемого к созданию результата интеллектуальной деятельности '\
+                    '(далее - РИД)'
+        h[3].text = 'Планируемое наименование планируемого к созданию РИД'
+        h[4].text = 'Краткое описание планируемого к созданию РИД'
+        h[5].text = 'Планируемый уровень готовности разрабатываемых или разработанных технологий '\
+                    '(далее - УГТ)'
+        h[6].text = 'Срок создания РИД (мм.гггг)'
+
+        # Shape.
+        merge_table_cells_in_column(t, 0, 0, 1)
+        merge_table_cells_in_column(t, 1, 0, 1)
+        merge_table_cells_in_row(t, 0, 2, 6)
+        merge_table_cells_in_column(t, 7, 0, 1)
+        merge_table_cells_in_column(t, 8, 0, 1)
+        merge_table_cells_in_column(t, 9, 0, 1)
+
+        # Start row number.
+        hi = 2
+
+        # Walk all thematics.
+        for thematici, thematic in enumerate(theme.thematics):
+
+            # Add thematic title.
+            h = t.rows[hi].cells
+            h[0].text = f'{thematici + 1}.'
+            h[1].text = thematic.title
+            merge_table_cells_in_row(t, hi, 1, 9)
+            hi = hi + 1
+
+            # Walk all years.
+            for year in range(y, y + 3):
+                h = t.rows[hi].cells
+
+                # Get common results and rids.
+                rs_com = [r for r in thematic.results if (not r.is_rid) and (r.year == year)]
+                rs_rid = [r for r in thematic.results if r.is_rid and (r.year == year)]
+
+                # Content.
+                txt = ' '.join([r.content for r in rs_com])
+                h[1].text = f'{year} год\n{txt}'
+
+                # RID information.
+                h[2].text = '\n\n'.join([r.rid_type for r in rs_rid])
+                h[3].text = '\n\n'.join([r.rid_name for r in rs_rid])
+                h[4].text = '\n\n'.join([r.description for r in rs_rid])
+                h[5].text = '\n\n'.join(['Третий УГТ' for _ in rs_rid])
+                h[6].text = '\n\n'.join([f'12.{year}' for _ in rs_rid])
+
+                # Doc, responsible.
+                h[7].text = 'Аннотационный отчет - ежеквартально;\n\n'\
+                            'Итоговый отчет о НИР.'
+                h[8].text = f'{theme.manager.full_name_with_full_job_title_in_brackets()}\n\n'\
+                            f'{job_place_private_collection.osspv.name}'
+
+                # All money.
+                x = utils.norm_digits(thematic.outlay.xmoney, 2)
+                h[9].text = f'{x}'
+
+                # Move row counter.
+                hi = hi + 1
+
+        set_table_text_size(t, 8)
+
+    #-----------------------------------------------------------------------------------------------
+
     @staticmethod
     def generate_form_gos_assignment_3188_08_calendar_plan(theme, y, out):
         """
@@ -956,7 +982,46 @@ class GeneratorWord:
         w.add_empty_line()
 
         # Add tables.
-        w.add_calendar_plan_table_for_3188_08(theme, y)
+        w.add_calendar_plan_table_for_3188_form_08(theme, y)
+        w.add_empty_line()
+
+        # Add signatures and save.
+        w.add_signatures([theme.manager, wsl.shabanov_bm])
+        w.save(out + '.docx')
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_exec_gos_assignment_3188_02_calendar_plan(theme, y, out):
+        """
+        Generate exec gos assignment.
+        2 supplement - calendar plan.
+
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        out : str
+            Output file name.
+        """
+
+        w = GeneratorWord()
+        set_document_landscape_orientation(w.doc)
+
+        # Supplement.
+        w.add_corner_inscription_supplement_to_order(2)
+        w.add_empty_line()
+
+        # Title.
+        w.add_paragraph(f'КАЛЕНДАРНЫЙ ПЛАН\n\n на выполнение научно-исследовательской '
+                        f'работы по комплексной теме {theme.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
+
+        # Add tables.
+        w.add_calendar_plan_table_for_3188_exec_02(theme, y)
         w.add_empty_line()
 
         # Add signatures and save.
@@ -1719,74 +1784,6 @@ def generate_order(cx, y, out):
     w.add_empty_line()
     #
     w.add_signatures([wsl.dyakova_ya], False)
-    w.save(out + '.docx')
-
-#---------------------------------------------------------------------------------------------------
-
-def generate_technical_task(n, cx, y, out):
-    """
-    Generate technical task document.
-
-    Parameters
-    ----------
-    n : int
-        Supplement number.
-    cx : ComplexTheme
-        Complex theme.
-    y : int
-        Start year.
-    out : str
-        Out file name.
-    """
-
-    w = GeneratorWord()
-    #w.add_corner_inscription_supplement_to_order(n)
-    #w.add_empty_line()
-    w.add_technical_task_title(cx, y)
-    w.add_empty_line()
-    w.add_complex_theme_characteristics(cx, y)
-    w.add_empty_line()
-    w.add_signatures([cx.manager, wsl.shabanov_bm])
-    w.save(out + '.docx')
-
-#---------------------------------------------------------------------------------------------------
-
-def generate_calendar_plan(n, cx, y, out):
-    """
-    Generate calendar plan document.
-
-    Parameters
-    ----------
-    n : int
-        Supplement number.
-    cx : ComplexTheme
-        Complex theme.
-    y : int
-        Start year.
-    out : str
-        Out file name.
-    """
-
-    w = GeneratorWord()
-
-    # Landscape.
-    section = w.doc.sections[-1]
-    new_width, new_height = section.page_height, section.page_width
-    section.orientation = WD_ORIENT.LANDSCAPE
-    section.page_width = new_width
-    section.page_height = new_height
-
-    #w.add_corner_inscription_supplement_to_order(n)
-    #w.add_empty_line()
-    w.add_calendar_plan_title(cx, y)
-    w.add_empty_line()
-    w.add_calendar_plan_table(cx, y)
-    w.add_empty_line()
-    w.add_calendar_plan_table(cx, y + 1)
-    w.add_empty_line()
-    w.add_calendar_plan_table(cx, y + 2)
-    w.add_empty_line()
-    w.add_signatures([cx.manager, wsl.shabanov_bm])
     w.save(out + '.docx')
 
 #---------------------------------------------------------------------------------------------------
