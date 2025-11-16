@@ -1242,7 +1242,7 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Temporary team.
+    # Order 3188, supplement 10. Temporary team.
     #-----------------------------------------------------------------------------------------------
 
     def add_temporary_team_title(self, cx, y):
@@ -1268,16 +1268,18 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
-    def add_temporary_team_table_with_workload(self, w, cx):
+    def add_temporary_team_table_with_workload(self, cx, w, year):
         """
         Add temporary team table with workload.
 
         Parameters
         ----------
-        w : Worksheet
-            Worksheet.
         cx : ComplexTheme
             Complex theme.
+        w : Worksheet
+            Worksheet.
+        y : int
+            Year.
         """
 
         # number of people
@@ -1286,7 +1288,7 @@ class GeneratorWord:
         self.add_paragraph('человек/месяц', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         # table and its style
-        t = self.doc.add_table(rows=n + 1, cols=9)
+        t = self.doc.add_table(rows=n + 3, cols=7 + len(cx.thematics))
         t.style = 'Table Grid'
 
         # head
@@ -1297,30 +1299,54 @@ class GeneratorWord:
         h[3].text = 'Табельный номер'
         h[4].text = 'Год рождения'
         h[5].text = 'Подразделение'
-        h[6].text = f'Планируемые трудозатраты по тематике {cx.thematics[0].title}'
-        h[7].text = f'Планируемые трудозатраты по тематике {cx.thematics[1].title}'
-        h[8].text = f'Планируемые трудозатраты по тематике {cx.thematics[2].title}'
+        h[6].text = f'Планируемые трудозатраты по тематикам исследований '\
+                    f'в рамках подтем комплексной темы на {year} год'
+        h = t.rows[1].cells
+        h[6].text = 'Всего'
+        h[7].text = f'Тематика {cx.thematics[0].title}'
+        h[8].text = f'Тематика {cx.thematics[1].title}'
+        h[9].text = f'Тематика {cx.thematics[2].title}'
+
+        # Merge cells.
+        merge_table_cells_in_row(t, 0, 6, 9)
+        for j in range(6):
+            merge_table_cells_in_column(t, j, 0, 1)
+
+        tot, tot1, tot2, tot3 = 0.0, 0.0, 0.0, 0.0
 
         # add rest rows
         for i in range(n):
-            r = t.rows[i + 1].cells
+            h = t.rows[i + 2].cells
             wl = w.lines[i]
             e = wl.employee
             p = e.personal
-            r[0].text = str(i + 1) + '.'
-            r[1].text = p.surname_name_patronymic()
-            r[2].text = wl.job_title.name
-            r[3].text = e.tabel
-            r[4].text = str(p.year)
-            r[5].text = wl.job_place.half_full_name
-            x = wl.slot / 3.0 # slots
-            x = x * 12
-            x = x * 100
-            x = math.floor(x)
-            x = x * 0.01
-            r[6].text = f'{x}'
-            r[7].text = f'{x}'
-            r[8].text = f'{x}'
+            h[0].text = str(i + 1) + '.'
+            h[1].text = p.surname_name_patronymic()
+            h[2].text = wl.job_title.name
+            h[3].text = e.tabel
+            h[4].text = str(p.year)
+            h[5].text = wl.job_place.half_full_name
+            x = utils.norm_digits(wl.slot * 12, 2)
+            x1 = utils.norm_digits(x / 3, 2)
+            x2, x3 = x1, x1
+            tot, tot1, tot2, tot3 = tot + x, tot1 + x1, tot2 + x2, tot3 + x3
+            h[6].text = f'{x}'
+            h[7].text = f'{x1}'
+            h[8].text = f'{x2}'
+            h[9].text = f'{x3}'
+
+        # Total line.
+        h = t.rows[n + 2].cells
+        tot = utils.norm_digits(tot, 2)
+        tot1 = utils.norm_digits(tot1, 2)
+        tot2 = utils.norm_digits(tot2, 2)
+        tot3 = utils.norm_digits(tot3, 2)
+        h[1].text = 'ИТОГО:'
+        h[6].text = f'{tot}'
+        h[7].text = f'{tot1}'
+        h[8].text = f'{tot2}'
+        h[9].text = f'{tot3}'
+        merge_table_cells_in_row(t, n + 2, 1, 5)
 
         set_table_text_size(t, 8)
 
@@ -1368,6 +1394,61 @@ class GeneratorWord:
             r[4].text = str(p.year)
             r[5].text = wl.job_place.half_full_name
             r[6].text = cx.all_thematics_titles()
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_form_gos_assignment_3188_10_team(cx, team, y, out):
+        """
+        Generate form for gos assignment.
+        Supplement 10 (temporary team).
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        team : Worksheet
+            Worksheet.
+        y : int
+            Year.
+        out : str
+            Out file.
+        """
+
+        # Create document.
+        w = GeneratorWord()
+
+        # Title.
+        w.add_paragraph('СОСТАВ\n'
+                        'временного трудового коллектива для выполнения научно-исследовательской '
+                        f'работы и планируемые трудозатраты на очередной {y} год '
+                        f'и плановый период {y + 1} и {y + 2} годов по комплексной теме {cx.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+
+        # First year.
+        w.add_paragraph('1. Состав временного трудового коллектива и планируемые трудозатраты '
+                        f'на первый год планового периода - {y} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_temporary_team_table_with_workload(cx, team, y)
+        w.add_empty_line()
+
+        # Second year.
+        w.add_paragraph('2. Состав временного трудового коллектива и планируемые трудозатраты '
+                        f'на первый год планового периода - {y + 1} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_temporary_team_table_with_workload(cx, team, y + 1)
+        w.add_empty_line()
+
+        # Third year.
+        w.add_paragraph('3. Состав временного трудового коллектива и планируемые трудозатраты '
+                        f'на первый год планового периода - {y + 2} год',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_temporary_team_table_with_workload(cx, team, y + 2)
+        w.add_empty_line()
+
+        # Add signatures and close file.
+        w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
+        w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
     # Generate equipment methods.
@@ -1721,60 +1802,6 @@ def generate_outlay(n, cx, y, out):
         w.add_outlay_table(th.outlay, y)
         w.add_empty_line()
 
-    w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
-    w.save(out + '.docx')
-
-#---------------------------------------------------------------------------------------------------
-
-def generate_form_gos_assignment_suppl_10_temporary_team(cx, team, y, out):
-    """
-    Generate form for gos assignment.
-    Supplement 10 (temporary team).
-
-    Parameters
-    ----------
-    cx : ComplexTheme
-        Complex theme.
-    team : Worksheet
-        Worksheet.
-    y : int
-        Year.
-    out : str
-        Out file.
-    """
-
-    # Create document.
-    w = GeneratorWord()
-
-    # Title.
-    w.add_paragraph('СОСТАВ\n'
-                    'временного трудового коллектива для выполнения научно-исследовательской '
-                    f'работы и планируемые трудозатраты на очередной {y} год '
-                    f'и плановый период {y + 1} и {y + 2} годов по комплексной теме {cx.title}',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-
-    # First year.
-    w.add_paragraph('1. Состав временного трудового коллектива и планируемые трудозатраты '
-                    f'на первый год планового периода - {y} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_temporary_team_table_with_workload(team, cx)
-    w.add_empty_line()
-
-    # First year.
-    w.add_paragraph('2. Состав временного трудового коллектива и планируемые трудозатраты '
-                    f'на первый год планового периода - {y + 1} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_temporary_team_table_with_workload(team, cx)
-    w.add_empty_line()
-
-    # First year.
-    w.add_paragraph('3. Состав временного трудового коллектива и планируемые трудозатраты '
-                    f'на первый год планового периода - {y + 2} год',
-                    WD_PARAGRAPH_ALIGNMENT.CENTER, True)
-    w.add_temporary_team_table_with_workload(team, cx)
-    w.add_empty_line()
-
-    # Add signatures and close file.
     w.add_signatures([cx.manager, wsl.shabanov_bm, wsl.smirnnova_oe, wsl.petrischev_av])
     w.save(out + '.docx')
 
