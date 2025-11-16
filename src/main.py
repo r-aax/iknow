@@ -66,19 +66,21 @@ def generate_documents_pack(y, out_dir):
                                                            0.01 * thematic.funding_part(y))
 
         # Form gos assignment (order 3188, form, supplements 7 - 11).
-        prex = f'{pre}-формирование-форма'
-        #gw.generate_form_gos_assignment_3188_07_technical_task(theme, y, f'{prex}-07-ТЗ')
-        #gw.generate_form_gos_assignment_3188_08_calendar_plan(theme, y, f'{prex}-08-КП')
-        #gw.generate_form_gos_assignment_3188_09_outlay(theme, y, f'{prex}-09-смета')
-        #gw.generate_form_gos_assignment_3188_10_team(theme, team, y, f'{prex}-10-ВТК')
-        #gw.generate_form_gos_assignment_3188_11_equipment(theme, f'{prex}-11-оборудование')
+        prex = f'{pre}-{y}-{y + 2}-формирование-форма'
+        gw.generate_form_gos_assignment_3188_07_technical_task(theme, y, f'{prex}-07-ТЗ')
+        gw.generate_form_gos_assignment_3188_08_calendar_plan(theme, y, f'{prex}-08-КП')
+        gw.generate_form_gos_assignment_3188_09_outlay(theme, y, f'{prex}-09-смета')
+        gw.generate_form_gos_assignment_3188_10_team(theme, team, y, f'{prex}-10-ВТК')
+        gw.generate_form_gos_assignment_3188_11_equipment(theme, f'{prex}-11-оборудование')
 
         # Exec gos assignment (order 3188, exec, supplements 1 - 5).
-        prex = f'{pre}-приказ-приложение'
-        #gw.generate_exec_gos_assignment_3188_01_technical_task(theme, y, f'{prex}-1-ТЗ')
-        #gw.generate_exec_gos_assignment_3188_02_calendar_plan(theme, y, f'{prex}-2-КП')
-        #gw.generate_exec_gos_assignment_3188_03_outlay(theme, y, f'{prex}-3-смета')
+        prex = f'{pre}-{y}-{y + 2}-приказ-приложение'
+        gw.generate_exec_gos_assignment_3188_01_technical_task(theme, y, f'{prex}-1-ТЗ')
+        gw.generate_exec_gos_assignment_3188_02_calendar_plan(theme, y, f'{prex}-2-КП')
+        gw.generate_exec_gos_assignment_3188_03_outlay(theme, y, f'{prex}-3-смета')
         gw.generate_exec_gos_assignment_3188_04_team(theme, team, y, f'{prex}-4-ВТК')
+        gw.generate_exec_gos_assignment_3188_05_equipment(theme, f'{prex}-5-оборудование')
+        gw.generate_exec_gos_assignment_3188_order(theme, y, f'{pre}-{y}-{y + 2}-приказ')
 
 #===================================================================================================
 
@@ -90,6 +92,6 @@ if __name__ == '__main__':
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_from=2025, year_to=2029)
 
     # generate documents for complex themes
-    generate_documents_pack(2027, '../out/docs')
+    generate_documents_pack(2026, '../out/docs')
 
 #===================================================================================================
