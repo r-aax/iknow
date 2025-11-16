@@ -12,10 +12,12 @@ from worksheet_line import WorksheetLine
 import worksheet_line_private_collection as wsl
 import outlay_tree
 import math
+import job_place_private_collection
+import utils
 
 #===================================================================================================
-
 # Common functions.
+#===================================================================================================
 
 def set_table_columns_widths(t, ws):
     """
@@ -34,6 +36,81 @@ def set_table_columns_widths(t, ws):
     for row in t.rows:
         for i, w in enumerate(ws):
             row.cells[i].width = w
+
+#---------------------------------------------------------------------------------------------------
+
+def set_table_text_size(t, s):
+    """
+    Set table text size.
+
+    Parameters
+    ----------
+    t : Table
+        Table.
+    s : int
+        Size.
+    """
+
+    for row in t.rows:
+        for cell in row.cells:
+            for par in cell.paragraphs:
+                for run in par.runs:
+                    font = run.font
+                    font.size = Pt(s)
+
+#---------------------------------------------------------------------------------------------------
+
+def merge_table_cells_in_row(t, ri, cifrom, cito):
+    """
+    Merge table cells in row.
+
+    Parameters
+    ----------
+    t : Table
+        Table.
+    ri : int
+        Row index.
+    cifrom : int
+        Collumn index from.
+    cito : int
+        Column index to.
+    """
+
+    row = t.rows[ri].cells
+
+    # Merge.
+    c = row[cifrom]
+    i = cifrom + 1
+    while i <= cito:
+        c = c.merge(row[i])
+        i = i + 1
+
+#---------------------------------------------------------------------------------------------------
+
+def merge_table_cells_in_column(t, ci, rifrom, rito):
+    """
+    Merge table cells in column.
+
+    Parameters
+    ----------
+    t : Table
+        Table.
+    ci : int
+        Column index.
+    rifrom : int
+        Row index from.
+    rito : int
+        Row index to.
+    """
+
+    col = t.columns[ci].cells
+
+    # Merge.
+    c = col[rifrom]
+    i = rifrom + 1
+    while i <= rito:
+        c = c.merge(col[i])
+        i = i + 1
 
 #===================================================================================================
 
@@ -144,7 +221,8 @@ class GeneratorWord:
 
     #-----------------------------------------------------------------------------------------------
 
-    def add_paragraph(self, text, alignment=WD_PARAGRAPH_ALIGNMENT.JUSTIFY, is_bold=False):
+    def add_paragraph(self, text,
+                      alignment=WD_PARAGRAPH_ALIGNMENT.JUSTIFY, is_bold=False, size=12):
         """
         Add paragraph.
 
@@ -156,6 +234,8 @@ class GeneratorWord:
             Text alignment.
         is_bold : bool
             Bold check.
+        size : int
+            Size
 
         Returns
         -------
@@ -169,7 +249,7 @@ class GeneratorWord:
         r.bold = is_bold
         f = p.style.font
         f.name = 'Times New Roman'
-        f.size = Pt(12)
+        f.size = Pt(size)
 
         return p
 
@@ -210,11 +290,7 @@ class GeneratorWord:
         h = t.rows[0].cells
 
         # Take job title with first big letter
-        title_name = w.job_title.name
-        if (title_name == 'руководитель отделения') or (title_name == 'директор департамента'):
-            title_name = title_name.split()[0]
-        title_name = title_name[0:1].upper() + title_name[1:]
-        h[0].text = f'{title_name} {w.job_place.name_r}'
+        h[0].text = w.full_job_title_with_job_plane(True)
 
         h[1].text = ''
         if add_line_for_signature:
@@ -249,7 +325,7 @@ class GeneratorWord:
             self.add_signature(w, add_line_for_signature)
 
     #-----------------------------------------------------------------------------------------------
-    # Technical task methods.
+    # Order 3188, supplement 07. Technical task methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_thematic_results_table_with_TRL(self, th, y):
@@ -573,7 +649,7 @@ class GeneratorWord:
     #-----------------------------------------------------------------------------------------------
 
     @staticmethod
-    def generate_form_gos_assignment_suppl_07_technical_task(theme, y, out):
+    def generate_form_gos_assignment_3188_07_technical_task(theme, y, out):
         """
         Generate form gos assignment.
         Supplement 7 - technical task.
@@ -605,7 +681,7 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Calendar plan methods.
+    # Order 3188, supplement 08. Calendar plan methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_calendar_plan_title(self, cx, y):
@@ -701,37 +777,141 @@ class GeneratorWord:
                     h[10].text = f'{money}'
                     i = i + 1
 
-        # Text sizes.
-        for row in t.rows:
-            for cell in row.cells:
-                for par in cell.paragraphs:
-                    for run in par.runs:
-                        font = run.font
-                        font.size = Pt(8)
-
+        set_table_text_size(t, 8)
         #set_table_columns_widths(t, [0.5, 2.0, 2.0, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 2.0, 0.5])
 
-        p = self.add_paragraph('* В настоящем столбце указываются следующие вида РИД - программы '
-                               'для ЭВМ, базы данных, изобретения, полезные модели, промышленные '
-                               'образцы, селекционные достижения, топологии интегральных микросхем, '
-                               'секреты производства (ноу-хау), товарные знаки и знаки обслуживания, '
-                               'коммерческие обозначения;', WD_PARAGRAPH_ALIGNMENT.LEFT)
-        p.runs[0].font.size = Pt(8)
-        p = self.add_paragraph('** Указывается планируемый результат в соответствии с Порядком '
-                               'определения уровней готовности разрабатываемых или разработанных '
-                               'технологий, а также научных и (или) научно-технических результатов, '
-                               'соответствующих каждому уровню готовности технологий, утвержденным '
-                               'приказом Минобрнауки России от 6 февраля 2023 г. № 107 и положениями '
-                               'приказа НИЦ «Курчатовский институт» от 25 июля 2023 г. № 2136 '
-                               '«Об организации в НИЦ «Курчатовский институт» работы по определению '
-                               'уровней готовности разрабатываемых или разработанных технологи»:',
-                               WD_PARAGRAPH_ALIGNMENT.LEFT)
-        p.runs[0].font.size = Pt(8)
+        self.add_paragraph('* В настоящем столбце указываются следующие вида РИД - программы '
+                           'для ЭВМ, базы данных, изобретения, полезные модели, промышленные '
+                           'образцы, селекционные достижения, топологии интегральных микросхем, '
+                           'секреты производства (ноу-хау), товарные знаки и знаки обслуживания, '
+                           'коммерческие обозначения;',
+                           WD_PARAGRAPH_ALIGNMENT.LEFT, False, 8)
+        self.add_paragraph('** Указывается планируемый результат в соответствии с Порядком '
+                           'определения уровней готовности разрабатываемых или разработанных '
+                           'технологий, а также научных и (или) научно-технических результатов, '
+                           'соответствующих каждому уровню готовности технологий, утвержденным '
+                           'приказом Минобрнауки России от 6 февраля 2023 г. № 107 и положениями '
+                           'приказа НИЦ «Курчатовский институт» от 25 июля 2023 г. № 2136 '
+                           '«Об организации в НИЦ «Курчатовский институт» работы по определению '
+                           'уровней готовности разрабатываемых или разработанных технологи»:',
+                           WD_PARAGRAPH_ALIGNMENT.LEFT, False, 8)
+
+    #-----------------------------------------------------------------------------------------------
+
+    def add_calendar_plan_table_for_3188_08(self, theme, y):
+        """
+        Add calendar plan for 8 supplement.
+
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        y : int
+            Year.
+        """
+
+        # rows count
+        rows_count = 2 + 4 * len(theme.thematics)
+
+        # Table and its style.
+        t = self.doc.add_table(rows=rows_count, cols=13)
+        t.style = 'Table Grid'
+
+        # Names of fields.
+        h = t.rows[0].cells
+        h[0].text = '№ п/п'
+        h[1].text = 'Содержание выполняемых работ'
+        h[2].text = 'Ожидаемый результат выполнения работ '\
+                    '/ Период реализации работ в рамках тематики исследований'
+        h[3].text = 'Планируемый к созданию результат интеллектуальной деятельности (далее - '\
+                    'РИД) и уровень готовности разрабатываемых или разработанных технологий '\
+                    '(далее - УГТ)'
+        h[8].text = 'Ожидаемый результат по показателям качества работ, '\
+                    'установленных государственным заданием'
+        h[10].text = 'Состав отчетной документации'
+        h[11].text = 'Ответственный руководитель работ по комплексной теме\n\n '\
+                     'Ответственное структурное подразделение Центра за выполнение работ по '\
+                     'комплексной теме\n\n Ответственный руководитель работ по подтеме '\
+                     'комплексной темы с указанием структурного подразделения\n\n Ответственный '\
+                     'руководитель работ по тематике исследований подтемы'
+        h[12].text = 'Стоимость, тыс. рублей'
+        h = t.rows[1].cells
+        h[3].text = 'Вид планируемого к созданию РИД'
+        h[4].text = 'Планируемое наименование планируемого к созданию РИД'
+        h[5].text = 'Краткое описание планируемого к созданию РИД'
+        h[6].text = 'Планируемый УГТ'
+        h[7].text = 'Срок создания РИД (мм.гггг)'
+        h[8].text = 'Ожидаемый результат'
+        h[9].text = 'Срок исполнения'
+
+        # Shape.
+        merge_table_cells_in_column(t, 0, 0, 1)
+        merge_table_cells_in_column(t, 1, 0, 1)
+        merge_table_cells_in_column(t, 2, 0, 1)
+        merge_table_cells_in_row(t, 0, 3, 7)
+        merge_table_cells_in_row(t, 0, 8, 9)
+        merge_table_cells_in_column(t, 10, 0, 1)
+        merge_table_cells_in_column(t, 11, 0, 1)
+        merge_table_cells_in_column(t, 12, 0, 1)
+
+        # Start row number.
+        hi = 2
+
+        # Walk all thematics.
+        for thematici, thematic in enumerate(theme.thematics):
+
+            # Add thematic title.
+            h = t.rows[hi].cells
+            h[0].text = f'{thematici + 1}.'
+            h[1].text = thematic.title
+            merge_table_cells_in_row(t, hi, 1, 12)
+            hi = hi + 1
+
+            # Walk all years.
+            for year in range(y, y + 3):
+                h = t.rows[hi].cells
+
+                # Get common results and rids.
+                rs_com = [r for r in thematic.results if (not r.is_rid) and (r.year == year)]
+                rs_rid = [r for r in thematic.results if r.is_rid and (r.year == year)]
+
+                # Results and content.
+                h[1].text = ' '.join([r.content for r in rs_com])
+                h[2].text = ' '.join([r.title for r in rs_com])
+
+                # RID information.
+                h[3].text = '\n\n'.join([r.rid_type for r in rs_rid])
+                h[4].text = '\n\n'.join([r.rid_name for r in rs_rid])
+                h[5].text = '\n\n'.join([r.description for r in rs_rid])
+                h[6].text = '\n\n'.join(['Третий УГТ' for _ in rs_rid])
+                h[7].text = '\n\n'.join([f'12.{year}' for _ in rs_rid])
+
+                # Results and values.
+                txt = f'докторские диссертации - {thematic.ind_doctors(year)};\n'\
+                      f'кандидатские диссертации- {thematic.ind_candidates(year)};\n'\
+                      f'РИД - {len(rs_rid)};\nпубликации - {thematic.ind_publications(year)}'
+                h[8].text = txt
+                h[9].text = f'{year} год'
+
+                # Doc, responsible.
+                h[10].text = 'Аннотационный отчет - ежеквартально;\n\n'\
+                             'Итоговый отчет о НИР.'
+                h[11].text = f'{theme.manager.full_name_with_full_job_title_in_brackets()}\n\n'\
+                             f'{job_place_private_collection.osspv.name}'
+
+                # Money without hoz spents.
+                x = utils.norm_digits(thematic.outlay['II'].xmoney, 2)
+                h[12].text = f'{x}'
+
+                # Move row counter.
+                hi = hi + 1
+
+        set_table_text_size(t, 8)
 
     #-----------------------------------------------------------------------------------------------
 
     @staticmethod
-    def generate_form_gos_assignment_suppl_08_calendar_plan(theme, y, out):
+    def generate_form_gos_assignment_3188_08_calendar_plan(theme, y, out):
         """
         Generate form gos assignment.
         8 supplement - calendar plan.
@@ -756,18 +936,15 @@ class GeneratorWord:
         section.page_height = new_height
 
         # Title.
-        w.add_paragraph(f'КАЛЕНДАРНЫЙ ПЛАН\n на {y} год и плановый период {y + 1} и {y + 2} годов '
+        w.add_paragraph(f'КАЛЕНДАРНЫЙ ПЛАН\n на {y} год '
+                        f'и плановый период {y + 1} и {y + 2} годов '
                         'на выполнение научно-исследовательской работы '
                         f'по комплексной теме {theme.title}',
                         WD_PARAGRAPH_ALIGNMENT.CENTER, True)
         w.add_empty_line()
 
         # Add tables.
-        w.add_calendar_plan_table(theme, y)
-        w.add_empty_line()
-        w.add_calendar_plan_table(theme, y + 1)
-        w.add_empty_line()
-        w.add_calendar_plan_table(theme, y + 2)
+        w.add_calendar_plan_table_for_3188_08(theme, y)
         w.add_empty_line()
 
         # Add signatures and save.
@@ -1073,13 +1250,7 @@ class GeneratorWord:
             r[7].text = f'{x}'
             r[8].text = f'{x}'
 
-        # Text sizes.
-        for row in t.rows:
-            for cell in row.cells:
-                for par in cell.paragraphs:
-                    for run in par.runs:
-                        font = run.font
-                        font.size = Pt(8)
+        set_table_text_size(t, 8)
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1408,11 +1579,6 @@ def generate_calendar_plan(n, cx, y, out):
     out : str
         Out file name.
     """
-
-    # Create outlays for thematics.
-    for th in cx.thematics:
-        th.outlay = outlay_tree.duplicate_outlay(cx.outlay, 'тематике исследований',
-                                                 0.01 * th.funding_part(y))
 
     w = GeneratorWord()
 

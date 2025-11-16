@@ -6,6 +6,7 @@ import generator_excel as ge
 import publication_collection as pc
 import generator_html as gh
 import generator_word
+import outlay_tree
 
 #===================================================================================================
 
@@ -53,12 +54,20 @@ def generate_documents_pack(y, out_dir):
         Out directory.
     """
 
+    # Walk all themes.
     for (theme, team) in [(cx.cx1, ttc.cx1), (cx.cx2, ttc.cx2)]:
         pre = f'{out_dir}/{theme.short_title}'
 
-        # Form gos assignment (supplements 7 - 11).
-        #gw.generate_form_gos_assignment_suppl_07_technical_task(theme, y, f'{pre}-пре-1-ТЗ')
-        gw.generate_form_gos_assignment_suppl_08_calendar_plan(theme, y, f'{pre}-пре-2-КП')
+        # Create outlays for thematics.
+        # NB! Thematic outlays we calculate only for 'y' year.
+        for thematic in theme.thematics:
+            thematic.outlay = outlay_tree.duplicate_outlay(theme.outlay,
+                                                           'тематике исследований',
+                                                           0.01 * thematic.funding_part(y))
+
+        # Form gos assignment (order 3188, supplements 7 - 11).
+        gw.generate_form_gos_assignment_3188_07_technical_task(theme, y, f'{pre}-3188-07-ТЗ')
+        gw.generate_form_gos_assignment_3188_08_calendar_plan(theme, y, f'{pre}-3188-08-КП')
 
 #===================================================================================================
 

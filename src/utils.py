@@ -81,6 +81,29 @@ def write_to_file(fn, text):
         f.write(text)
         f.close()
 
+#---------------------------------------------------------------------------------------------------
+
+def norm_digits(x, n):
+    """
+    Norm value to n digits.
+
+    Parameters
+    ----------
+    x : float
+        Value.
+    n : int
+        Digits count.
+
+    Returns
+    -------
+    float
+        Value after norm.
+    """
+
+    t = 10**n
+
+    return int(x * t) / t
+
 #===================================================================================================
 
 if __name__ == '__main__':
