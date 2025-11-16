@@ -1446,7 +1446,7 @@ class GeneratorWord:
         w.save(out + '.docx')
 
     #-----------------------------------------------------------------------------------------------
-    # Generate equipment methods.
+    # Order 3188, supplement 11. Generate equipment methods.
     #-----------------------------------------------------------------------------------------------
 
     def add_equipment_title(self, cx):
@@ -1482,7 +1482,8 @@ class GeneratorWord:
         """
 
         # Add table title.
-        self.add_paragraph('1. Перечень находящихся в оперативном управлении НИЦ «Курчатовский институт» объектов особо ценного имущества',
+        self.add_paragraph('1. Перечень находящихся в оперативном управлении '
+                           'НИЦ «Курчатовский институт» объектов особо ценного имущества',
                            alignment=WD_PARAGRAPH_ALIGNMENT.CENTER, is_bold=True)
 
         # Table and its style.
@@ -1499,7 +1500,7 @@ class GeneratorWord:
         # Head.
         h = t.rows[0].cells
         h[0].text = '№ п/п'
-        h[1].text = 'Наименование объема особо ценного движимого имущества'
+        h[1].text = 'Наименование объекта особо ценного движимого имущества'
         h[2].text = 'Местоположение (здание, помещение)'
         h[3].text = 'Наименование подтем и тематик исследований'
 
@@ -1544,7 +1545,8 @@ class GeneratorWord:
         """
 
         # Add table title.
-        self.add_paragraph('2. Перечень объектов особо ценного движимого имущества, которое планируется привлечь на условиях аренды',
+        self.add_paragraph('2. Перечень объектов особо ценного движимого имущества, '
+                           'которое планируется привлечь на условиях аренды',
                            alignment=WD_PARAGRAPH_ALIGNMENT.CENTER, is_bold=True)
 
         # Table and its style.
@@ -1554,11 +1556,48 @@ class GeneratorWord:
         # Head.
         h = t.rows[0].cells
         h[0].text = '№ п/п'
-        h[1].text = 'Наименование объема особо ценного движимого имущества'
+        h[1].text = 'Наименование объекта особо ценного движимого имущества'
         h[2].text = 'Местоположение (здание, помещение)'
         h[3].text = 'Наименование подтем и тематик исследований'
 
         set_table_columns_widths(t, [0.5, 2.0, 1.5, 3.5])
+
+    #-----------------------------------------------------------------------------------------------
+
+    @staticmethod
+    def generate_form_gos_assignment_3188_11_equipment(cx, out):
+        """
+        Generate equipment document.
+
+        Parameters
+        ----------
+        cx : ComplexTheme
+            Complex theme.
+        out : str
+            Out file name.
+        """
+
+        w = GeneratorWord()
+
+        # Title.
+        w.add_paragraph('ПЕРЕЧЕНЬ\n\nобъектов особо ценного движимого имущества, '
+                        'используемого в процессе выполнения научно-исследовательской работы '
+                        '(основных средств и нематериальных активов, амортизируемых в процессе '
+                        f'выполнения работы) по комплексной теме {cx.title}',
+                        WD_PARAGRAPH_ALIGNMENT.CENTER, True)
+        w.add_empty_line()
+
+        # Inner equipment.
+        w.add_inner_equipment_table(cx)
+        w.add_empty_line()
+
+        # Outer equipment.
+        w.add_outer_equipment_table(cx)
+        w.add_empty_line()
+
+        # Signatures and save.
+        w.add_signatures([cx.manager, wsl.shabanov_bm])
+        w.save(out + '.docx')
 
 #===================================================================================================
 
