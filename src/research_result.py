@@ -271,8 +271,10 @@ class ResearchResult:
             Rid name.
         """
 
-        p = self.title.split('«')
-        return p[1]
+        p = self.title.split('«')[1]
+        p = p.split('»')[0]
+
+        return f'{p}.'
 
     #-----------------------------------------------------------------------------------------------
 
