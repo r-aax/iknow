@@ -10,10 +10,9 @@ class Publication:
 
 #---------------------------------------------------------------------------------------------------
 
-    def __init__(self, authors_affiliations,
-                 title, journal, year, volume, issue, pages,
-                 doi, extern_link,
-                 support, language, comment='', problem=''):
+    def __init__(self, authors_affiliations=[],
+                 title='', journal=None, year=0, volume='', issue='', pages='',
+                 doi='', extern_link='', support='', language='', comment='', problem=''):
         """
         Publication.
 

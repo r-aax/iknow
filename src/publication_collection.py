@@ -6,6 +6,8 @@ import job_place_private_collection as jppc
 import journal_collection as jc
 
 #===================================================================================================
+# 2025
+#===================================================================================================
 
 # cx1 th1 res1
 nrcki_2025_cx1_th1_res1_pub01 = \
@@ -275,13 +277,85 @@ nrcki_2025 = \
     nrcki_2025_cx1_th2_res1_pub01, nrcki_2025_cx1_th2_res1_pub02,
     nrcki_2025_cx1_th2_res2_pub01, nrcki_2025_cx1_th2_res2_pub02,
     nrcki_2025_cx1_th2_res3_pub01,
-    nrcki_2025_cx1_th3_res1_pub01, nrcki_2025_cx1_th3_res1_pub02, nrcki_2025_cx1_th3_res1_pub03, nrcki_2025_cx1_th3_res1_pub04, nrcki_2025_cx1_th3_res1_pub05, nrcki_2025_cx1_th3_res2_pub01, nrcki_2025_cx1_th3_res2_pub02, nrcki_2025_cx1_th3_res2_pub03, nrcki_2025_cx1_th3_res2_pub04,
+    nrcki_2025_cx1_th3_res1_pub01, nrcki_2025_cx1_th3_res1_pub02, nrcki_2025_cx1_th3_res1_pub03, nrcki_2025_cx1_th3_res1_pub04, nrcki_2025_cx1_th3_res1_pub05,
+    nrcki_2025_cx1_th3_res2_pub01, nrcki_2025_cx1_th3_res2_pub02, nrcki_2025_cx1_th3_res2_pub03, nrcki_2025_cx1_th3_res2_pub04,
     nrcki_2025_cx2_th1_res1_pub01, nrcki_2025_cx2_th1_res1_pub02, nrcki_2025_cx2_th1_res1_pub03, nrcki_2025_cx2_th1_res1_pub04,
     nrcki_2025_cx2_th2_res1_pub01, nrcki_2025_cx2_th2_res1_pub02, nrcki_2025_cx2_th2_res1_pub03,
-    nrcki_2025_cx2_th2_res2_pub01, nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10, nrcki_2025_cx2_th2_res3_pub11, nrcki_2025_cx2_th2_res3_pub12,
+    nrcki_2025_cx2_th2_res2_pub01,
+    nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10, nrcki_2025_cx2_th2_res3_pub11, nrcki_2025_cx2_th2_res3_pub12,
     nrcki_2025_cx2_th3_res1_pub01, nrcki_2025_cx2_th3_res1_pub02,
     nrcki_2025_cx2_th3_res2_pub01,
     nrcki_2025_cx2_th3_res3_pub01
+]
+
+#===================================================================================================
+# 2026
+#===================================================================================================
+
+# cx1 th1 res1 6 publ
+nrcki_2026_cx1_th1_res1_pub01 = Pub()
+nrcki_2026_cx1_th1_res1_pub02 = Pub()
+nrcki_2026_cx1_th1_res1_pub03 = Pub()
+nrcki_2026_cx1_th1_res1_pub04 = Pub()
+nrcki_2026_cx1_th1_res1_pub05 = Pub()
+nrcki_2026_cx1_th1_res1_pub06 = Pub()
+# cx1 th2 res1 1 publ
+nrcki_2026_cx1_th2_res1_pub01 = Pub()
+# cx1 th2 res2 4 publ
+nrcki_2026_cx1_th2_res2_pub01 = Pub()
+nrcki_2026_cx1_th2_res2_pub02 = Pub()
+nrcki_2026_cx1_th2_res2_pub03 = Pub()
+nrcki_2026_cx1_th2_res2_pub04 = Pub()
+# cx1 th3 res1 8 publ
+nrcki_2026_cx1_th3_res1_pub01 = Pub()
+nrcki_2026_cx1_th3_res1_pub02 = Pub()
+nrcki_2026_cx1_th3_res1_pub03 = Pub()
+nrcki_2026_cx1_th3_res1_pub04 = Pub()
+nrcki_2026_cx1_th3_res1_pub05 = Pub()
+nrcki_2026_cx1_th3_res1_pub06 = Pub()
+nrcki_2026_cx1_th3_res1_pub07 = Pub()
+nrcki_2026_cx1_th3_res1_pub08 = Pub()
+# cx1 th3 res2 1 publ
+nrcki_2026_cx1_th3_res2_pub01 = Pub()
+
+# cx2 th1 res1 4 publ
+nrcki_2026_cx2_th1_res1_pub01 = Pub([(ppc.svadkovskiy_ia, [])])
+nrcki_2026_cx2_th1_res1_pub02 = Pub()
+nrcki_2026_cx2_th1_res1_pub03 = Pub()
+nrcki_2026_cx2_th1_res1_pub04 = Pub()
+# cx2 th2 res1 13 publ
+nrcki_2026_cx2_th2_res1_pub01 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th2_res1_pub02 = Pub()
+nrcki_2026_cx2_th2_res1_pub03 = Pub()
+nrcki_2026_cx2_th2_res1_pub04 = Pub()
+nrcki_2026_cx2_th2_res1_pub05 = Pub()
+nrcki_2026_cx2_th2_res1_pub06 = Pub()
+nrcki_2026_cx2_th2_res1_pub07 = Pub()
+nrcki_2026_cx2_th2_res1_pub08 = Pub()
+nrcki_2026_cx2_th2_res1_pub09 = Pub()
+nrcki_2026_cx2_th2_res1_pub10 = Pub()
+nrcki_2026_cx2_th2_res1_pub11 = Pub()
+nrcki_2026_cx2_th2_res1_pub12 = Pub()
+nrcki_2026_cx2_th2_res1_pub13 = Pub()
+# cx2 th2 res1 1 publ
+nrcki_2026_cx2_th2_res2_pub01 = Pub([(ppc.rybakov_aa, [])])
+# cx2 th3 res1 4 publ
+nrcki_2026_cx2_th3_res1_pub01 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th3_res1_pub02 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th3_res1_pub03 = Pub()
+nrcki_2026_cx2_th3_res1_pub04 = Pub()
+
+nrcki_2026 = \
+[
+    nrcki_2026_cx1_th1_res1_pub01, nrcki_2026_cx1_th1_res1_pub02, nrcki_2026_cx1_th1_res1_pub03, nrcki_2026_cx1_th1_res1_pub04, nrcki_2026_cx1_th1_res1_pub05, nrcki_2026_cx1_th1_res1_pub06,
+    nrcki_2026_cx1_th2_res1_pub01,
+    nrcki_2026_cx1_th2_res2_pub01, nrcki_2026_cx1_th2_res2_pub02, nrcki_2026_cx1_th2_res2_pub03, nrcki_2026_cx1_th2_res2_pub04,
+    nrcki_2026_cx1_th3_res1_pub01, nrcki_2026_cx1_th3_res1_pub02, nrcki_2026_cx1_th3_res1_pub03, nrcki_2026_cx1_th3_res1_pub04, nrcki_2026_cx1_th3_res1_pub05, nrcki_2026_cx1_th3_res1_pub06, nrcki_2026_cx1_th3_res1_pub07, nrcki_2026_cx1_th3_res1_pub08,
+    nrcki_2026_cx1_th3_res2_pub01,
+    nrcki_2026_cx2_th1_res1_pub01, nrcki_2026_cx2_th1_res1_pub02, nrcki_2026_cx2_th1_res1_pub03, nrcki_2026_cx2_th1_res1_pub04,
+    nrcki_2026_cx2_th2_res1_pub01, nrcki_2026_cx2_th2_res1_pub02, nrcki_2026_cx2_th2_res1_pub03, nrcki_2026_cx2_th2_res1_pub04, nrcki_2026_cx2_th2_res1_pub05, nrcki_2026_cx2_th2_res1_pub06, nrcki_2026_cx2_th2_res1_pub07, nrcki_2026_cx2_th2_res1_pub08, nrcki_2026_cx2_th2_res1_pub09, nrcki_2026_cx2_th2_res1_pub10, nrcki_2026_cx2_th2_res1_pub11, nrcki_2026_cx2_th2_res1_pub12, nrcki_2026_cx2_th2_res1_pub13,
+    nrcki_2026_cx2_th2_res2_pub01,
+    nrcki_2026_cx2_th3_res1_pub01, nrcki_2026_cx2_th3_res1_pub02, nrcki_2026_cx2_th3_res1_pub03, nrcki_2026_cx2_th3_res1_pub04
 ]
 
 #===================================================================================================
