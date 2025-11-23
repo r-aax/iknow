@@ -38,6 +38,12 @@ nrcki_2025_cx1_th1_res1_pub04 = \
         jc.software_and_systems, 2025, '', '', '',
         '', '',
         '', 'ru')
+nrcki_2025_cx1_th1_res1_pub05 = \
+    Pub([(ppc.sapozhnikov_mv, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (pc.kazantsev_sy, [jpc.mtusi])],
+        'Методика оценки потерь, обусловленных атмосферной турбулентностью в квантовом канале связи с КРК.',
+        jc.electrosvyaz, 2025, '', '8', '60-69',
+        '10.34832/ELSV.2025.70.8.007', '',
+        'Работа была выполнена в НИЦ «Курчатовский институт» в рамках государственного задания по теме FNEF-2024-0014', 'ru')
 # cx1 th1 res2
 nrcki_2025_cx1_th1_res2_pub01 = \
     Pub([(ppc.abramov_ag, [jppc.nrcki]), (ppc.gonchar_ana, [jppc.nrcki]), (ppc.evseev_av, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
@@ -57,10 +63,6 @@ nrcki_2025_cx1_th2_res1_pub01 = \
         jc.lobachevskii, 2025, '46', '7', '3483-3490',
         '10.1134/S1995080225609440', '',
         '', 'en', '', 'нет самой статьи')
-nrcki_2025_cx1_th2_res1_pub02 = \
-    Pub([(ppc.khramchenkov_mg, [jppc.nrcki])],
-        'Математическое моделирование тромбоза сосудов микрососудистого русла кровеносной системы человека.',
-        jc.inzhenerno_phis_journal, 2025, '', '', '', '', '', '', 'ru')
 # cx1 th2 res2
 nrcki_2025_cx1_th2_res2_pub01 = \
     Pub([(ppc.khramchenkov_mg, [jpc.kfu, jppc.nrcki])],
@@ -256,7 +258,9 @@ nrcki_2025_cx2_th3_res1_pub01 = \
 nrcki_2025_cx2_th3_res1_pub02 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
         'Vectorization of the integer calculations in the graph decomposition problem.',
-        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+        jc.lobachevskii, 2025, '46', '11', '6012-6018',
+        '10.1134/S1995080225610987', '',
+        'The work was carried out as part of the state assignment of the National Research Centre “Kurchatov Institute”.', 'en')
 # cx2 th3 res2
 nrcki_2025_cx2_th3_res2_pub01 = \
     Pub([(ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
@@ -272,9 +276,9 @@ nrcki_2025_cx2_th3_res3_pub01 = \
 
 nrcki_2025 = \
 [
-    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03, nrcki_2025_cx1_th1_res1_pub04,
+    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03, nrcki_2025_cx1_th1_res1_pub04, nrcki_2025_cx1_th1_res1_pub05,
     nrcki_2025_cx1_th1_res2_pub01, nrcki_2025_cx1_th1_res2_pub02,
-    nrcki_2025_cx1_th2_res1_pub01, nrcki_2025_cx1_th2_res1_pub02,
+    nrcki_2025_cx1_th2_res1_pub01,
     nrcki_2025_cx1_th2_res2_pub01, nrcki_2025_cx1_th2_res2_pub02,
     nrcki_2025_cx1_th2_res3_pub01,
     nrcki_2025_cx1_th3_res1_pub01, nrcki_2025_cx1_th3_res1_pub02, nrcki_2025_cx1_th3_res1_pub03, nrcki_2025_cx1_th3_res1_pub04, nrcki_2025_cx1_th3_res1_pub05,

@@ -170,24 +170,25 @@ class GeneratorExcel:
 
             r = r + 1
 
-#===================================================================================================
+    #-----------------------------------------------------------------------------------------------
 
-def generate_PTNI_researchers(theme, out):
-    """
-    Generate file of researchers (PTNI).
+    @staticmethod
+    def generate_PTNI_researchers(theme, out):
+        """
+        Generate file of researchers (PTNI).
 
-    Parameters
-    ----------
-    theme : ComplexTheme
-        Complex theme.
-    out : str
-        Out file name.
-    """
+        Parameters
+        ----------
+        theme : ComplexTheme
+            Complex theme.
+        out : str
+            Out file name.
+        """
 
-    e = GeneratorExcel()
-    e.add_PTNI_researchers_head_and_prepare()
-    e.add_PTNI_researchers(theme)
-    e.save(f'{out}.xlsx')
+        e = GeneratorExcel()
+        e.add_PTNI_researchers_head_and_prepare()
+        e.add_PTNI_researchers(theme)
+        e.save(f'{out}.xlsx')
 
 #===================================================================================================
 

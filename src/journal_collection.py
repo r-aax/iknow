@@ -28,6 +28,7 @@ tcomm =                                     Journal('T-Comm - Телекомму
 uch_zapiski_kaz_univer_estestv =            Journal('Ученые записки Казанского университета. Серия Естественные науки.')
 uch_zapiski_kaz_univer_phis_mat =           Journal('Ученые записки Казанского университета. Серия Физико-математические науки.')
 vestnik_technologich_universiteta =         Journal('Вестник технологического университета')
+electrosvyaz =                              Journal('Электросвязь')
 
 all = \
 [
