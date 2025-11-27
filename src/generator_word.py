@@ -505,7 +505,7 @@ class GeneratorWord:
         h[1].text = 'Публикации в журналах, индексируемых в российских и международных '\
                     'информационно-аналитических системах научного цитирования (Российский индекс '\
                     'научного цитирования или публикации в научных журналах, '\
-                    'входящих в «Белый список»'
+                    'входящих в «Белый список»)'
         h[2].text = 'шт'
         for i in range(3):
             h[3 + i].text = f'{th.ind_publications(y + i)}'
@@ -623,7 +623,7 @@ class GeneratorWord:
         h[1].text = 'Публикации в журналах, индексируемых в российских и международных '\
                     'информационно-аналитических системах научного цитирования (Российский индекс '\
                     'научного цитирования или публикации в научных журналах, '\
-                    'входящих в «Белый список»'
+                    'входящих в «Белый список»)'
         h[2].text = 'шт'
         for i in range(3):
             h[3 + i].text = f'{cx.ind_publications(y + i)}'
@@ -1591,7 +1591,7 @@ class GeneratorWord:
                            alignment=WD_PARAGRAPH_ALIGNMENT.CENTER, is_bold=True)
 
         # Table and its style.
-        t = self.doc.add_table(rows=4, cols=4)
+        t = self.doc.add_table(rows=6, cols=4)
         t.style = 'Table Grid'
 
         # All thematics.
@@ -1608,29 +1608,43 @@ class GeneratorWord:
         h[2].text = 'Местоположение (здание, помещение)'
         h[3].text = 'Наименование подтем и тематик исследований'
 
-        # CLK
+        # BDW
         h = t.rows[1].cells
         h[0].text = '1.'
-        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП2, '\
-                    'подраздел МВС-10П ОП2 CLK (Cascade Lake),\n'\
-                    f'{cx.clk_need} узлочасов.'
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП1 BDW (Broadwell),\n'\
+                    f'{cx.bdw_need} узлочасов.'
         h[2].text = 'Москва, Ленинский проспект, 32А.'
         h[3].text = all_thematics_text
 
         # KNL
         h = t.rows[2].cells
         h[0].text = '2.'
-        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П МП2 (Knights Landing),\n'\
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П МП2 KNL (Knights Landing),\n'\
                     f'{cx.knl_need} узлочасов.'
         h[2].text = 'Москва, Ленинский проспект, 32А.'
         h[3].text = all_thematics_text
 
-        # ICL
+        # CLK
         h = t.rows[3].cells
         h[0].text = '3.'
-        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП3, '\
-                    'подраздел МВС-10П ОП3 ICL (Ice Lake),\n'\
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП2 CLK (Cascade Lake),\n'\
+                    f'{cx.clk_need} узлочасов.'
+        h[2].text = 'Москва, Ленинский проспект, 32А.'
+        h[3].text = all_thematics_text
+
+        # ICL
+        h = t.rows[4].cells
+        h[0].text = '4.'
+        h[1].text = 'Суперкомпьютер МВС-10П ОП, раздел МВС-10П ОП3 ICL (Ice Lake),\n'\
                     f'{cx.icl_need} узлочасов.'
+        h[2].text = 'Москва, Ленинский проспект, 32А.'
+        h[3].text = all_thematics_text
+
+        # A100
+        h = t.rows[5].cells
+        h[0].text = '5.'
+        h[1].text = 'Вычислительные узлы на базе двух графических карт NVIDIA A100,\n'\
+                    f'{cx.a100_need} узлочасов.'
         h[2].text = 'Москва, Ленинский проспект, 32А.'
         h[3].text = all_thematics_text
 

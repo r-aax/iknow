@@ -26,9 +26,11 @@ class ComplexTheme:
         self.actuality = ''
         self.manager = None
         self.deputy = None
-        self.clk_need = 0
+        self.bdw_need = 0
         self.knl_need = 0
+        self.clk_need = 0
         self.icl_need = 0
+        self.a100_need = 0
         self.outlay = None
 
     #-----------------------------------------------------------------------------------------------

@@ -229,11 +229,11 @@ nrcki_2025_cx2_th2_res3_pub08 = \
         '10.2174/0113852728360044250110004808', '',
         'The contribution of author D.V. Chachkov was funded by the state assignment to the National Research Center “Kurchatov Institute” for scientific research, Grant no. FNEF-2024-0016.', 'en')
 nrcki_2025_cx2_th2_res3_pub09 = \
-    Pub([(ppc.chachkov_dv, [jppc.nrcki])],
+    Pub([(pc.mikhailov_ov, []), (ppc.chachkov_dv, [jppc.nrcki])],
         'Новые макроциклические металлоорганические соединения, содержащие октафторзамещенный порфиразин: рассмотрение DFT (New macrocyclic organometallics containing octafluoro substituted porphyrazine: DFT consideration).',
         jc.computational_and_theor_chemistry, 2025, '', '', '', '', '', '', 'en', '', '')
 nrcki_2025_cx2_th2_res3_pub10 = \
-    Pub([(ppc.chachkov_dv, [jppc.nrcki])],
+    Pub([(ppc.chachkov_dv, [jppc.nrcki]), (pc.mikhailov_ov, [])],
         'New macrocyclic metal complexes containing octafluoro substituted porphyrazine and two axial acido ligands: Design by DFT chemistry models.',
         jc.polyhedron, 2025, '', '', '', '', '', '', 'en', '', '')
 nrcki_2025_cx2_th2_res3_pub11 = \
