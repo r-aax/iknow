@@ -1154,7 +1154,7 @@ class GeneratorWord:
             h = t.rows[3 + i].cells
             h[0].text = f'2.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = round(th.outlay['II'].xmoney, 2)
+            x = utils.norm_digits(th.outlay['II'].xmoney, 2)
             direct = direct + x
             h[2].text = f'{x}'
             h[3].text = f'{x}'
@@ -1163,7 +1163,7 @@ class GeneratorWord:
             h = t.rows[4 + k + i].cells
             h[0].text = f'3.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = round(th.outlay['III'].xmoney, 2)
+            x = utils.norm_digits(th.outlay['III'].xmoney, 2)
             hoz = hoz + x
             h[2].text = f'{x}'
             h[3].text = f'{x}'
@@ -1171,17 +1171,17 @@ class GeneratorWord:
 
         # Write sums.
         h = t.rows[2].cells
-        direct = round(direct, 2)
+        direct = utils.norm_digits(direct, 2)
         h[2].text = f'{direct}'
         h[3].text = f'{direct}'
         h[4].text = f'{direct}'
         h = t.rows[6].cells
-        hoz = round(hoz, 2)
+        hoz = utils.norm_digits(hoz, 2)
         h[2].text = f'{hoz}'
         h[3].text = f'{hoz}'
         h[4].text = f'{hoz}'
         h = t.rows[1].cells
-        s = round(direct + hoz, 2)
+        s = utils.norm_digits(direct + hoz, 2)
         h[2].text = f'{s}'
         h[3].text = f'{s}'
         h[4].text = f'{s}'
@@ -1225,7 +1225,7 @@ class GeneratorWord:
             h = t.rows[1 + i].cells
             h[0].text = ol.label
             h[1].text = ol.name
-            x = round(ol.xmoney, 2)
+            x = utils.norm_digits(ol.xmoney, 2)
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
