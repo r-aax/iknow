@@ -58,12 +58,50 @@ def generate_documents_pack(y, out_dir):
     for (theme, team) in [(cx.cx1, ttc.cx1), (cx.cx2, ttc.cx2)]:
         pre = f'{out_dir}/{theme.short_title}'
 
-        # Create outlays for thematics.
+        # We need to create outlays for thematics.
         # NB! Thematic outlays we calculate only for 'y' year.
-        for thematic in theme.thematics:
-            thematic.outlay = outlay_tree.duplicate_outlay(theme.outlay,
-                                                           'тематике исследований',
-                                                           0.01 * thematic.funding_part(y))
+
+        # Get all three thematics.
+        [th1, th2, th3] = theme.thematics
+
+        # Get all thematic weights.
+        w1, w2, w3 = \
+            0.01 * th1.funding_part(y), 0.01 * th2.funding_part(y), 0.01 * th3.funding_part(y)
+
+        # Split.
+        th1.outlay = \
+            outlay_tree.duplicate_outlay_each_line(theme.outlay,
+                                                   'тематике исследований',
+                                                   w1, w1,
+                                                   1.0, 1.0, 1.0,
+                                                   1.0, 1.0, 1.0,
+                                                   1.0, 1.0, 1.0,
+                                                   1.0, 1.0,
+                                                   1.0, 1.0,
+                                                   1.0, 1.0, 1.0,
+                                                   w1, w1, w1, w1, w1, w1, w1, w1, w1)
+        th2.outlay = \
+            outlay_tree.duplicate_outlay_each_line(theme.outlay,
+                                                   'тематике исследований',
+                                                   w2, w2,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   w2, w2, w2, w2, w2, w2, w2, w2, w2)
+        th3.outlay = \
+            outlay_tree.duplicate_outlay_each_line(theme.outlay,
+                                                   'тематике исследований',
+                                                   w3, w3,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   w3, w3, w3, w3, w3, w3, w3, w3, w3)
 
         # Form gos assignment (order 3188, form, supplements 7 - 11).
         #prex = f'{pre}-{y}-{y + 2}-формирование'
