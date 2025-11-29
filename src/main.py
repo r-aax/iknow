@@ -91,17 +91,12 @@ def generate_documents_pack(y, out_dir):
                                                    0.0, 0.0,
                                                    0.0, 0.0, 0.0,
                                                    w2, w2, w2, w2, w2, w2, w2, w2, w2)
-        th3.outlay = \
-            outlay_tree.duplicate_outlay_each_line(theme.outlay,
-                                                   'тематике исследований',
-                                                   w3, w3,
-                                                   0.0, 0.0, 0.0,
-                                                   0.0, 0.0, 0.0,
-                                                   0.0, 0.0, 0.0,
-                                                   0.0, 0.0,
-                                                   0.0, 0.0,
-                                                   0.0, 0.0, 0.0,
-                                                   w3, w3, w3, w3, w3, w3, w3, w3, w3)
+
+        th3.outlay = outlay_tree.sub_outlays('тематике исследований',
+                                             outlay_tree.sub_outlays('',
+                                                                     theme.outlay,
+                                                                     th1.outlay),
+                                             th2.outlay)
 
         # Form gos assignment (order 3188, form, supplements 7 - 11).
         #prex = f'{pre}-{y}-{y + 2}-формирование'

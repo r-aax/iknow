@@ -850,7 +850,7 @@ class GeneratorWord:
                              f'{job_place_private_collection.osspv.name}'
 
                 # Money without hoz spents.
-                x = utils.norm_digits(thematic.outlay['II'].xmoney, 2)
+                x = thematic.outlay['II'].xmoney_tr
                 h[12].text = f'{x}'
 
                 # Move row counter.
@@ -948,7 +948,7 @@ class GeneratorWord:
                             f'{job_place_private_collection.osspv.name}'
 
                 # All money.
-                x = utils.norm_digits(thematic.outlay.xmoney, 2)
+                x = thematic.outlay.xmoney_tr
                 h[9].text = f'{x}'
 
                 # Move row counter.
@@ -1082,7 +1082,7 @@ class GeneratorWord:
 
         # If it is form without hoz then print first row.
         if not hoz:
-            x = utils.norm_digits(outlay['II'].xmoney, 2)
+            x = outlay['II'].xmoney_tr
             add_row(rowi,'', 'ВСЕГО ЗАТРАТ, в том числе:', f'{x}', f'{x}')
             rowi = rowi + 1
 
@@ -1096,7 +1096,7 @@ class GeneratorWord:
             if (not hoz) and (ol.label == 'III.'):
                 break
 
-            x = utils.norm_digits(ol.xmoney, 2)
+            x = ol.xmoney_tr
             add_row(rowi, ol.label, ol.name, f'{x}', f'{x}')
             rowi = rowi + 1
 
@@ -1148,14 +1148,12 @@ class GeneratorWord:
         h[1].text = 'Общехозяйственные расходы, из них:'
 
         # Process all thematics.
-        direct, hoz = 0.0, 0.0
         for i, th in enumerate(cx.thematics):
             #
             h = t.rows[3 + i].cells
             h[0].text = f'2.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = utils.norm_digits(th.outlay['II'].xmoney, 2)
-            direct = direct + x
+            x = th.outlay['II'].xmoney_tr
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
@@ -1163,25 +1161,24 @@ class GeneratorWord:
             h = t.rows[4 + k + i].cells
             h[0].text = f'3.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = utils.norm_digits(th.outlay['III'].xmoney, 2)
-            hoz = hoz + x
+            x = th.outlay['III'].xmoney_tr
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
 
         # Write sums.
         h = t.rows[2].cells
-        direct = utils.norm_digits(direct, 2)
+        direct = cx.outlay['II'].xmoney_tr
         h[2].text = f'{direct}'
         h[3].text = f'{direct}'
         h[4].text = f'{direct}'
         h = t.rows[6].cells
-        hoz = utils.norm_digits(hoz, 2)
+        hoz = cx.outlay['III'].xmoney_tr
         h[2].text = f'{hoz}'
         h[3].text = f'{hoz}'
         h[4].text = f'{hoz}'
         h = t.rows[1].cells
-        s = utils.norm_digits(direct + hoz, 2)
+        s = cx.outlay.xmoney_tr
         h[2].text = f'{s}'
         h[3].text = f'{s}'
         h[4].text = f'{s}'
@@ -1225,7 +1222,7 @@ class GeneratorWord:
             h = t.rows[1 + i].cells
             h[0].text = ol.label
             h[1].text = ol.name
-            x = utils.norm_digits(ol.xmoney, 2)
+            x = ol.xmoney_tr
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'

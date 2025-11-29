@@ -22,7 +22,10 @@ class Nod:
 
         self.label = label
         self.name = name
-        self.money = 0.0
+
+        # Store sum in kopecks.
+        self.money = 0
+
         self.ch = []
 
     #-----------------------------------------------------------------------------------------------
@@ -42,6 +45,24 @@ class Nod:
             return self.money
         else:
             return sum(c.xmoney for c in self.ch)
+
+    #-----------------------------------------------------------------------------------------------
+
+    @property
+    def xmoney_tr(self):
+        """
+        Get extended money in thousands.
+
+        Returns
+        -------
+        float
+            Extended money.
+        """
+
+        # 5 digits are extra.
+        # cut 3 digits, and hold 2.
+
+        return int(self.xmoney / 1000) / 100
 
     #-----------------------------------------------------------------------------------------------
 
@@ -291,33 +312,33 @@ def create_outlay(obj, pII11, pII12, pII21, pII22, pII23,
 
     t = create_outlay_skeleton(obj)
 
-    t['II'][1][1].money = pII11
-    t['II'][1][2].money = pII12
-    t['II'][2][1].money = pII21
-    t['II'][2][2].money = pII22
-    t['II'][2][3].money = pII23
-    t['II'][3][1].money = pII31
-    t['II'][3][2].money = pII32
-    t['II'][3][3].money = pII33
-    t['II'][3][4].money = pII34
-    t['II'][3][5].money = pII35
-    t['II'][3][6].money = pII36
-    t['II'][4][1].money = pII41
-    t['II'][4][2].money = pII42
-    t['II'][5][1].money = pII51
-    t['II'][5][2].money = pII52
-    t['II'][6].money = pII6
-    t['II'][7].money = pII7
-    t['II'][8].money = pII8
-    t['III'][1][1].money = pIII11
-    t['III'][2][1].money = pIII21
-    t['III'][2][2].money = pIII22
-    t['III'][3][1].money = pIII31
-    t['III'][3][2].money = pIII32
-    t['III'][4].money = pIII4
-    t['III'][5].money = pIII5
-    t['III'][6].money = pIII6
-    t['III'][7].money = pIII7
+    t['II'][1][1].money = int(pII11)
+    t['II'][1][2].money = int(pII12)
+    t['II'][2][1].money = int(pII21)
+    t['II'][2][2].money = int(pII22)
+    t['II'][2][3].money = int(pII23)
+    t['II'][3][1].money = int(pII31)
+    t['II'][3][2].money = int(pII32)
+    t['II'][3][3].money = int(pII33)
+    t['II'][3][4].money = int(pII34)
+    t['II'][3][5].money = int(pII35)
+    t['II'][3][6].money = int(pII36)
+    t['II'][4][1].money = int(pII41)
+    t['II'][4][2].money = int(pII42)
+    t['II'][5][1].money = int(pII51)
+    t['II'][5][2].money = int(pII52)
+    t['II'][6].money = int(pII6)
+    t['II'][7].money = int(pII7)
+    t['II'][8].money = int(pII8)
+    t['III'][1][1].money = int(pIII11)
+    t['III'][2][1].money = int(pIII21)
+    t['III'][2][2].money = int(pIII22)
+    t['III'][3][1].money = int(pIII31)
+    t['III'][3][2].money = int(pIII32)
+    t['III'][4].money = int(pIII4)
+    t['III'][5].money = int(pIII5)
+    t['III'][6].money = int(pIII6)
+    t['III'][7].money = int(pIII7)
 
     return t
 
@@ -476,6 +497,56 @@ def duplicate_outlay_each_line(t, obj,
                          t['III'][5].money * pIII5,
                          t['III'][6].money * pIII6,
                          t['III'][7].money * pIII7)
+
+#---------------------------------------------------------------------------------------------------
+
+def sub_outlays(obj, t1, t2):
+    """
+    Subtract two outlays.
+
+    Parameters
+    ----------
+    obj : str
+        Object description.
+    t1 : Nod
+        First outlay.
+    t2 : Nod
+        Second outlay.
+
+    Returns
+    -------
+    Nod
+        Difference of two outlays.
+    """
+
+    return create_outlay(obj,
+                         t1['II'][1][1].money - t2['II'][1][1].money,
+                         t1['II'][1][2].money - t2['II'][1][2].money,
+                         t1['II'][2][1].money - t2['II'][2][1].money,
+                         t1['II'][2][2].money - t2['II'][2][2].money,
+                         t1['II'][2][3].money - t2['II'][2][3].money,
+                         t1['II'][3][1].money - t2['II'][3][1].money,
+                         t1['II'][3][2].money - t2['II'][3][2].money,
+                         t1['II'][3][3].money - t2['II'][3][3].money,
+                         t1['II'][3][4].money - t2['II'][3][4].money,
+                         t1['II'][3][5].money - t2['II'][3][5].money,
+                         t1['II'][3][6].money - t2['II'][3][6].money,
+                         t1['II'][4][1].money - t2['II'][4][1].money,
+                         t1['II'][4][2].money - t2['II'][4][2].money,
+                         t1['II'][5][1].money - t2['II'][5][1].money,
+                         t1['II'][5][2].money - t2['II'][5][2].money,
+                         t1['II'][6].money - t2['II'][6].money,
+                         t1['II'][7].money - t2['II'][7].money,
+                         t1['II'][8].money - t2['II'][8].money,
+                         t1['III'][1][1].money - t2['III'][1][1].money,
+                         t1['III'][2][1].money - t2['III'][2][1].money,
+                         t1['III'][2][2].money - t2['III'][2][2].money,
+                         t1['III'][3][1].money - t2['III'][3][1].money,
+                         t1['III'][3][2].money - t2['III'][3][2].money,
+                         t1['III'][4].money - t2['III'][4].money,
+                         t1['III'][5].money - t2['III'][5].money,
+                         t1['III'][6].money - t2['III'][6].money,
+                         t1['III'][7].money - t2['III'][7].money)
 
 #===================================================================================================
 
