@@ -34,10 +34,10 @@ nrcki_2025_cx1_th1_res1_pub03 = \
         'задания по теме FFWZ–2025–0015', 'ru')
 nrcki_2025_cx1_th1_res1_pub04 = \
     Pub([(ppc.buzhin_ig, [jppc.nrcki]), (pc.velikhov_ve, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (ppc.ovsyannikov_ap, [jppc.nrcki])],
-        'О реализации взаимодействия разнородных сетей квантового распределения ключей в рамках межуниверситетской квантовой сети.',
-        jc.software_and_systems, 2025, '', '', '',
-        '', '',
-        '', 'ru')
+        'Реализация взаимодействия разнородных сетей квантового распределения ключей в рамках межуниверситетской квантовой сети.',
+        jc.software_and_systems, 2025, '38', '4', '578-587',
+        '10.15827/0236-235X.152.578-587', '',
+        'Работа выполнена в НИЦ «Курчатовский институт» в рамках госзадания по теме FNEF-2024-0014', 'ru')
 nrcki_2025_cx1_th1_res1_pub05 = \
     Pub([(ppc.sapozhnikov_mv, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (pc.kazantsev_sy, [jpc.mtusi])],
         'Методика оценки потерь, обусловленных атмосферной турбулентностью в квантовом канале связи с КРК.',
@@ -98,9 +98,11 @@ nrcki_2025_cx1_th3_res1_pub02 = \
         '10.26907/2541-7746.2025.2.267-281', '',
         'Работа выполнена в Отделении суперкомпьютерных систем и параллельных вычислений НИЦ «Курчатовский институт» в рамках государственного задания.', 'ru')
 nrcki_2025_cx1_th3_res1_pub03 = \
-    Pub([(ppc.sotnikov_an, [jppc.nrcki]), (ppc.kalenov_ne, [jppc.nrcki]), (ppc.vlasova_sa, [jppc.nrcki])],
-        'Реализация алгоритмов формирования контента Единого цифрового пространства научных знаний на базе WEB- ориентированного программного комплекса.',
-        jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
+    Pub([(ppc.vlasova_sa, [jppc.nrcki]), (ppc.kalenov_ne, [jppc.nrcki]), (ppc.sotnikov_an, [jppc.nrcki])],
+        'Формирование контента единого цифрового пространства научных знаний на базе веб-ориентированного программного комплекса.',
+        jc.software_and_systems, 2025, '38', '4', '715-723',
+        '10.15827/0236-235X.152.715-723', '',
+        'Работа выполнена в НИЦ «Курчатовский институт» в рамках государственного задания.', 'ru')
 nrcki_2025_cx1_th3_res1_pub04 = \
     Pub([(ppc.vlasova_sa, [jppc.nrcki]), (ppc.kalenov_ne, [jppc.nrcki]), (ppc.kirillov_sa, [jppc.nrcki]), (ppc.sobolevskaya_in, [jppc.nrcki]), (ppc.sotnikov_an, [jppc.nrcki])],
         'Modeling of a fragment of the Common digital space of scientific knowledge by the example of museum collections.',
@@ -123,7 +125,9 @@ nrcki_2025_cx1_th3_res2_pub01 = \
 nrcki_2025_cx1_th3_res2_pub02 = \
     Pub([(ppc.abramov_ag, [jppc.nrcki])],
         'Модернизация сервисов мониторинга и контроля функционирования национальной исследовательской компьютерной сети России.',
-        jc.informazionnye_tehnologii, 2025, '', '', '', '', '', '', 'ru')
+        jc.informazionnye_tehnologii, 2025, '31', '11', '596-603',
+        '10.17587/it.31.596-603', '',
+        '', 'ru')
 nrcki_2025_cx1_th3_res2_pub03 = \
     Pub([(pc.pleschinsky_nb, []), (ppc.tumakov_md, [jppc.nrcki])],
         'On the problems of direction of electromagnetic waves by prefractal barriers in waveguides with metal walls.',
@@ -137,8 +141,9 @@ nrcki_2025_cx1_th3_res2_pub04 = \
 nrcki_2025_cx2_th1_res1_pub01 = \
     Pub([(pc.goryachev_av, [jpc.ciam]), (pc.goryachev_da, [jpc.ciam]), (pc.goryachev_pa, [jpc.ciam]), (pc.nuriev_mv, [jpc.ciam]), (pc.nikolaev_aa, [jpc.ciam]), (ppc.rybakov_aa, [jppc.nrcki])],
         'Численное моделирование процесса обледенения в условиях переохлажденных капель.',
-        jc.prog_syst_teor_i_prilozheniya, 2025, '', '', '',
-        '', '', '', 'ru')
+        jc.prog_syst_teor_i_prilozheniya, 2025, '16', '4(67)', '287-317',
+        '10.25209/2079-3316-2025-16-4-287-317', 'https://psta.psiras.ru/read/psta2025_4_287-317.pdf',
+        'Работа выполнялась в рамках госзадания НИЦ «Курчатовский институт» (Рыбаков).', 'ru')
 nrcki_2025_cx2_th1_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki])],
         'Построение системы управления заданиями пользователей суперкомпьютера на основе иерархической модели.',
@@ -152,11 +157,11 @@ nrcki_2025_cx2_th1_res1_pub03 = \
         '10.15827/0236-235X.151.524-533', 'https://swsys.ru/index.php?page=article&id=5193',
         'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF2024-0016.', 'ru')
 nrcki_2025_cx2_th1_res1_pub04 = \
-    Pub([(pc.mokryakov_av, []), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.prilipko_aa, [jppc.nrcki])],
+    Pub([(ppc.barantsev_vv, [jppc.nrcki]), (pc.mokryakov_av, [jpc.rgu_kos]), (ppc.prilipko_aa, [jppc.nrcki])],
         'Прогнозирование времени выполнения суперкомпьютерных заданий с применением методов машинного обучения.',
-        jc.software_and_systems, 2025, '', '', '',
-        '', '',
-        '', 'ru')
+        jc.software_and_systems, 2025, '38', '4', '568-577',
+        '10.15827/0236-235X.152.568-577', '',
+        'Результаты получены в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 # cx2 th2 res1
 nrcki_2025_cx2_th2_res1_pub01 = \
     Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
@@ -263,9 +268,11 @@ nrcki_2025_cx2_th3_res1_pub02 = \
         'The work was carried out as part of the state assignment of the National Research Centre “Kurchatov Institute”.', 'en')
 # cx2 th3 res2
 nrcki_2025_cx2_th3_res2_pub01 = \
-    Pub([(ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
+    Pub([(pc.aye_min_thike, [jpc.miet]), (pc.lupin_sa, [jpc.miet]), (ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
         'Повышение эффективности алгоритма полного перебора при распределении нагрузки в иерархиях.',
-        jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
+        jc.software_and_systems, 2025, '38', '4', '557-567',
+        '10.15827/0236-235X.152.557-567', '',
+        'Работа выполнена в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 # cx2 th3 res3
 nrcki_2025_cx2_th3_res3_pub01 = \
     Pub([(pc.aye_min_thike, [jpc.miet]), (pc.lupin_sa, [jpc.miet]), (ppc.telegin_pn, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
