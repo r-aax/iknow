@@ -72,9 +72,11 @@ nrcki_2025_cx1_th2_res2_pub01 = \
         'This work was carried out within the framework of the State assignment on the topic FNEF-2024-0016.', 'en',
         'Указана тема 16', '')
 nrcki_2025_cx1_th2_res2_pub02 = \
-    Pub([(ppc.khamidullin_mr, [jppc.nrcki])],
-        'Продуктивность горизонтальных скважин с многозонным гидроразрывом пласта и  способы ее расчета.',
-        jc.georesursy, 2025, '', '', '', '', '', '', 'ru')
+    Pub([(ppc.khamidullin_mr, [jppc.nrcki, jpc.kfu]), (pc.potashev_ka, [jpc.kfu, jpc.kgeu]), (pc.mazo_ab, [jpc.kfu])],
+        'Продуктивность горизонтальных скважин с многозонным гидроразрывом пласта и способы ее расчета.',
+        jc.georesursy, 2025, '27', '4', '120-132',
+        '10.18599/grs.2025.4.6', '',
+        'работа выполнена в Научно-исследовательском центре «Курчатовский институт» в рамках государственного задания.', 'ru')
 # cx1 th2 res3
 nrcki_2025_cx1_th2_res3_pub01 = \
     Pub([(ppc.baranov_av, [jpc.niisi_jscc, jppc.nrcki]), (ppc.aladyshev_os, [jpc.niisi_jscc, jppc.nrcki]), (ppc.bragin_ka, [jpc.niisi_jscc, jppc.nrcki])],
@@ -164,19 +166,21 @@ nrcki_2025_cx2_th1_res1_pub04 = \
         'Результаты получены в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 # cx2 th2 res1
 nrcki_2025_cx2_th2_res1_pub01 = \
-    Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
-        'Применение контейнерной виртуализации для реализации параллельных вычислений на суперкомпьютерных кластерах.',
-        jc.software_and_systems, 2025, '', '', '', '', '', '', 'ru')
+    Pub([(ppc.chachkov_dv, [jpc.knitu]), (pc.devyatov_fv, [jpc.kfu_butlerov]), (pc.mikhailov_ov, [jpc.knitu])],
+        '(6666)макротетрациклические металлохелаты 3d-элементов с тетра|бензо|порфиразином и двумя ацидолигандами: квантово-химический расчет с применением теории функционала плотности.',
+        jc.vestnik_technologich_universiteta, 2025, '28', '4', '11-18',
+        '10.55421/3034-4689_2025_28_4_11', '',
+        'Расчеты были выполнены в Межведомственном суперкомпьютерном центре НИЦ "Курчатовский институт".', 'ru')
 nrcki_2025_cx2_th2_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.bragin_ka, [jppc.nrcki])],
         'Job Scheduling Based on the Supercomputer Resources Fragmentation Management.',
         jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
 nrcki_2025_cx2_th2_res1_pub03 = \
-    Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
-        'Combined computing systems power calculation model.',
-        jc.lobachevskii, 2025, '', '', '',
-        '', '',
-        '', 'en')
+    Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
+        'Combined computing system\'s power calculation model.',
+        jc.lobachevskii, 2025, '46', '11', '5944-5954',
+        '10.1134/S1995080225612445', '',
+        'The research was carried out at National Research Centre “Kurchatov Institute” as part of government assignment (topic FNEF-2024-0016).', 'en')
 # cx2 th2 res2
 nrcki_2025_cx2_th2_res2_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
