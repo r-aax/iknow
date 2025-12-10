@@ -136,10 +136,16 @@ nrcki_2025_cx1_th3_res2_pub03 = \
         jc.lobachevskii, 2025, '46', '10', '5012-5022',
         '10.1134/S1995080225610604', '',
         'The contribution of author M.D. Tumakov was funded by the state assignment to the National Research Center “Kurchatov Institute” for scientific research.', 'en')
+#nrcki_2025_cx1_th3_res2_pub04 = \
+#    Pub([(ppc.tumakov_md, [jppc.nrcki]), (pc.pleschinsky_nb, [])],
+#        'О задачах дифракции электромагнитных волн на предфрактальных периодических решетках.',
+#        jc.uch_zapiski_kaz_univer_estestv, 2025, '', '', '', '', '', '', 'ru')
 nrcki_2025_cx1_th3_res2_pub04 = \
-    Pub([(ppc.tumakov_md, [jppc.nrcki]), (pc.pleschinsky_nb, [])],
-        'О задачах дифракции электромагнитных волн на предфрактальных периодических решетках.',
-        jc.uch_zapiski_kaz_univer_estestv, 2025, '', '', '', '', '', '', 'ru')
+    Pub([(ppc.saitov_ia, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (pc.saitov_si, [jpc.mtusi]), (pc.terekhina_ea, [jpc.mok1])],
+        'Частные задачи моделирования и оптимизации элементов единой системы частотно-временного обеспечения.',
+        jc.electrosvyaz, 2025, '', '11', '51-58',
+        '10.34832/ELSV.2025.73.11.007', '',
+        'Мироновым Ю.Б., Саитовым И.А. работа была выполнена в НИЦ «Курчатовский институт» в рамках государственного задания по теме FNEF-2024-0014', 'ru')
 
 # cx2 th1 res1
 nrcki_2025_cx2_th1_res1_pub01 = \
@@ -167,12 +173,18 @@ nrcki_2025_cx2_th1_res1_pub04 = \
         '10.15827/0236-235X.152.568-577', '',
         'Результаты получены в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 # cx2 th2 res1
+#nrcki_2025_cx2_th2_res1_pub01 = \
+#    Pub([(ppc.chachkov_dv, [jpc.knitu]), (pc.devyatov_fv, [jpc.kfu_chem]), (pc.mikhailov_ov, [jpc.knitu])],
+#        '(6666)макротетрациклические металлохелаты 3d-элементов с тетра|бензо|порфиразином и двумя ацидолигандами: квантово-химический расчет с применением теории функционала плотности.',
+#        jc.vestnik_technologich_universiteta, 2025, '28', '4', '11-18',
+#        '10.55421/3034-4689_2025_28_4_11', '',
+#        'Расчеты были выполнены в Межведомственном суперкомпьютерном центре НИЦ "Курчатовский институт".', 'ru')
 nrcki_2025_cx2_th2_res1_pub01 = \
-    Pub([(ppc.chachkov_dv, [jpc.knitu]), (pc.devyatov_fv, [jpc.kfu_chem]), (pc.mikhailov_ov, [jpc.knitu])],
-        '(6666)макротетрациклические металлохелаты 3d-элементов с тетра|бензо|порфиразином и двумя ацидолигандами: квантово-химический расчет с применением теории функционала плотности.',
-        jc.vestnik_technologich_universiteta, 2025, '28', '4', '11-18',
-        '10.55421/3034-4689_2025_28_4_11', '',
-        'Расчеты были выполнены в Межведомственном суперкомпьютерном центре НИЦ "Курчатовский институт".', 'ru')
+    Pub([(pc.nikolaeva_ev, [jpc.knitu]), (pc.aristov_iv, [jpc.knitu]), (ppc.chachkov_dv, [jppc.nrcki]), (pc.kolpakov_me, [jpc.knitu]), (pc.khrapkovskii_gm, [jpc.knitu])],
+        'Теоретическое исследование альтернативных механизмов первичных реакций газофазного термического разложения N-метил-N`-метоксидиазен-N-оксида. Часть 2. Строение N-метил-N`-метоксидиазен-N-оксида и реакции вращения метильных групп.',
+        jc.vestnik_technologich_universiteta, 2025, '28', '1', '31-38',
+        '10.55421/1998-7072_2025_28_1_31', '',
+        'Вклад Чачкова Д.В. финансируется в рамках гос. задания НИЦ «Курчатовский институт» (FNEF-2024-0016)', 'ru')
 nrcki_2025_cx2_th2_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.bragin_ka, [jppc.nrcki])],
         'Job Scheduling Based on the Supercomputer Resources Fragmentation Management.',
@@ -239,21 +251,21 @@ nrcki_2025_cx2_th2_res3_pub08 = \
         jc.current_organic_chemistry, 2025, '29', '', '1528-1535',
         '10.2174/0113852728360044250110004808', '',
         'The contribution of author D.V. Chachkov was funded by the state assignment to the National Research Center “Kurchatov Institute” for scientific research, Grant no. FNEF-2024-0016.', 'en')
+#nrcki_2025_cx2_th2_res3_pub09 = \
+#    Pub([(pc.mikhailov_ov, []), (ppc.chachkov_dv, [jppc.nrcki])],
+#        'Новые макроциклические металлоорганические соединения, содержащие октафторзамещенный порфиразин: рассмотрение DFT (New macrocyclic organometallics containing octafluoro substituted porphyrazine: DFT consideration).',
+#        jc.computational_and_theor_chemistry, 2025, '', '', '', '', '', '', 'en', '', '')
+#nrcki_2025_cx2_th2_res3_pub10 = \
+#    Pub([(ppc.chachkov_dv, [jppc.nrcki]), (pc.mikhailov_ov, [])],
+#        'New macrocyclic metal complexes containing octafluoro substituted porphyrazine and two axial acido ligands: Design by DFT chemistry models.',
+#        jc.polyhedron, 2025, '', '', '', '', '', '', 'en', '', '')
 nrcki_2025_cx2_th2_res3_pub09 = \
-    Pub([(pc.mikhailov_ov, []), (ppc.chachkov_dv, [jppc.nrcki])],
-        'Новые макроциклические металлоорганические соединения, содержащие октафторзамещенный порфиразин: рассмотрение DFT (New macrocyclic organometallics containing octafluoro substituted porphyrazine: DFT consideration).',
-        jc.computational_and_theor_chemistry, 2025, '', '', '', '', '', '', 'en', '', '')
-nrcki_2025_cx2_th2_res3_pub10 = \
-    Pub([(ppc.chachkov_dv, [jppc.nrcki]), (pc.mikhailov_ov, [])],
-        'New macrocyclic metal complexes containing octafluoro substituted porphyrazine and two axial acido ligands: Design by DFT chemistry models.',
-        jc.polyhedron, 2025, '', '', '', '', '', '', 'en', '', '')
-nrcki_2025_cx2_th2_res3_pub11 = \
     Pub([(ppc.khramchenkov_mg, [jpc.kfu, jppc.nrcki]), (pc.trofimova_fa, [jpc.tsniigeolnerud]), (pc.dolgopolov_re, [jpc.kfu])],
         'Micromechanics of the modification of physicochemical and technological properties of swelling clays.',
         jc.journal_of_eng_phis_and_thermophis, 2025, '98', '4', '996-1004',
         '10.1007/s10891-025-03177-0', '',
         'The investigation was carried out within the framework of State Assignment FNEF-2024-0016 and with support from the Ministry of Science and Higher Education of the Russian Federation under Agreement No. 075-15-2020-931 within the framework of the development program of the World-Level Research Center "Rational Use of Liquid Hydrocarbon Reserves of the Planet." The authors extend their gratitude to their teacher M. V. Eirish as a coauthor and inspirer of all ideas and methods our article is dedicated to.', 'en', '', '')
-nrcki_2025_cx2_th2_res3_pub12 = \
+nrcki_2025_cx2_th2_res3_pub10 = \
     Pub([(pc.eremin_iv, [jpc.kfu]), (ppc.salimyanova_dr, [jpc.kfu, jppc.nrcki]), (pc.potashev_ka, [jpc.kfu])],
         'Учет несовершенства вертикальных скважин в двумерной модели пласта.',
         jc.uch_zapiski_kaz_univer_phis_mat, 2025, '167', '4', '1-20',
@@ -299,7 +311,7 @@ nrcki_2025 = \
     nrcki_2025_cx2_th1_res1_pub01, nrcki_2025_cx2_th1_res1_pub02, nrcki_2025_cx2_th1_res1_pub03, nrcki_2025_cx2_th1_res1_pub04,
     nrcki_2025_cx2_th2_res1_pub01, nrcki_2025_cx2_th2_res1_pub02, nrcki_2025_cx2_th2_res1_pub03,
     nrcki_2025_cx2_th2_res2_pub01,
-    nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10, nrcki_2025_cx2_th2_res3_pub11, nrcki_2025_cx2_th2_res3_pub12,
+    nrcki_2025_cx2_th2_res3_pub01, nrcki_2025_cx2_th2_res3_pub02, nrcki_2025_cx2_th2_res3_pub03, nrcki_2025_cx2_th2_res3_pub04, nrcki_2025_cx2_th2_res3_pub05, nrcki_2025_cx2_th2_res3_pub06, nrcki_2025_cx2_th2_res3_pub07, nrcki_2025_cx2_th2_res3_pub08, nrcki_2025_cx2_th2_res3_pub09, nrcki_2025_cx2_th2_res3_pub10,
     nrcki_2025_cx2_th3_res1_pub01, nrcki_2025_cx2_th3_res1_pub02,
     nrcki_2025_cx2_th3_res2_pub01,
     nrcki_2025_cx2_th3_res3_pub01
