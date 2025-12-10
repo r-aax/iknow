@@ -128,6 +128,6 @@ if __name__ == '__main__':
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_from=2025, year_to=2029)
 
     # generate documents for complex themes
-    generate_documents_pack(2026, '../out/docs')
+    #generate_documents_pack(2026, '../out/docs')
 
 #===================================================================================================

@@ -111,8 +111,14 @@ class Publication:
             Authors information.
         """
 
+        # Function for generate affiliation.
+        def affiliations_html(afs):
+            afs = ' '.join([af.affiliation_html for af in afs])
+            return f'<sup>{afs}</sup>'
+
         # join all authors.
-        j = ', '.join([a[0].n_p_surname(language) for a in self.authors_affiliations])
+        j = ', '.join([a[0].n_p_surname(language) + affiliations_html(a[1])
+                       for a in self.authors_affiliations])
 
         return j + '.'
 

@@ -11,7 +11,7 @@ import journal_collection as jc
 
 # cx1 th1 res1
 nrcki_2025_cx1_th1_res1_pub01 = \
-    Pub([(pc.kazantsev_sy, [jpc.mtusi]), (ppc.sapozhnikov_mv, [jpc.mtusi]), (ppc.mironov_yb, [jppc.nrcki]), (pc.terekhin_dn, [jpc.mtusi]), (pc.burdin_av, [jpc.ao_npo_goi, jpc.cpbgut, jpc.pguti])],
+    Pub([(pc.kazantsev_sy, [jpc.mtusi]), (ppc.sapozhnikov_mv, [jpc.mtusi]), (ppc.mironov_yb, [jppc.nrcki]), (pc.terekhin_dn, [jpc.mtusi]), (pc.burdin_av, [jpc.goi, jpc.spbgut, jpc.pguti])],
         'Перспективы применения атмосферной оптической связи на крупных промышленных и энергетических комплексах Российской Федерации.',
         jc.tcomm, 2025, '19', '1', '21-30',
         '10.36724/2072-8735-2025-19-1-21-30', '',
@@ -38,12 +38,6 @@ nrcki_2025_cx1_th1_res1_pub04 = \
         jc.software_and_systems, 2025, '38', '4', '578-587',
         '10.15827/0236-235X.152.578-587', '',
         'Работа выполнена в НИЦ «Курчатовский институт» в рамках госзадания по теме FNEF-2024-0014', 'ru')
-nrcki_2025_cx1_th1_res1_pub05 = \
-    Pub([(ppc.sapozhnikov_mv, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (pc.kazantsev_sy, [jpc.mtusi])],
-        'Методика оценки потерь, обусловленных атмосферной турбулентностью в квантовом канале связи с КРК.',
-        jc.electrosvyaz, 2025, '', '8', '60-69',
-        '10.34832/ELSV.2025.70.8.007', '',
-        'Работа была выполнена в НИЦ «Курчатовский институт» в рамках государственного задания по теме FNEF-2024-0014', 'ru')
 # cx1 th1 res2
 nrcki_2025_cx1_th1_res2_pub01 = \
     Pub([(ppc.abramov_ag, [jppc.nrcki]), (ppc.gonchar_ana, [jppc.nrcki]), (ppc.evseev_av, [jppc.nrcki]), (ppc.shabanov_bm, [jppc.nrcki])],
@@ -63,6 +57,12 @@ nrcki_2025_cx1_th2_res1_pub01 = \
         jc.lobachevskii, 2025, '46', '7', '3483-3490',
         '10.1134/S1995080225609440', '',
         '', 'en', '', 'нет самой статьи')
+nrcki_2025_cx1_th2_res1_pub02 = \
+    Pub([(ppc.sapozhnikov_mv, [jppc.nrcki]), (ppc.mironov_yb, [jppc.nrcki]), (pc.kazantsev_sy, [jpc.mtusi])],
+        'Методика оценки потерь, обусловленных атмосферной турбулентностью в квантовом канале связи с КРК.',
+        jc.electrosvyaz, 2025, '', '8', '60-69',
+        '10.34832/ELSV.2025.70.8.007', '',
+        'Работа была выполнена в НИЦ «Курчатовский институт» в рамках государственного задания по теме FNEF-2024-0014', 'ru')
 # cx1 th2 res2
 nrcki_2025_cx1_th2_res2_pub01 = \
     Pub([(ppc.khramchenkov_mg, [jpc.kfu, jppc.nrcki])],
@@ -131,9 +131,11 @@ nrcki_2025_cx1_th3_res2_pub02 = \
         '10.17587/it.31.596-603', '',
         '', 'ru')
 nrcki_2025_cx1_th3_res2_pub03 = \
-    Pub([(pc.pleschinsky_nb, []), (ppc.tumakov_md, [jppc.nrcki])],
+    Pub([(pc.pleschinsky_nb, [jpc.kfu_ivmit]), (ppc.tumakov_md, [jppc.nrcki])],
         'On the problems of direction of electromagnetic waves by prefractal barriers in waveguides with metal walls.',
-        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+        jc.lobachevskii, 2025, '46', '10', '5012-5022',
+        '10.1134/S1995080225610604', '',
+        'The contribution of author M.D. Tumakov was funded by the state assignment to the National Research Center “Kurchatov Institute” for scientific research.', 'en')
 nrcki_2025_cx1_th3_res2_pub04 = \
     Pub([(ppc.tumakov_md, [jppc.nrcki]), (pc.pleschinsky_nb, [])],
         'О задачах дифракции электромагнитных волн на предфрактальных периодических решетках.',
@@ -166,7 +168,7 @@ nrcki_2025_cx2_th1_res1_pub04 = \
         'Результаты получены в рамках государственного задания НИЦ «Курчатовский институт» по теме FNEF-2024-0016.', 'ru')
 # cx2 th2 res1
 nrcki_2025_cx2_th2_res1_pub01 = \
-    Pub([(ppc.chachkov_dv, [jpc.knitu]), (pc.devyatov_fv, [jpc.kfu_butlerov]), (pc.mikhailov_ov, [jpc.knitu])],
+    Pub([(ppc.chachkov_dv, [jpc.knitu]), (pc.devyatov_fv, [jpc.kfu_chem]), (pc.mikhailov_ov, [jpc.knitu])],
         '(6666)макротетрациклические металлохелаты 3d-элементов с тетра|бензо|порфиразином и двумя ацидолигандами: квантово-химический расчет с применением теории функционала плотности.',
         jc.vestnik_technologich_universiteta, 2025, '28', '4', '11-18',
         '10.55421/3034-4689_2025_28_4_11', '',
@@ -188,7 +190,7 @@ nrcki_2025_cx2_th2_res2_pub01 = \
         jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
 # cx2 th2 res3
 nrcki_2025_cx2_th2_res3_pub01 = \
-    Pub([(pc.potashev_ka, [jpc.kfu_imm, jpc.kgeu]), (ppc.uraimov_aa, [jpc.kfu_imm, jppc.nrcki]), (pc.mazo_ab, [jpc.kfu_imm])],
+    Pub([(pc.potashev_ka, [jpc.kfu_math, jpc.kgeu]), (ppc.uraimov_aa, [jpc.kfu_math, jppc.nrcki]), (pc.mazo_ab, [jpc.kfu_math])],
         'Определение длин трещин многозонного гидроразрыва пласта с помощью модели фильтрации в трубках тока.',
         jc.mathematical_modeling, 2025, '37', '1', '131-150',
         '10.20948/mm-2025-01-08', '',
@@ -252,11 +254,11 @@ nrcki_2025_cx2_th2_res3_pub11 = \
         '10.1007/s10891-025-03177-0', '',
         'The investigation was carried out within the framework of State Assignment FNEF-2024-0016 and with support from the Ministry of Science and Higher Education of the Russian Federation under Agreement No. 075-15-2020-931 within the framework of the development program of the World-Level Research Center "Rational Use of Liquid Hydrocarbon Reserves of the Planet." The authors extend their gratitude to their teacher M. V. Eirish as a coauthor and inspirer of all ideas and methods our article is dedicated to.', 'en', '', '')
 nrcki_2025_cx2_th2_res3_pub12 = \
-    Pub([(pc.eremin_iv, []), (pc.potashev_ka, []), (ppc.salimyanova_dr, [jppc.nrcki])],
+    Pub([(pc.eremin_iv, [jpc.kfu]), (ppc.salimyanova_dr, [jpc.kfu, jppc.nrcki]), (pc.potashev_ka, [jpc.kfu])],
         'Учет несовершенства вертикальных скважин в двумерной модели пласта.',
-        jc.uch_zapiski_kaz_univer_phis_mat, 2025, '', '', '',
-        '', '',
-        '', 'ru')
+        jc.uch_zapiski_kaz_univer_phis_mat, 2025, '167', '4', '1-20',
+        '10.26907/2541-7746.2025.4.1-20', '',
+        'Работа выполнена за счет средств Программы стратегического академического лидерства Казанского (Приволжского) федерального университета («ПРИОРИТЕТ-2030») и при финансовой поддержке Национального исследовательского центра «Курчатовский институт» в рамках государственного задания.', 'ru')
 # cx2 th3 res1
 nrcki_2025_cx2_th3_res1_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
@@ -287,9 +289,9 @@ nrcki_2025_cx2_th3_res3_pub01 = \
 
 nrcki_2025 = \
 [
-    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03, nrcki_2025_cx1_th1_res1_pub04, nrcki_2025_cx1_th1_res1_pub05,
+    nrcki_2025_cx1_th1_res1_pub01, nrcki_2025_cx1_th1_res1_pub02, nrcki_2025_cx1_th1_res1_pub03, nrcki_2025_cx1_th1_res1_pub04,
     nrcki_2025_cx1_th1_res2_pub01, nrcki_2025_cx1_th1_res2_pub02,
-    nrcki_2025_cx1_th2_res1_pub01,
+    nrcki_2025_cx1_th2_res1_pub01, nrcki_2025_cx1_th2_res1_pub02,
     nrcki_2025_cx1_th2_res2_pub01, nrcki_2025_cx1_th2_res2_pub02,
     nrcki_2025_cx1_th2_res3_pub01,
     nrcki_2025_cx1_th3_res1_pub01, nrcki_2025_cx1_th3_res1_pub02, nrcki_2025_cx1_th3_res1_pub03, nrcki_2025_cx1_th3_res1_pub04, nrcki_2025_cx1_th3_res1_pub05,
@@ -334,12 +336,12 @@ nrcki_2026_cx1_th3_res1_pub08 = Pub()
 nrcki_2026_cx1_th3_res2_pub01 = Pub()
 
 # cx2 th1 res1 4 publ
-nrcki_2026_cx2_th1_res1_pub01 = Pub([(ppc.svadkovskiy_ia, [])])
+nrcki_2026_cx2_th1_res1_pub01 = Pub()
 nrcki_2026_cx2_th1_res1_pub02 = Pub()
 nrcki_2026_cx2_th1_res1_pub03 = Pub()
 nrcki_2026_cx2_th1_res1_pub04 = Pub()
 # cx2 th2 res1 13 publ
-nrcki_2026_cx2_th2_res1_pub01 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th2_res1_pub01 = Pub()
 nrcki_2026_cx2_th2_res1_pub02 = Pub()
 nrcki_2026_cx2_th2_res1_pub03 = Pub()
 nrcki_2026_cx2_th2_res1_pub04 = Pub()
@@ -353,10 +355,10 @@ nrcki_2026_cx2_th2_res1_pub11 = Pub()
 nrcki_2026_cx2_th2_res1_pub12 = Pub()
 nrcki_2026_cx2_th2_res1_pub13 = Pub()
 # cx2 th2 res1 1 publ
-nrcki_2026_cx2_th2_res2_pub01 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th2_res2_pub01 = Pub()
 # cx2 th3 res1 4 publ
-nrcki_2026_cx2_th3_res1_pub01 = Pub([(ppc.rybakov_aa, [])])
-nrcki_2026_cx2_th3_res1_pub02 = Pub([(ppc.rybakov_aa, [])])
+nrcki_2026_cx2_th3_res1_pub01 = Pub()
+nrcki_2026_cx2_th3_res1_pub02 = Pub()
 nrcki_2026_cx2_th3_res1_pub03 = Pub()
 nrcki_2026_cx2_th3_res1_pub04 = Pub()
 

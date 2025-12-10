@@ -10,7 +10,7 @@ class JobPlace:
 
     #-----------------------------------------------------------------------------------------------
 
-    def __init__(self, name, short_name, parent=None, name_r=''):
+    def __init__(self, name, short_name, parent=None, name_r='', link=''):
         """
         Init job.
 
@@ -30,6 +30,7 @@ class JobPlace:
         self.__short_name = short_name
         self.__parent = parent
         self.__name_r = name_r
+        self.__link = link
 
     #-----------------------------------------------------------------------------------------------
 
@@ -100,6 +101,21 @@ class JobPlace:
     #-----------------------------------------------------------------------------------------------
 
     @property
+    def link(self):
+        """
+        Get link.
+
+        Returns
+        -------
+        str
+            Link.
+        """
+
+        return self.__link
+
+    #-----------------------------------------------------------------------------------------------
+
+    @property
     def is_head(self):
         """
         Check if job has head (no parent).
@@ -149,6 +165,21 @@ class JobPlace:
             return self.name
         else:
             return f'{self.name}, {self.parent.half_full_name}'
+
+    #-----------------------------------------------------------------------------------------------
+
+    @property
+    def affiliation_html(self):
+        """
+        Affiliation HTML.
+
+        Returns
+        -------
+        str
+            Affiliation HTML.
+        """
+
+        return f'[<a href="#" title="{self.name} ({self.link})">{self.short_name}</a>]'
 
 #===================================================================================================
 
