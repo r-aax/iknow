@@ -149,7 +149,7 @@ nrcki_2025_cx1_th3_res2_pub04 = \
 
 # cx2 th1 res1
 nrcki_2025_cx2_th1_res1_pub01 = \
-    Pub([(pc.goryachev_av, [jpc.ciam]), (pc.goryachev_da, [jpc.ciam]), (pc.goryachev_pa, [jpc.ciam]), (pc.nuriev_mv, [jpc.ciam]), (pc.nikolaev_aa, [jpc.ciam]), (ppc.rybakov_aa, [jppc.nrcki])],
+    Pub([(pc.goryachev_av, [jpc.ciam]), (pc.goryachev_pa, [jpc.ciam]), (pc.goryachev_da, [jpc.ciam]), (pc.nuriev_mv, [jpc.ciam]), (pc.nikolaev_aa, [jpc.ciam]), (ppc.rybakov_aa, [jppc.nrcki])],
         'Численное моделирование процесса обледенения в условиях переохлажденных капель.',
         jc.prog_syst_teor_i_prilozheniya, 2025, '16', '4(67)', '287-317',
         '10.25209/2079-3316-2025-16-4-287-317', 'https://psta.psiras.ru/read/psta2025_4_287-317.pdf',
@@ -179,16 +179,24 @@ nrcki_2025_cx2_th1_res1_pub04 = \
 #        jc.vestnik_technologich_universiteta, 2025, '28', '4', '11-18',
 #        '10.55421/3034-4689_2025_28_4_11', '',
 #        'Расчеты были выполнены в Межведомственном суперкомпьютерном центре НИЦ "Курчатовский институт".', 'ru')
-nrcki_2025_cx2_th2_res1_pub01 = \
-    Pub([(pc.nikolaeva_ev, [jpc.knitu]), (pc.aristov_iv, [jpc.knitu]), (ppc.chachkov_dv, [jppc.nrcki]), (pc.kolpakov_me, [jpc.knitu]), (pc.khrapkovskii_gm, [jpc.knitu])],
-        'Теоретическое исследование альтернативных механизмов первичных реакций газофазного термического разложения N-метил-N`-метоксидиазен-N-оксида. Часть 2. Строение N-метил-N`-метоксидиазен-N-оксида и реакции вращения метильных групп.',
-        jc.vestnik_technologich_universiteta, 2025, '28', '1', '31-38',
-        '10.55421/1998-7072_2025_28_1_31', '',
-        'Вклад Чачкова Д.В. финансируется в рамках гос. задания НИЦ «Курчатовский институт» (FNEF-2024-0016)', 'ru')
+#nrcki_2025_cx2_th2_res1_pub01 = \
+#    Pub([(pc.nikolaeva_ev, [jpc.knitu]), (pc.aristov_iv, [jpc.knitu]), (ppc.chachkov_dv, [jppc.nrcki]), (pc.kolpakov_me, [jpc.knitu]), (pc.khrapkovskii_gm, [jpc.knitu])],
+#        'Теоретическое исследование альтернативных механизмов первичных реакций газофазного термического разложения N-метил-N`-метоксидиазен-N-оксида. Часть 2. Строение N-метил-N`-метоксидиазен-N-оксида и реакции вращения метильных групп.',
+#        jc.vestnik_technologich_universiteta, 2025, '28', '1', '31-38',
+#        '10.55421/1998-7072_2025_28_1_31', '',
+#        'Вклад Чачкова Д.В. финансируется в рамках гос. задания НИЦ «Курчатовский институт» (FNEF-2024-0016)', 'ru')
+nrcki_2025_cx2_th2_res1_pub01 =\
+    Pub([(pc.mikhailov_ov, [jpc.knitu]), (ppc.chachkov_dv, [jppc.nrcki])],
+        'Isomeric N-confused porphyrazines: DFT quantum-chemical consideration.',
+        jc.journal_of_porphyrins_and_phthalocyanines, 2025, '29', '', '1045-1052',
+        '10.1142/S1088424625500774', '',
+        'The contribution of author D.V. Chachkov was funded by the state assignment to the National Research Center “Kurchatov Institute” for scientific research.', 'en')
 nrcki_2025_cx2_th2_res1_pub02 = \
     Pub([(ppc.baranov_av, [jppc.nrcki]), (ppc.bragin_ka, [jppc.nrcki])],
-        'Job Scheduling Based on the Supercomputer Resources Fragmentation Management.',
-        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+        'Job scheduling based on the supercomputer resources fragmentation management.',
+        jc.lobachevskii, 2025, '46', '11', '5900-5912',
+        '10.1134/S1995080225612366', '',
+        'The research was carried out at National Research Centre “Kurchatov Institute” as part of government assignment (topic FNEF-2024-0016).', 'en')
 nrcki_2025_cx2_th2_res1_pub03 = \
     Pub([(ppc.kiselev_ea, [jppc.nrcki]), (ppc.barantsev_vv, [jppc.nrcki]), (ppc.yarovoy_av, [jppc.nrcki])],
         'Combined computing system\'s power calculation model.',
