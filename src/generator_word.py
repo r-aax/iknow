@@ -784,7 +784,7 @@ class GeneratorWord:
                      'комплексной теме\n\n Ответственный руководитель работ по подтеме '\
                      'комплексной темы с указанием структурного подразделения\n\n Ответственный '\
                      'руководитель работ по тематике исследований подтемы'
-        h[12].text = 'Стоимость, тыс. рублей'
+        h[12].text = 'Стоимость, рублей'
         h = t.rows[1].cells
         h[3].text = 'Вид планируемого к созданию РИД'
         h[4].text = 'Планируемое наименование планируемого к созданию РИД'
@@ -891,7 +891,7 @@ class GeneratorWord:
                     'комплексной темы с указанием структурного подразделения\n\n Ответственный '\
                     'руководитель работ по тематике исследований подтемы '\
                     'с указанием структурного подразделения'
-        h[9].text = 'Стоимость, тыс. рублей'
+        h[9].text = 'Стоимость, рублей'
         h = t.rows[1].cells
         h[2].text = 'Вид планируемого к созданию результата интеллектуальной деятельности '\
                     '(далее - РИД)'
@@ -948,13 +948,13 @@ class GeneratorWord:
                             f'{job_place_private_collection.osspv.name}'
 
                 # All money.
-                x = thematic.outlay.xmoney_tr
+                x = thematic.outlay.xmoney_rubles_with_kopecks_str
                 h[9].text = f'{x}'
 
                 # Move row counter.
                 hi = hi + 1
 
-        set_table_text_size(t, 8)
+        set_table_text_size(t, 7)
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1054,7 +1054,7 @@ class GeneratorWord:
             Add hoz spents.
         """
 
-        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+        self.add_paragraph('рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         # Flatten outlay.
         outlay_lines = outlay.flatten()
@@ -1073,7 +1073,7 @@ class GeneratorWord:
         add_row(0,
                 '№ п/п',
                 'Наименование статей расходов',
-                'Всего стоимость, тыс. рублей',
+                'Всего стоимость, рублей',
                 'В том числе по подтемам комплексной темы')
 
         # Add all lines.
@@ -1116,7 +1116,7 @@ class GeneratorWord:
             Year.
         """
 
-        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+        self.add_paragraph('рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         k = len(cx.thematics)
 
@@ -1153,7 +1153,7 @@ class GeneratorWord:
             h = t.rows[3 + i].cells
             h[0].text = f'2.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = th.outlay['II'].xmoney_tr
+            x = th.outlay['II'].xmoney_rubles_with_kopecks_str
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
@@ -1161,29 +1161,29 @@ class GeneratorWord:
             h = t.rows[4 + k + i].cells
             h[0].text = f'3.{i + 1}.'
             h[1].text = f'Тематика исследований {th.title}'
-            x = th.outlay['III'].xmoney_tr
+            x = th.outlay['III'].xmoney_rubles_with_kopecks_str
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
 
         # Write sums.
         h = t.rows[2].cells
-        direct = cx.outlay['II'].xmoney_tr
+        direct = cx.outlay['II'].xmoney_rubles_with_kopecks_str
         h[2].text = f'{direct}'
         h[3].text = f'{direct}'
         h[4].text = f'{direct}'
         h = t.rows[6].cells
-        hoz = cx.outlay['III'].xmoney_tr
+        hoz = cx.outlay['III'].xmoney_rubles_with_kopecks_str
         h[2].text = f'{hoz}'
         h[3].text = f'{hoz}'
         h[4].text = f'{hoz}'
         h = t.rows[1].cells
-        s = cx.outlay.xmoney_tr
+        s = cx.outlay.xmoney_rubles_with_kopecks_str
         h[2].text = f'{s}'
         h[3].text = f'{s}'
         h[4].text = f'{s}'
 
-        set_table_columns_widths(t, [0.5, 4.0, 1.0, 1.0, 1.0])
+        set_table_columns_widths(t, [0.5, 4.0, 1.5, 1.5, 1.5])
 
     #-----------------------------------------------------------------------------------------------
 
@@ -1199,7 +1199,7 @@ class GeneratorWord:
             Year.
         """
 
-        self.add_paragraph('тыс. рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
+        self.add_paragraph('рублей', WD_PARAGRAPH_ALIGNMENT.RIGHT)
 
         outlay_lines = outlay.flatten()
         k = len(outlay_lines)
@@ -1222,12 +1222,12 @@ class GeneratorWord:
             h = t.rows[1 + i].cells
             h[0].text = ol.label
             h[1].text = ol.name
-            x = ol.xmoney_tr
+            x = ol.xmoney_rubles_with_kopecks_str
             h[2].text = f'{x}'
             h[3].text = f'{x}'
             h[4].text = f'{x}'
 
-        set_table_columns_widths(t, [0.5, 4.0, 1.0, 1.0, 1.0])
+        set_table_columns_widths(t, [0.5, 4.0, 1.5, 1.5, 1.5])
 
     #-----------------------------------------------------------------------------------------------
 

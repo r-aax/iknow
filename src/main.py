@@ -92,11 +92,17 @@ def generate_documents_pack(y, out_dir):
                                                    0.0, 0.0, 0.0,
                                                    w2, w2, w2, w2, w2, w2, w2, w2, w2)
 
-        th3.outlay = outlay_tree.sub_outlays('тематике исследований',
-                                             outlay_tree.sub_outlays('',
-                                                                     theme.outlay,
-                                                                     th1.outlay),
-                                             th2.outlay)
+        th3.outlay = \
+            outlay_tree.duplicate_outlay_each_line(theme.outlay,
+                                                   'тематике исследований',
+                                                   w3, w3,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0,
+                                                   0.0, 0.0, 0.0,
+                                                   w3, w3, w3, w3, w3, w3, w3, w3, w3)
 
         # Form gos assignment (order 3188, form, supplements 7 - 11).
         #prex = f'{pre}-{y}-{y + 2}-формирование'
@@ -128,6 +134,6 @@ if __name__ == '__main__':
     gh.generate_plan(cx.cx2, '../out/plan_6f_si_2.html', year_from=2025, year_to=2029)
 
     # generate documents for complex themes
-    #generate_documents_pack(2026, '../out/docs')
+    generate_documents_pack(2026, '../out/docs')
 
 #===================================================================================================
