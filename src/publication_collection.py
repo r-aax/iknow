@@ -207,7 +207,9 @@ nrcki_2025_cx2_th2_res1_pub03 = \
 nrcki_2025_cx2_th2_res2_pub01 = \
     Pub([(ppc.rybakov_aa, [jppc.nrcki])],
         'Estimation of surface remesh methods in the ice accretion problem.',
-        jc.lobachevskii, 2025, '', '', '', '', '', '', 'en')
+        jc.lobachevskii, 2025, '46', '12', '6388-6398',
+        '10.1134/S199508022561241X', '',
+        'The work was carried out as part of the state assignment of the National Research Centre “Kurchatov Institute”.', 'en')
 # cx2 th2 res3
 nrcki_2025_cx2_th2_res3_pub01 = \
     Pub([(pc.potashev_ka, [jpc.kfu_math, jpc.kgeu]), (ppc.uraimov_aa, [jpc.kfu_math, jppc.nrcki]), (pc.mazo_ab, [jpc.kfu_math])],
